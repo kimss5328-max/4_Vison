@@ -1,17 +1,128 @@
-"""저장 / 불러오기 — 출력 폴더 구조, 라벨 csv, 이슈 txt, Class4 확인용 폴더"""
+"""저장 / 불러오기 — 저장 위치 선택, 라벨 csv, 이슈 txt, Class4 확인용 폴더
+   원본 폴더는 읽기만 하고, 모든 결과는 사용자가 고른 저장 위치에 만든다"""
 import os
 import shutil
 from datetime import datetime
-from tkinter import messagebox
+from tkinter import filedialog, messagebox
 
 from src.config import CLASS_NAMES, ISSUE_ID, UNUSED_CLASS, DONE_LIST_COLOR
 
 
 class StorageMixin:
+    # ── 저장 위치 선택 ──
+    @staticmethod
+    def _is_inside(path, base):
+        """path 가 base 와 같거나 그 안에 있는지"""
+        try:
+            return os.path.commonpath([path, base]) == base
+        except ValueError:          # 서로 다른 드라이브 (Windows)
+            return False
+
+    def ask_out_dir(self, pj):
+        """저장 위치를 사용자에게 고르게 한다. 원본 폴더 안은 거부. 취소하면 None"""
+        src = os.path.abspath(pj["proj"])
+        while True:
+            d = filedialog.askdirectory(
+                title=f"[{pj['name']}] 저장 위치 선택 — 여기에 images / labels / issues 폴더가 생성됩니다",
+                initialdir=os.path.dirname(src))
+            if not d:
+                return None
+            d = os.path.abspath(d)
+            if self._is_inside(d, src):
+                messagebox.showwarning("저장 위치 오류",
+                                       f"원본 폴더 안에는 저장할 수 없습니다.\n"
+                                       f"원본 폴더 바깥의 위치를 선택하세요.\n\n원본: {src}")
+                continue
+            return d
+
+    def set_out_dir(self, pj, d):
+        """저장 위치 확정 → 하위 폴더 생성 + 그 위치에 이미 저장된 이미지 표시. 반환: 기존 저장본 수"""
+        pj["out_dir"] = d
+        for sub in ("images", "labels", "issues", "class4_check"):
+            os.makedirs(os.path.join(d, sub), exist_ok=True)
+        with open(os.path.join(d, "classes.txt"), "w", encoding="utf-8") as f:
+            f.write("\n".join(CLASS_NAMES) + "\n")
+
+        cur = self.cur_path()
+        n_saved = 0
+        for p, owner in self.proj_of.items():
+            if owner is not pj or not os.path.exists(self.out_paths(p)["label"]):
+                continue
+            n_saved += 1
+            self.done.add(p)
+            self.passed.add(p)
+            if p != cur:                 # 다음에 열 때 저장본을 읽도록 기억해 둔 내용 비움
+                self.annotations.pop(p, None)
+                self.notes.pop(p, None)
+
+        self.refresh_image_list()
+        if 0 <= self.idx < len(self.images):
+            self.imageList.selection_set(self.idx)
+        self.update_progress()
+        self.update_filter_counts()
+        self.update_out_dir_label()
+        return n_saved
+
+    def choose_out_dir(self):
+        """[저장 위치 선택] 버튼 — 작업 전에 미리 지정하거나 이어서 작업할 때 사용"""
+        p = self.cur_path()
+        if not p:
+            messagebox.showinfo("알림", "먼저 폴더를 열어 주세요.")
+            return
+        pj = self.P(p)
+        d = self.ask_out_dir(pj)
+        if not d:
+            return
+        try:
+            n = self.set_out_dir(pj, d)
+        except OSError as e:
+            messagebox.showerror("저장 위치 오류", str(e))
+            return
+        if os.path.exists(self.out_paths(p)["label"]) and messagebox.askyesno(
+                "저장본 불러오기",
+                "선택한 위치에 현재 이미지의 저장본이 있습니다.\n"
+                "저장본으로 화면을 바꿀까요?\n\n(아니오: 지금 화면 유지 — 저장하면 덮어씀)"):
+            self.reload_current()
+        self.status(f"저장 위치: {d}   (기존 저장본 {n}장)")
+
+    def ensure_out_dir(self, pj):
+        """저장 직전에 호출. 저장 위치가 없으면 고르게 한다. 취소하면 False"""
+        if pj["out_dir"]:
+            return True
+        d = self.ask_out_dir(pj)
+        if not d:
+            self.status("저장 위치를 선택하지 않아 저장을 취소했습니다.")
+            return False
+        self.set_out_dir(pj, d)
+        if os.path.exists(self.out_paths(self.cur_path())["label"]) and not messagebox.askyesno(
+                "덮어쓰기 확인",
+                "선택한 위치에 현재 이미지의 저장본이 이미 있습니다.\n"
+                "지금 화면의 박스로 덮어쓸까요?\n\n(아니오: 저장을 취소하고 저장본을 불러옵니다)"):
+            self.reload_current()
+            return False
+        messagebox.showinfo("저장 위치 지정",
+                            f"저장 위치를 지정했습니다.\n\n{d}\n\n"
+                            f"images / labels / issues / class4_check 폴더가 생성되었고,\n"
+                            f"이후 이 작업의 저장은 모두 이 위치에 됩니다.")
+        return True
+
+    def reload_current(self):
+        """현재 이미지를 저장본 기준으로 다시 읽어 화면 갱신"""
+        p = self.cur_path()
+        self.pending = None
+        self.selected = []
+        self.annotations[p], self.notes[p] = self.load_saved(p)
+        self.issueNote.delete("1.0", "end")
+        self.issueNote.insert("1.0", self.notes[p])
+        self.redraw_boxes()
+        self.refresh_info()
+
+    def update_out_dir_label(self):
+        p = self.cur_path()
+        od = self.P(p)["out_dir"] if p else None
+        self.outDirLabel.config(text=f"저장 위치: {od}" if od else "저장 위치: (미지정 — 첫 저장 때 선택)")
+
     # ── 경로 ──
-    def default_out_dir(self, pj):
-        parent = os.path.dirname(pj["proj"])
-        return os.path.join(parent, os.path.basename(pj["proj"]) + "_labeled")
 
     def out_paths(self, p):
         od = self.P(p)["out_dir"]
@@ -93,18 +204,6 @@ class StorageMixin:
         return boxes, note
 
     # ── 쓰기 ──
-    def ensure_out_dir(self, pj):
-        if pj["out_dir"]:
-            return
-        pj["out_dir"] = self.default_out_dir(pj)
-        for sub in ("images", "labels", "issues", "class4_check"):
-            os.makedirs(os.path.join(pj["out_dir"], sub), exist_ok=True)
-        with open(os.path.join(pj["out_dir"], "classes.txt"), "w", encoding="utf-8") as f:
-            f.write("\n".join(CLASS_NAMES) + "\n")
-        messagebox.showinfo("저장 폴더 생성",
-                            f"첫 저장이므로 저장 폴더를 생성했습니다.\n\n{pj['out_dir']}\n\n"
-                            f"이후 저장되는 이미지와 라벨은 이 폴더에 저장됩니다.")
-
     @staticmethod
     def copy_if_needed(src, dst):
         if os.path.exists(dst) and os.path.getsize(dst) == os.path.getsize(src):
@@ -138,7 +237,8 @@ class StorageMixin:
         self.discard_pending()
         self.save_current_note()
         try:
-            self.ensure_out_dir(self.P(p))
+            if not self.ensure_out_dir(self.P(p)):      # 저장 위치가 없으면 여기서 선택
+                return False
             paths = self.out_paths(p)
             boxes = self.cur_boxes()
 

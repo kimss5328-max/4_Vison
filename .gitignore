@@ -16,3 +16,10 @@ runs/
 
 # 기타
 *Zone.Identifier
+
+# SSH 키 / 인증 파일 (절대 올리면 안 됨)
+*.pub
+id_*
+*.pem
+*.key
+.ssh/

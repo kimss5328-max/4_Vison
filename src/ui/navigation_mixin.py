@@ -88,6 +88,7 @@ class NavigationMixin:
         if any(b["cls"] == UNUSED_CLASS for b in self.cur_boxes()):
             msg += "   ⚠ Class 4(사용 안 함) 박스 있음 → 확인 필요 (자동 삭제 안 함)"
         self.status(msg)
+        self.update_out_dir_label()
         self.prefetch(i + 1)
 
     def prefetch(self, j):

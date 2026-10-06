@@ -91,9 +91,7 @@ class FolderMixin:
                             rel = os.path.splitext(os.path.relpath(q, lbl_root))[0]
                             pj["by_rel"][rel] = q
                             pj["by_name"].setdefault(os.path.splitext(f)[0], q)
-            cand = self.default_out_dir(pj)
-            pj["out_dir"] = cand if os.path.isdir(cand) else None
-            projects.append(pj)
+            projects.append(pj)      # out_dir(저장 위치)는 첫 저장 / [저장 위치 선택] 때 정함
 
             for cur, _, files in os.walk(img_root):
                 imgs = sorted(f for f in files if f.lower().endswith(IMG_EXTS))
@@ -128,12 +126,6 @@ class FolderMixin:
         self.done.clear()
         self.passed.clear()
         self.auto_pred.clear()
-        for k in keys:
-            for p in self.folders[k]:
-                if self.P(p)["out_dir"] and os.path.exists(self.out_paths(p)["label"]):
-                    self.done.add(p)
-        self.passed = set(self.done)
-
         self.idx = -1
         self.load_folder("__all__")
 

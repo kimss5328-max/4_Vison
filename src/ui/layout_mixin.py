@@ -47,6 +47,13 @@ class LayoutMixin:
         self.openFolderBtn = tk.Button(lf_folder, text="폴더 열기", font=FONT,
                                        command=self.open_folder)
         self.openFolderBtn.pack(fill="x", padx=4, pady=(4, 2))
+        self.outDirBtn = tk.Button(lf_folder, text="저장 위치 선택", font=FONT,
+                                   command=self.choose_out_dir)
+        self.outDirBtn.pack(fill="x", padx=4, pady=2)
+        self.outDirLabel = tk.Label(lf_folder, text="저장 위치: (미지정 — 첫 저장 때 선택)",
+                                    font=FONT_S, fg="#666", anchor="w", justify="left",
+                                    wraplength=180)
+        self.outDirLabel.pack(fill="x", padx=4)
         self.folderSelect = ttk.Combobox(lf_folder, state="readonly", font=FONT)
         self.folderSelect.pack(fill="x", padx=4, pady=(2, 6))
         self.folderSelect.bind("<<ComboboxSelected>>", self.on_folder_select)
