@@ -158,8 +158,10 @@ class EditMixin:
             self.selected = [b] if b else []
             self.classList.selection_clear(0, "end")
             if b and b["cls"] is not None:
-                i = len(CLASS_NAMES) if b["cls"] == ISSUE_ID else b["cls"]
-                self.classList.selection_set(i)
+                # [수정] 화면 리스트박스 매핑된 인덱스를 찾아 선택
+                if hasattr(self, 'listbox_to_cls') and b["cls"] in self.listbox_to_cls:
+                    i = self.listbox_to_cls.index(b["cls"])
+                    self.classList.selection_set(i)
             self.redraw_boxes()
             self.refresh_info()
 
@@ -175,12 +177,11 @@ class EditMixin:
         sel = self.classList.curselection()
         if not sel or not self.img:
             return
-        i = sel[0]
-        if i == UNUSED_CLASS:
-            messagebox.showwarning("알림", "4번 클래스는 사용하지 않습니다.\n판단이 어려우면 이슈 노트에 기록해 주세요.")
-            self.classList.selection_clear(0, "end")
-            return
-        cls = ISSUE_ID if i == len(CLASS_NAMES) else i
+        
+        # [수정] 숨겨진 4번 때문에 밀린 인덱스를 실제 클래스 번호로 매핑하여 사용
+        vis_idx = sel[0]
+        cls = self.listbox_to_cls[vis_idx]
+        
         if self.pending:
             self.pending["cls"] = cls
             self.pending = None

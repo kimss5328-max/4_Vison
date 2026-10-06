@@ -2,8 +2,9 @@
 import tkinter as tk
 from tkinter import ttk
 
+# [수정] UNUSED_CLASS, ISSUE_ID 임포트 추가
 from src.config import (CLASS_NAMES, COLORS, ISSUE_LABEL, ISSUE_COLOR, REVIEW_STATES,
-                    FONT, FONT_B, FONT_S)
+                    FONT, FONT_B, FONT_S, UNUSED_CLASS, ISSUE_ID)
 from src.ui.panels import InfoPanel, ReviewPanel
 
 
@@ -136,11 +137,20 @@ class LayoutMixin:
         self.classList = tk.Listbox(lf_cls, width=14, height=14, font=FONT,
                                     exportselection=False)
         self.classList.pack(fill="both", expand=True, padx=4, pady=4)
+        
+        # [수정] 4번 고무장갑 숨기기를 위한 매핑 리스트 생성
+        self.listbox_to_cls = []
         for i, name in enumerate(CLASS_NAMES):
+            if i == UNUSED_CLASS:
+                continue
             self.classList.insert("end", f"{i}: {name}")
-            self.classList.itemconfig(i, fg=COLORS[i % len(COLORS)])
+            self.classList.itemconfig(len(self.listbox_to_cls), fg=COLORS[i % len(COLORS)])
+            self.listbox_to_cls.append(i)
+            
         self.classList.insert("end", ISSUE_LABEL)
-        self.classList.itemconfig(len(CLASS_NAMES), fg=ISSUE_COLOR)
+        self.classList.itemconfig(len(self.listbox_to_cls), fg=ISSUE_COLOR)
+        self.listbox_to_cls.append(ISSUE_ID)
+        
         self.classList.bind("<<ListboxSelect>>", self.on_class_select)
 
         lf_info = tk.LabelFrame(upper, text="클래스 크기 정보", font=FONT_B)

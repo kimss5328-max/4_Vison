@@ -1,8 +1,10 @@
 """저장 / 불러오기 — 출력 폴더 구조, 라벨 csv, 이슈 txt, Class4 확인용 폴더"""
 import os
 import shutil
+import csv
 from datetime import datetime
 from tkinter import messagebox
+from PIL import Image, ImageDraw
 
 from src.config import CLASS_NAMES, ISSUE_ID, UNUSED_CLASS, DONE_LIST_COLOR
 
@@ -110,6 +112,22 @@ class StorageMixin:
         if os.path.exists(dst) and os.path.getsize(dst) == os.path.getsize(src):
             return
         shutil.copy2(src, dst)
+        
+    def draw_and_save_image(self, p, dest_img_path, boxes):
+        """이미지를 열어 박스와 텍스트를 그린 후 저장합니다."""
+        try:
+            img_to_draw = Image.open(p).convert("RGB")
+            draw = ImageDraw.Draw(img_to_draw)
+            for b in boxes:
+                x1, y1, x2, y2 = b["x1"], b["y1"], b["x2"], b["y2"]
+                color = self.color_of(b["cls"])
+                tag = "ISSUE" if b["cls"] == ISSUE_ID else ("?" if b["cls"] is None else str(b["cls"]))
+                draw.rectangle([x1, y1, x2, y2], outline=color, width=3)
+                draw.text((x1 + 4, y1 + 4), tag, fill=color)
+            img_to_draw.save(dest_img_path)
+        except Exception as e:
+            print(f"이미지 그리기 실패, 원본 복사로 대체: {e}")
+            self.copy_if_needed(p, dest_img_path)
 
     def _write_label_csv(self, path, boxes):
         """클래스 미지정·이슈 박스를 뺀 나머지를 'cls,xc,yc,w,h' 로 저장"""
@@ -131,6 +149,70 @@ class StorageMixin:
             f.write("[이슈 내용]\n")
             f.write(note + "\n")
 
+    def update_dataset_manifest(self, p):
+        """manifests/dataset_manifest.csv 파일에 현재 이미지 검수/작업 상태 기록"""
+        pj = self.P(p)
+        parent_dir = os.path.dirname(pj["proj"])
+        manifest_dir = os.path.join(parent_dir, "manifests")
+        os.makedirs(manifest_dir, exist_ok=True)
+        manifest_path = os.path.join(manifest_dir, "dataset_manifest.csv")
+
+        file_name = os.path.basename(p)
+        source_dataset = pj["name"]
+        
+        rel = self.rel_of(p)
+        path_parts = rel.split(os.sep)
+        scene_type = path_parts[0] if len(path_parts) > 1 else "kimchi_with_target"
+
+        worker = self.workerVar.get().strip() if hasattr(self, "workerVar") and self.workerVar.get() else "작업자"
+
+        boxes = self.cur_boxes()
+        note = self.notes.get(p, "").strip()
+        has_issue_box = any(b["cls"] == ISSUE_ID for b in boxes)
+        has_c4 = any(b["cls"] == UNUSED_CLASS for b in boxes)
+
+        if has_issue_box or has_c4 or note:
+            status = "REVIEW"
+            qa_status = "WAIT"
+            review_reason = "class_ambiguous" if (has_issue_box or has_c4) else "note_exist"
+        else:
+            status = "EDITED" if getattr(self, "is_modified", False) else "DONE"
+            qa_status = "PASS"
+            review_reason = ""
+
+        row_data = {
+            "file_name": file_name,
+            "source_dataset": source_dataset,
+            "scene_type": scene_type,
+            "worker": worker,
+            "status": status,
+            "qa_status": qa_status,
+            "review_reason": review_reason,
+        }
+
+        manifest_columns = ["file_name", "source_dataset", "scene_type", "worker", "status", "qa_status", "review_reason"]
+        
+        rows = []
+        updated = False
+        if os.path.exists(manifest_path):
+            with open(manifest_path, "r", encoding="utf-8-sig", newline="") as f:
+                reader = csv.DictReader(f)
+                for r in reader:
+                    if r.get("file_name") == file_name:
+                        r.update(row_data)
+                        updated = True
+                    rows.append(r)
+
+        if not updated:
+            rows.append(row_data)
+
+        with open(manifest_path, "w", encoding="utf-8-sig", newline="") as f:
+            writer = csv.DictWriter(f, fieldnames=manifest_columns)
+            writer.writeheader()
+            for r in rows:
+                clean_row = {col: r.get(col, "") for col in manifest_columns}
+                writer.writerow(clean_row)
+
     def save(self):
         p = self.cur_path()
         if not p or not self.img:
@@ -138,7 +220,8 @@ class StorageMixin:
         self.discard_pending()
         self.save_current_note()
         try:
-            self.ensure_out_dir(self.P(p))
+            pj = self.P(p)
+            self.ensure_out_dir(pj)
             paths = self.out_paths(p)
             boxes = self.cur_boxes()
 
@@ -148,21 +231,25 @@ class StorageMixin:
             self._write_label_csv(paths["label"], boxes)
             self.copy_if_needed(p, paths["image"])
 
-            # 2) Class 4 박스가 있으면 삭제하지 않고 별도 폴더에도 저장 (확인용)
+            # 2) Class 4 박스가 있으면 별도 폴더에 박스 그려서 저장 (확인용)
             if any(b["cls"] == UNUSED_CLASS for b in boxes):
                 os.makedirs(paths["c4_dir"], exist_ok=True)
-                self.copy_if_needed(p, paths["c4_img"])
+                self.draw_and_save_image(p, paths["c4_img"], boxes)
                 self._write_label_csv(paths["c4_txt"], boxes)
             elif os.path.isdir(paths["c4_dir"]):
                 shutil.rmtree(paths["c4_dir"], ignore_errors=True)
 
-            # 3) 이슈: 이미지 + txt 를 하나의 폴더로
+            # 3) 이슈: 이미지 + txt 를 하나의 폴더로 (박스 그려서 저장)
             issue_boxes = [b for b in boxes if b["cls"] == ISSUE_ID]
             note = self.notes.get(p, "").strip()
             if issue_boxes or note:
                 os.makedirs(paths["issue_dir"], exist_ok=True)
-                self.copy_if_needed(p, paths["issue_img"])
+                self.draw_and_save_image(p, paths["issue_img"], boxes)
                 self._write_issue_txt(p, paths["issue_txt"], issue_boxes, note)
+
+            # 4) manifests/dataset_manifest.csv 자동 기록 연동
+            self.update_dataset_manifest(p)
+
         except OSError as e:
             messagebox.showerror("저장 오류", str(e))
             return False
