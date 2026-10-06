@@ -28,7 +28,8 @@ class LabelingApp(LayoutMixin, FolderMixin, NavigationMixin, ViewMixin,
         self.idx = -1
         self.annotations = {}      # 이미지 경로 → 박스 리스트
         self.notes = {}            # 이미지 경로 → 이슈 노트
-        self.review_status = {}    # 이미지 경로 → 검수 상태
+        self.review_status = {}    # 이미지 경로 → 검수 상태 (1차 / 2차 / review / final)
+        self.last_stage = ""       # 마지막으로 고른 검수 상태
         self.done = set()          # 저장 완료된 이미지 (목록 초록색 표시)
         self.passed = set()        # 진행률용: 다음/저장 후 다음으로 넘긴 이미지
 

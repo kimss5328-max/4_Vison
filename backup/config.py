@@ -8,14 +8,12 @@ PROJECT_ROOT = Path(__file__).resolve().parent.parent        # 프로그램 폴�
 #   images/train/train_done/yolo    final 승인 이미지   ┐ 이름을 맞춰 둠 → 학습 시 images/.../yolo 만
 #   labels/train/train_done/yolo    final YOLO txt     ┘ 지정하면 labels/.../yolo 의 라벨을 자동으로 찾음
 #   images/train/train_done/review  review 이미지
-#   images/train/train_done/labeled 박스·클래스 이름을 그려 넣은 확인용 이미지
 #   labels/train/train_done/csv     단계별 기록 (1_1차 / 2_2차 / 3_review / 4_final)
 #   labels/train/train_done/issues  이슈 노트 txt
 DONE_SUFFIX = "_done"            # train → train_done
 DEFAULT_DONE = "train_done"      # 이미지가 images/ 바로 아래에 있을 때 쓰는 이름
 DONE_IMG_FINAL = "yolo"
 DONE_IMG_REVIEW = "review"
-DONE_IMG_PREVIEW = "labeled"
 DONE_LBL_YOLO = "yolo"
 DONE_LBL_CSV = "csv"
 DONE_LBL_ISSUES = "issues"
@@ -49,12 +47,6 @@ DONE_LIST_COLOR = "#1e8e3e"   # 저장 완료된 이미지 (목록 초록색)
 FONT = ("맑은 고딕", 10)
 FONT_B = ("맑은 고딕", 10, "bold")
 FONT_S = ("맑은 고딕", 8)
-
-# 확인용 이미지에 한글 클래스 이름을 쓰기 위한 글꼴 (앞에서부터 있는 것을 사용)
-PREVIEW_FONTS = ("C:/Windows/Fonts/malgunbd.ttf", "C:/Windows/Fonts/malgun.ttf",
-                 "/mnt/c/Windows/Fonts/malgunbd.ttf", "/mnt/c/Windows/Fonts/malgun.ttf",
-                 "/usr/share/fonts/truetype/nanum/NanumGothicBold.ttf",
-                 "/usr/share/fonts/truetype/nanum/NanumGothic.ttf")
 
 # ── 조작 ──
 HANDLE_R = 7                  # 크기조절 핸들 클릭 반경(px)

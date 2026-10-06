@@ -1,3 +1,5 @@
+cd ~/exe_01/visol04
+cat > .gitignore << 'EOF'
 # 가상환경 / 캐시
 venv/
 __pycache__/
@@ -14,12 +16,13 @@ data/final/*
 *.pt
 runs/
 
-# 기타
-*Zone.Identifier
-
 # SSH 키 / 인증 파일 (절대 올리면 안 됨)
 *.pub
 id_*
 *.pem
 *.key
 .ssh/
+
+# 기타
+*Zone.Identifier
+EOF

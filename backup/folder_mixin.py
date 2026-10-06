@@ -93,7 +93,7 @@ class FolderMixin:
                             rel = os.path.splitext(os.path.relpath(q, lbl_root))[0]
                             pj["by_rel"][rel] = q
                             pj["by_name"].setdefault(os.path.splitext(f)[0], q)
-            projects.append(pj)      # out_dir(저장 위치)는 아래에서 기존 저장본이 있으면 연결, 없으면 첫 저장 때 정함
+            projects.append(pj)      # out_dir(저장 위치)는 첫 저장 / [저장 위치 선택] 때 정함
 
             for cur, dirs, files in os.walk(img_root):
                 dirs[:] = [x for x in dirs if not self.is_output_dir(cur, x, img_root)]

@@ -1,7 +1,7 @@
 """마우스로 박스 그리기·선택·크기조절 / 클래스 지정 / 삭제 / 크기 정보 패널"""
 from tkinter import messagebox
 
-from src.config import (CLASS_NAMES, ISSUE_ID, UNUSED_CLASS, PENDING_COLOR,
+from src.config import (CLASS_NAMES, CLASS_IDS, ISSUE_ID, PENDING_COLOR,
                     HANDLE_R, SHIFT, CTRL)
 
 
@@ -157,9 +157,8 @@ class EditMixin:
             b = self.hit_test(e.x, e.y)
             self.selected = [b] if b else []
             self.classList.selection_clear(0, "end")
-            if b and b["cls"] is not None:
-                i = len(CLASS_NAMES) if b["cls"] == ISSUE_ID else b["cls"]
-                self.classList.selection_set(i)
+            if b and b["cls"] in CLASS_IDS:
+                self.classList.selection_set(CLASS_IDS.index(b["cls"]))
             self.redraw_boxes()
             self.refresh_info()
 
@@ -175,12 +174,7 @@ class EditMixin:
         sel = self.classList.curselection()
         if not sel or not self.img:
             return
-        i = sel[0]
-        if i == UNUSED_CLASS:
-            messagebox.showwarning("알림", "4번 클래스는 사용하지 않습니다.\n판단이 어려우면 이슈 노트에 기록해 주세요.")
-            self.classList.selection_clear(0, "end")
-            return
-        cls = ISSUE_ID if i == len(CLASS_NAMES) else i
+        cls = CLASS_IDS[sel[0]]           # 목록 줄 번호 → 실제 클래스 번호
         if self.pending:
             self.pending["cls"] = cls
             self.pending = None

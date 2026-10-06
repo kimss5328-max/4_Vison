@@ -47,15 +47,10 @@ class LayoutMixin:
         self.openFolderBtn = tk.Button(lf_folder, text="폴더 열기", font=FONT,
                                        command=self.open_folder)
         self.openFolderBtn.pack(fill="x", padx=4, pady=(4, 2))
-        # 저장 위치 표시 + [변경] (기본: 데이터 폴더의 images·labels/train/train_done)
-        outRow = tk.Frame(lf_folder)
-        outRow.pack(fill="x", padx=4)
-        self.outDirChangeBtn = tk.Button(outRow, text="변경", font=FONT_S, padx=4, pady=0,
-                                         command=self.change_out_dir)
-        self.outDirChangeBtn.pack(side="right", anchor="n")
-        self.outDirLabel = tk.Label(outRow, text="저장 위치: -", font=FONT_S, fg="#666",
-                                    anchor="w", justify="left", wraplength=150)
-        self.outDirLabel.pack(side="left", fill="x", expand=True)
+        self.outDirLabel = tk.Label(lf_folder, text="저장 위치: (미지정 — 첫 저장 때 선택)",
+                                    font=FONT_S, fg="#666", anchor="w", justify="left",
+                                    wraplength=180)
+        self.outDirLabel.pack(fill="x", padx=4)
         self.folderSelect = ttk.Combobox(lf_folder, state="readonly", font=FONT)
         self.folderSelect.pack(fill="x", padx=4, pady=(2, 6))
         self.folderSelect.bind("<<ComboboxSelected>>", self.on_folder_select)

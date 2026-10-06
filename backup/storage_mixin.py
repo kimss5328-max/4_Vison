@@ -3,38 +3,22 @@
    ├── images/train/            원본 이미지 (그대로)
    │   └── train_done/
    │       ├── yolo/            final 승인 이미지   → 학습용
-   │       ├── review/          review 판정 이미지
-   │       └── labeled/         박스·클래스 이름을 그려 넣은 확인용 이미지 (저장할 때마다 갱신)
+   │       └── review/          review 판정 이미지
    └── labels/train/            원본 라벨 (그대로)
        └── train_done/
            ├── yolo/            final YOLO txt + classes.txt → 학습용
-           ├── csv/             현재 단계 폴더에만 1개 (1_1차 / 2_2차 / 3_review / 4_final)
+           ├── csv/             단계별 기록 (1_1차 / 2_2차 / 3_review / 4_final)
            └── issues/          이슈 노트 txt
    train_done 만 지우면 원본만 남은 처음 상태로 돌아감"""
 import csv
 import os
 import shutil
 from datetime import datetime
-from functools import lru_cache
 from tkinter import filedialog, messagebox
 
-from PIL import ImageDraw, ImageFont
-
-from src.config import (CLASS_NAMES, ISSUE_ID, UNUSED_CLASS, DONE_LIST_COLOR, STAGES, COLORS,
-                        DONE_SUFFIX, DEFAULT_DONE, DONE_IMG_FINAL, DONE_IMG_REVIEW, DONE_IMG_PREVIEW,
-                        DONE_LBL_YOLO, DONE_LBL_CSV, DONE_LBL_ISSUES, LEGACY_OUT, PREVIEW_FONTS)
-
-@lru_cache(maxsize=8)
-def preview_font(size):
-    """한글이 되는 글꼴을 찾아 돌려줌 (같은 크기는 한 번만 읽음). 없으면 (기본 글꼴, False)"""
-    for path in PREVIEW_FONTS:
-        if os.path.exists(path):
-            try:
-                return ImageFont.truetype(path, size), True
-            except OSError:
-                continue
-    return ImageFont.load_default(), False
-
+from src.config import (CLASS_NAMES, ISSUE_ID, UNUSED_CLASS, DONE_LIST_COLOR, STAGES,
+                        DONE_SUFFIX, DEFAULT_DONE, DONE_IMG_FINAL, DONE_IMG_REVIEW,
+                        DONE_LBL_YOLO, DONE_LBL_CSV, DONE_LBL_ISSUES, LEGACY_OUT)
 
 CSV_HEADER = ["image", "class_id", "class_name", "x_center", "y_center", "width", "height",
               "stage", "worker_name", "worker_id", "reviewer_name", "reviewer_id", "saved_at"]
@@ -112,7 +96,6 @@ class StorageMixin:
         img_done = self.done_dir(d, "images", top)
         lbl_done = self.done_dir(d, "labels", top)
         subs = [os.path.join(img_done, DONE_IMG_FINAL), os.path.join(img_done, DONE_IMG_REVIEW),
-                os.path.join(img_done, DONE_IMG_PREVIEW),
                 os.path.join(lbl_done, DONE_LBL_YOLO), os.path.join(lbl_done, DONE_LBL_ISSUES)]
         subs += [os.path.join(lbl_done, DONE_LBL_CSV, folder) for _, folder in STAGES]
         return subs
@@ -237,7 +220,6 @@ class StorageMixin:
                 "yolo": os.path.join(lbl_done, DONE_LBL_YOLO, stem + ".txt"),
                 "image": os.path.join(img_done, DONE_IMG_FINAL, inner),
                 "review_img": os.path.join(img_done, DONE_IMG_REVIEW, inner),
-                "preview": os.path.join(img_done, DONE_IMG_PREVIEW, inner),
                 "issue_txt": os.path.join(lbl_done, DONE_LBL_ISSUES, stem + "_issue.txt")}
 
     def saved_stages(self, p):
@@ -375,30 +357,6 @@ class StorageMixin:
             for b in self._label_boxes(boxes):
                 f.write("{} {:.6f} {:.6f} {:.6f} {:.6f}\n".format(b["cls"], *self.box_to_yolo(b)))
 
-    def _write_preview(self, path, boxes):
-        """현재 이미지에 박스와 '번호: 클래스 이름'을 그려 넣은 확인용 이미지 저장"""
-        os.makedirs(os.path.dirname(path), exist_ok=True)
-        im = self.img.copy()                       # 화면용 원본(RGB) 사본에 그림 — 원본 파일은 그대로
-        draw = ImageDraw.Draw(im)
-        short = min(im.size)
-        lw = max(2, round(short / 300))            # 이미지 크기에 맞춘 선 굵기
-        font, korean = preview_font(max(14, round(short / 35)))
-        pad = max(2, lw)
-        for b in self._label_boxes(boxes):
-            color = COLORS[b["cls"] % len(COLORS)]
-            x1, y1, x2, y2 = b["x1"], b["y1"], b["x2"], b["y2"]
-            draw.rectangle((x1, y1, x2, y2), outline=color, width=lw)
-
-            text = f"{b['cls']}: {CLASS_NAMES[b['cls']]}" if korean else str(b["cls"])
-            l, t, r, btm = draw.textbbox((0, 0), text, font=font)
-            tw, th = r - l, btm - t
-            ty = y1 - th - 2 * pad                 # 기본: 박스 위쪽에 이름표
-            if ty < 0:                             # 위에 자리가 없으면 박스 아래쪽에
-                ty = min(y2, im.size[1] - th - 2 * pad)
-            draw.rectangle((x1, ty, x1 + tw + 2 * pad, ty + th + 2 * pad), fill=color)
-            draw.text((x1 + pad - l, ty + pad - t), text, fill="white", font=font)
-        im.save(path)
-
     def _save_issue(self, p, path, meta):
         """이슈 노트가 있으면 issues/ 에 txt 저장, 비어 있으면 기존 txt 삭제"""
         note = self.notes.get(p, "").strip()
@@ -450,30 +408,23 @@ class StorageMixin:
                     return False
                 boxes[:] = [b for b in boxes if b["cls"] != UNUSED_CLASS]
 
-            # 3) 단계 기록 (csv) — 현재 단계 폴더로 '이동': 다른 단계 폴더의 csv 는 지움
+            # 3) 단계별 기록 (csv)
             paths = self.out_paths(p)
             meta = self._meta(stage)
             self._write_stage_csv(paths["csv"][stage], p, boxes, meta)
-            for st, _ in STAGES:
-                if st != stage:
-                    self.remove_if_exists(paths["csv"][st])
 
-            # 4) 단계별 결과물 — 현재 단계에 맞는 것만 남김
-            if stage == "final":            # 승인 → 학습용 라벨 + 이미지
+            # 4) 단계별 결과물
+            if stage == "final":            # 승인 → 학습용 라벨 + 이미지, review 대기에서 제외
                 self._write_yolo(paths["yolo"], boxes)
                 self.copy_if_needed(p, paths["image"])
-            else:                           # final 이 아니면 학습용에서 제외 (승인 취소 포함)
+                self.remove_if_exists(paths["review_img"])
+            elif stage == "review":         # 재작업 필요 → review 폴더로, 이전 final 승인 취소
+                self.copy_if_needed(p, paths["review_img"])
                 self.remove_if_exists(paths["yolo"])
                 self.remove_if_exists(paths["image"])
-            if stage == "review":           # 재작업 필요 → review 폴더로
-                self.copy_if_needed(p, paths["review_img"])
-            else:
-                self.remove_if_exists(paths["review_img"])
+                self.remove_if_exists(paths["csv"]["final"])
 
-            # 5) 확인용 이미지 (박스 + 클래스 이름)
-            self._write_preview(paths["preview"], boxes)
-
-            # 6) 이슈 노트
+            # 5) 이슈 노트
             self._save_issue(p, paths["issue_txt"], meta)
         except OSError as e:
             messagebox.showerror("저장 오류", str(e))
