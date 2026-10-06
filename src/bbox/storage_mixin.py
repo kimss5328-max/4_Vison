@@ -112,7 +112,7 @@ class StorageMixin:
         if os.path.exists(dst) and os.path.getsize(dst) == os.path.getsize(src):
             return
         shutil.copy2(src, dst)
-        
+
     def draw_and_save_image(self, p, dest_img_path, boxes):
         """이미지를 열어 박스와 텍스트를 그린 후 저장합니다."""
         try:
@@ -246,6 +246,9 @@ class StorageMixin:
                 os.makedirs(paths["issue_dir"], exist_ok=True)
                 self.draw_and_save_image(p, paths["issue_img"], boxes)
                 self._write_issue_txt(p, paths["issue_txt"], issue_boxes, note)
+            elif os.path.isdir(paths["issue_dir"]):
+                # 이슈가 해제되었을 경우 기존 이슈 폴더 정리
+                shutil.rmtree(paths["issue_dir"], ignore_errors=True)
 
             # 4) manifests/dataset_manifest.csv 자동 기록 연동
             self.update_dataset_manifest(p)

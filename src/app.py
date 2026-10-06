@@ -26,7 +26,6 @@ class LabelingApp(LayoutMixin, FolderMixin, NavigationMixin, ViewMixin,
 
         root.protocol("WM_DELETE_WINDOW", self.on_closing)
 
-        # 폴더 / 이미지 상태
         self.projects = []
         self.proj_of = {}
         self.folders = {}
@@ -41,7 +40,6 @@ class LabelingApp(LayoutMixin, FolderMixin, NavigationMixin, ViewMixin,
         self.done = set()
         self.passed = set()
 
-        # 화면(뷰) 상태
         self.img = None
         self.tkimg = None
         self.scale = 1.0
@@ -49,7 +47,6 @@ class LabelingApp(LayoutMixin, FolderMixin, NavigationMixin, ViewMixin,
         self.ox = self.oy = 0.0
         self.is_fit = True
 
-        # 마우스 / 선택 상태
         self.selected = []
         self.pending = None
         self.mode = None
@@ -62,7 +59,6 @@ class LabelingApp(LayoutMixin, FolderMixin, NavigationMixin, ViewMixin,
         self.resize_hd = None
         self._label_hits = []
 
-        # 자동 추론(YOLO) 상태
         self.labeler = YoloAutoLabeler()
         self.auto_pred = {}
         self._batch_running = False
@@ -72,7 +68,6 @@ class LabelingApp(LayoutMixin, FolderMixin, NavigationMixin, ViewMixin,
 
         self.build_ui()
 
-        # 프로그램 실행 시 마지막 폴더와 마지막 작업 이미지 자동 복원
         self.root.after(150, self._auto_load_last_folder)
 
     def _auto_load_last_folder(self):
@@ -85,8 +80,8 @@ class LabelingApp(LayoutMixin, FolderMixin, NavigationMixin, ViewMixin,
                     valid_picked = [(pr, ir) for pr, ir in picked if os.path.isdir(pr)]
                     if valid_picked:
                         self.open_folder(auto_picked=valid_picked, auto_last_img=last_img)
-        except Exception as e:
-            print(f"[DEBUG] 자동 복원 실패: {e}")
+        except Exception:
+            pass
 
     def save(self):
         res = super().save()
@@ -107,7 +102,6 @@ class LabelingApp(LayoutMixin, FolderMixin, NavigationMixin, ViewMixin,
     def on_closing(self):
         p = self.cur_path() if hasattr(self, 'cur_path') else None
         
-        # 이미 저장을 완료했거나(done/passed) 열린 이미지가 없으면 팝업 없이 즉시 종료
         if not p or not self.img or p in self.done or p in self.passed:
             self.root.destroy()
             return

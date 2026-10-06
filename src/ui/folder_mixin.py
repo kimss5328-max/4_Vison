@@ -45,7 +45,6 @@ class FolderMixin:
             return subs
         return [(d, d)]
 
-    # 💡 마지막 폴더뿐만 아니라 현재 보고 있던 마지막 이미지 경로까지 함께 저장
     def save_last_folder(self, picked, last_img=None):
         try:
             data = {
@@ -54,8 +53,8 @@ class FolderMixin:
             }
             with open(SETTINGS_PATH, "w", encoding="utf-8") as f:
                 json.dump(data, f, ensure_ascii=False, indent=2)
-        except Exception as e:
-            print(f"[DEBUG] 설정 저장 실패: {e}")
+        except Exception:
+            pass
 
     def load_last_folder(self):
         try:
@@ -67,8 +66,8 @@ class FolderMixin:
                     valid_picked = [(pr, ir) for pr, ir in picked if os.path.isdir(pr)]
                     if valid_picked:
                         return valid_picked, last_img
-        except Exception as e:
-            print(f"[DEBUG] 설정 읽기 실패: {e}")
+        except Exception:
+            pass
         return None, None
 
     def open_folder(self, auto_picked=None, auto_last_img=None):
@@ -158,7 +157,6 @@ class FolderMixin:
         self.passed = set(self.done)
 
         self.idx = -1
-        # 폴더 열릴 때 마지막 작업 이미지(auto_last_img)가 있으면 그 위치로 지정해서 로드
         self.load_folder("__all__", keep=auto_last_img)
 
     def on_folder_select(self, _=None):
@@ -200,7 +198,6 @@ class FolderMixin:
             self.status(f"'{name}' 보기에 해당하는 이미지가 없습니다.")
             return
         
-        # 💡 이 부분이 핵심: 지정된 keep(마지막 작업 이미지)이 있으면 정확히 그 이미지부터 시작
         if keep and keep in self.images:
             resume_idx = self.images.index(keep)
         else:
