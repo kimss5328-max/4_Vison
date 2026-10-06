@@ -1,8 +1,10 @@
-"""폴더 열기 / 프로젝트 구성 / 이미지 목록 / 진행률"""
+"""폴더 열기 / 프로젝트 구성 / 이미지 목록 / 단계 보기 / 진행률 / 마지막 폴더 기억"""
+import json
 import os
 from tkinter import filedialog, messagebox
 
-from src.config import IMG_EXTS, AUTO_LIST_COLOR, DONE_LIST_COLOR, STAGE_FILTERS
+from src.config import (IMG_EXTS, AUTO_LIST_COLOR, DONE_LIST_COLOR, STAGE_FILTERS,
+                        PICK_START_DIR, SETTINGS_PATH)
 
 
 class FolderMixin:
@@ -53,25 +55,61 @@ class FolderMixin:
         # 4. 아무 프로젝트도 없으면 선택한 폴더 자체를 이미지 폴더로 사용
         return [(d, d)]
 
+    # ── 마지막 폴더 기억 (프로그램 폴더 밖 ~/.labeling_tool_config.json) ──
+    @staticmethod
+    def save_last_folder(picked, last_img=None):
+        try:
+            data = {"last_picked": picked,
+                    "last_img": last_img if last_img and os.path.exists(last_img) else None}
+            with open(SETTINGS_PATH, "w", encoding="utf-8") as f:
+                json.dump(data, f, ensure_ascii=False, indent=2)
+        except OSError:
+            pass
+
+    @staticmethod
+    def load_last_folder():
+        """→ (picked, last_img). 없거나 폴더가 사라졌으면 (None, None)"""
+        try:
+            with open(SETTINGS_PATH, encoding="utf-8") as f:
+                data = json.load(f)
+            picked = [(pr, ir) for pr, ir in data.get("last_picked", []) if os.path.isdir(pr)]
+            if picked:
+                return picked, data.get("last_img")
+        except (OSError, ValueError, TypeError):
+            pass
+        return None, None
+
+    def remember_folder(self):
+        """지금 열린 폴더와 보던 이미지를 기억 (저장·종료 때 호출)"""
+        if self.projects:
+            picked = [(pj["proj"], pj["img_root"]) for pj in self.projects]
+            self.save_last_folder(picked, last_img=self.cur_path())
+
     # ── 폴더 열기 ──
-    def open_folder(self):
+    def open_folder(self, auto_picked=None, auto_last_img=None):
+        """auto_picked: 프로그램 시작 시 마지막 폴더를 자동으로 열 때 (선택 창 없이)"""
         self.save_current_note()
 
-        picked = []
-        while True:
-            d = filedialog.askdirectory(title="최상위 폴더 선택 (images + labels 가 있는 폴더, 또는 그 상위 폴더)")
-            if not d:
-                break
-            for item in self._find_roots(d):
-                if item not in picked:
-                    picked.append(item)
-            names = "\n".join("  ./ " + os.path.basename(pr) for pr, _ in picked)
-            if not messagebox.askyesno("폴더 추가",
-                                       f"현재 {len(picked)}개 폴더가 선택되었습니다.\n{names}\n\n"
-                                       f"다른 폴더도 추가하시겠습니까?"):
-                break
+        picked = auto_picked
         if not picked:
-            return
+            picked = []
+            start = PICK_START_DIR if os.path.isdir(PICK_START_DIR) else os.path.expanduser("~")
+            while True:
+                d = filedialog.askdirectory(
+                    title="이미지 폴더 선택 (images + labels 가 있는 폴더, 또는 그 상위 폴더)",
+                    initialdir=start)
+                if not d:
+                    break
+                for item in self._find_roots(d):
+                    if item not in picked:
+                        picked.append(item)
+                names = "\n".join("  ./ " + os.path.basename(pr) for pr, _ in picked)
+                if not messagebox.askyesno("폴더 추가",
+                                           f"현재 {len(picked)}개 폴더가 선택되었습니다.\n{names}\n\n"
+                                           f"다른 폴더도 추가하시겠습니까?"):
+                    break
+            if not picked:
+                return
 
         projects, proj_of, folders = [], {}, {}
         used = set()
@@ -106,7 +144,8 @@ class FolderMixin:
                         proj_of[q] = pj
 
         if not folders:
-            messagebox.showwarning("알림", "선택한 폴더에 이미지가 없습니다.")
+            if not auto_picked:
+                messagebox.showwarning("알림", "선택한 폴더에 이미지가 없습니다.")
             return
 
         self.projects, self.proj_of, self.folders = projects, proj_of, folders
@@ -129,19 +168,18 @@ class FolderMixin:
         self.done.clear()
         self.passed.clear()
         self.auto_pred.clear()
-        # 기본 저장 위치에 결과 폴더가 이미 있으면 바로 연결 → 저장했던 이미지 초록색 + 단계 보기 바로 사용
+        # 결과 구조(visol04/data, reviews, manifests)를 바로 준비 →
+        # 아직 없는 원본만 raw 로 가져오고, 저장했던 이미지는 초록색 + 단계 보기 바로 사용
         for pj in projects:
-            pj["out_dir"] = os.path.abspath(self.default_out_dir(pj))
+            self.prepare_out_dir(pj)
         for p in proj_of:
             if self.saved_stages(p):
                 self.done.add(p)
-        for pj in projects:                # 저장한 적이 없으면 연결 해제 → 첫 저장 때 만들고 안내
-            if not any(owner is pj and p in self.done for p, owner in proj_of.items()):
-                pj["out_dir"] = None
         self.passed = set(self.done)
         self.view_filter = "all"           # 새로 열면 단계 보기는 전체부터
         self.idx = -1
-        self.load_folder("__all__")
+        self.load_folder("__all__", keep=auto_last_img)
+        self.remember_folder()
 
     def on_folder_select(self, _=None):
         i = self.folderSelect.current()
@@ -150,7 +188,7 @@ class FolderMixin:
             self.idx = -1
             self.load_folder(self.folder_keys[i])
 
-    def load_folder(self, key):
+    def load_folder(self, key, keep=None):
         if key == "__all__":
             all_images = [p for k in sorted(self.folders) for p in self.folders[k]]
             self.stageRow.pack(fill="x", padx=4, pady=(0, 6))   # (전체 이미지) → 단계 선택 보이기
@@ -159,7 +197,7 @@ class FolderMixin:
             self.stageRow.pack_forget()                          # 개별 폴더 → 숨기고 전체로
             self.view_filter = "all"
         self.folder_images = list(dict.fromkeys(all_images))
-        self.apply_filter()
+        self.apply_filter(keep=keep)
 
     # ── 단계 보기 ((전체 이미지) 선택 시: 전체 / 1차 / 2차 / review / final) ──
     def _match_filter(self, p):
@@ -186,7 +224,11 @@ class FolderMixin:
             name = dict(STAGE_FILTERS)[self.view_filter]
             self.status(f"'{name}' 단계에 해당하는 이미지가 없습니다.")
             return
-        self.show_image(self.images.index(keep) if keep in self.images else 0)
+        if keep in self.images:            # 보던 이미지 계속
+            i = self.images.index(keep)
+        else:                              # 없으면 아직 저장 안 한 첫 이미지부터
+            i = next((k for k, p in enumerate(self.images) if p not in self.done), 0)
+        self.show_image(i)
 
     def on_stage_filter_select(self, _=None):
         i = self.stageSelect.current()

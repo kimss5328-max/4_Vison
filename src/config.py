@@ -1,25 +1,38 @@
-"""프로그램 전체에서 쓰는 상수 모음 — 클래스/색상/폰트 등은 여기서만 수정"""
-from pathlib import Path
+"""프로그램 전체에서 쓰는 상수 모음 — 경로/클래스/단계/색상/폰트 등은 여기서만 수정"""
+import os
 
 # ── 경로 ──
-PROJECT_ROOT = Path(__file__).resolve().parent.parent        # 프로그램 폴더 (visol04)
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))   # 프로그램 폴더 (visol04) = 결과 기준 위치
+PICK_START_DIR = os.path.expanduser("~/exe_01")          # 이미지 폴더 선택 창의 시작 위치
+SETTINGS_PATH = os.path.expanduser("~/.labeling_tool_config.json")   # 마지막 폴더 기억 (저장소 밖)
 
-# ── 저장 폴더 — 원본 하위 폴더(train) 아래에 '폴더명_done' 을 만들고 결과를 모두 그 안에 둠 ──
-#   images/train/train_done/yolo    final 승인 이미지   ┐ 이름을 맞춰 둠 → 학습 시 images/.../yolo 만
-#   labels/train/train_done/yolo    final YOLO txt     ┘ 지정하면 labels/.../yolo 의 라벨을 자동으로 찾음
-#   images/train/train_done/review  review 이미지
-#   images/train/train_done/labeled 박스·클래스 이름을 그려 넣은 확인용 이미지
-#   labels/train/train_done/csv     단계별 기록 (1_1차 / 2_2차 / 3_review / 4_final)
-#   labels/train/train_done/issues  이슈 노트 txt
-DONE_SUFFIX = "_done"            # train → train_done
-DEFAULT_DONE = "train_done"      # 이미지가 images/ 바로 아래에 있을 때 쓰는 이름
-DONE_IMG_FINAL = "yolo"
-DONE_IMG_REVIEW = "review"
-DONE_IMG_PREVIEW = "labeled"
-DONE_LBL_YOLO = "yolo"
-DONE_LBL_CSV = "csv"
-DONE_LBL_ISSUES = "issues"
-# 이전 버전이 images/·labels/ 바로 아래 만들던 결과 폴더 — 원본 목록에 섞이지 않게 탐색에서 제외
+# 결과 구조 — (상위, 하위, ...) 튜플은 BASE_DIR(visol04) 기준 경로
+#   visol04/
+#   ├── data/
+#   │   ├── raw/      img, txt   원본 사본 (작업 전)
+#   │   ├── work/1차/ img, txt   작업 중 + 1차 저장 (이력 csv 기록으로 구분)
+#   │   ├── work/2차/ img, txt   2차 저장
+#   │   ├── final/    img, txt   최종 승인 → 학습용
+#   │   ├── issues/   img, txt   이슈 노트가 있는 이미지 사본 (추가만)
+#   │   ├── csv/                 이미지별 이력 csv (추가만)
+#   │   └── classes.txt
+#   ├── reviews/      img, txt   검수(review) 대상 — 박스를 그려 넣은 확인용 이미지
+#   └── manifests/dataset_manifest.csv   전체 진행 대장 (추가만)
+IMG_SUB, TXT_SUB = "img", "txt"
+RAW_DIR = ("data", "raw")
+ISSUES_DIR = ("data", "issues")
+CSV_DIR = ("data", "csv")
+STAGE_DIRS = {"1차": ("data", "work", "1차"),
+              "2차": ("data", "work", "2차"),
+              "review": ("reviews",),
+              "final": ("data", "final")}
+WORK_START = "1차"            # 작업을 시작하면(첫 편집) raw → work/1차 로 이동
+MANIFEST_DIR = "manifests"
+MANIFEST_FILE = "dataset_manifest.csv"
+
+# 이전 버전 결과 폴더 — 원본 목록에 섞이지 않게 탐색에서 제외
+DONE_SUFFIX = "_done"            # train/train_done
+DEFAULT_DONE = "train_done"
 LEGACY_OUT = {"images": ("yolo", "review"), "labels": ("yolo", "csv", "issues")}
 
 # ── 이미지 / 클래스 ──
@@ -31,8 +44,8 @@ UNUSED_CLASS = 4
 CLASS_IDS = [i for i in range(len(CLASS_NAMES)) if i != UNUSED_CLASS]
 ISSUE_ID = -1                 # (예전 이슈 박스용 번호 — 이제 목록에서는 선택 불가)
 
-# 검수 단계: (화면 이름, labels/csv 아래 폴더 이름)
-STAGES = (("1차", "1_1차"), ("2차", "2_2차"), ("review", "3_review"), ("final", "4_final"))
+# 검수 단계: (화면 이름, 폴더 이름) — 실제 위치는 STAGE_DIRS
+STAGES = (("1차", "1차"), ("2차", "2차"), ("review", "review"), ("final", "final"))
 WORKER_STAGES = ("1차", "2차")          # 작업자 정보를 다 입력해야 선택 가능
 REVIEWER_STAGES = ("review", "final")   # 검수자 정보를 다 입력해야 선택 가능
 STAGE_FILTERS = (("all", "전체"),) + tuple((st, st) for st, _ in STAGES)   # (전체 이미지) 단계 보기
@@ -59,4 +72,5 @@ PREVIEW_FONTS = ("C:/Windows/Fonts/malgunbd.ttf", "C:/Windows/Fonts/malgun.ttf",
 # ── 조작 ──
 HANDLE_R = 7                  # 크기조절 핸들 클릭 반경(px)
 MAX_ZOOM = 20.0               # 원상태 대비 최대 확대 배율
+WHEEL_STEP = 1.2              # 마우스 휠 한 칸당 확대·축소 배율
 SHIFT, CTRL = 0x0001, 0x0004  # 키보드 수정키 비트

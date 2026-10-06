@@ -102,8 +102,11 @@ class NavigationMixin:
             msg += f"   🤖 자동 BBox {n_auto}개 → 확인/수정 후 저장하세요"
         if any(b["cls"] == UNUSED_CLASS for b in self.cur_boxes()):
             msg += "   ⚠ 4번(사용 안 함) 박스 있음 → 다른 클래스로 바꾸거나 저장 시 삭제"
+        if self.is_in_progress(p):
+            msg += "   ✎ 작업 중 (자동 저장됨, [저장] 전)"
         self.status(msg)
         self.update_out_dir_label()
+        self.remember_folder()               # 보던 이미지 기억 → 꺼져도 다시 켜면 여기부터
         self.prefetch(i + 1)
 
     def prefetch(self, j):

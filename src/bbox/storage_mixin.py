@@ -1,16 +1,20 @@
-"""저장 / 불러오기 — 기본 저장 위치는 데이터 폴더 자체, 결과는 원본 하위 폴더의 '_done' 안에 모음
-   데이터폴더/
-   ├── images/train/            원본 이미지 (그대로)
-   │   └── train_done/
-   │       ├── yolo/            final 승인 이미지   → 학습용
-   │       ├── review/          review 판정 이미지
-   │       └── labeled/         박스·클래스 이름을 그려 넣은 확인용 이미지 (저장할 때마다 갱신)
-   └── labels/train/            원본 라벨 (그대로)
-       └── train_done/
-           ├── yolo/            final YOLO txt + classes.txt → 학습용
-           ├── csv/             현재 단계 폴더에만 1개 (1_1차 / 2_2차 / 3_review / 4_final)
-           └── issues/          이슈 노트 txt
-   train_done 만 지우면 원본만 남은 처음 상태로 돌아감"""
+"""저장 / 불러오기 — 단계별 폴더 이동 + 기록(csv·manifest)은 추가만
+   visol04/                       (프로그램 폴더 = 결과 기준 위치)
+   ├── data/
+   │   ├── raw/      img, txt     원본 사본 (작업 전)
+   │   ├── work/1차/ img, txt     작업 중 + 1차 저장 (이력 csv 에 1차 기록이 있으면 저장됨)
+   │   ├── work/2차/ img, txt     2차 저장
+   │   ├── final/    img, txt     최종 승인 → 학습용
+   │   ├── issues/   img, txt     이슈 노트가 있는 이미지 사본 + 이슈 기록 (추가만)
+   │   ├── csv/                   이미지별 이력 csv (추가만 — 1차 검수자 기록도 끝까지 유지)
+   │   └── classes.txt
+   ├── reviews/      img, txt     검수 대상 (박스를 그려 넣은 확인용 이미지)
+   └── manifests/dataset_manifest.csv   전체 진행 대장 (추가만)
+
+   - 작업 시작(첫 편집) → raw 의 img·txt 를 work/1차 로 이동, 이후 편집할 때마다 txt 자동 저장
+     (꺼져도 다시 켜면 그 이미지·박스부터 이어서 작업)
+   - [저장] → 이력 csv·manifest 에 기록 추가 + 선택한 단계 폴더로 이동
+   - 기록은 기존 줄을 고치거나 지우지 않고 덧붙이기만 한다. 원본 폴더는 읽기만 한다."""
 import csv
 import os
 import shutil
@@ -20,9 +24,23 @@ from tkinter import filedialog, messagebox
 
 from PIL import ImageDraw, ImageFont
 
-from src.config import (CLASS_NAMES, ISSUE_ID, UNUSED_CLASS, DONE_LIST_COLOR, STAGES, COLORS,
-                        DONE_SUFFIX, DEFAULT_DONE, DONE_IMG_FINAL, DONE_IMG_REVIEW, DONE_IMG_PREVIEW,
-                        DONE_LBL_YOLO, DONE_LBL_CSV, DONE_LBL_ISSUES, LEGACY_OUT, PREVIEW_FONTS)
+from src.config import (CLASS_NAMES, ISSUE_ID, UNUSED_CLASS, DONE_LIST_COLOR, COLORS,
+                        BASE_DIR, IMG_SUB, TXT_SUB, RAW_DIR, ISSUES_DIR, CSV_DIR, STAGE_DIRS,
+                        WORK_START, MANIFEST_DIR, MANIFEST_FILE, DONE_SUFFIX, DEFAULT_DONE,
+                        LEGACY_OUT, PREVIEW_FONTS)
+
+# 이미지별 이력 csv — 저장할 때마다 박스 1개당 1행씩 아래에 추가
+CSV_HEADER = ["image", "stage", "from", "class_id", "class_name",
+              "x_center", "y_center", "width", "height",
+              "worker_name", "worker_id", "reviewer_name", "reviewer_id",
+              "issue_note", "saved_at"]
+# 전체 진행 대장 — 저장할 때마다 이미지 1장당 1행씩 아래에 추가
+MANIFEST_HEADER = ["file_name", "source_dataset", "original_split", "scene_type",
+                   "stage", "from", "boxes", "worker_name", "worker_id",
+                   "reviewer_name", "reviewer_id", "issue", "saved_at"]
+# 현재 위치를 찾는 순서 (뒤 단계부터)
+LOCATION_ORDER = ("final", "review", "2차", "1차")
+
 
 @lru_cache(maxsize=8)
 def preview_font(size):
@@ -36,42 +54,21 @@ def preview_font(size):
     return ImageFont.load_default(), False
 
 
-CSV_HEADER = ["image", "class_id", "class_name", "x_center", "y_center", "width", "height",
-              "stage", "worker_name", "worker_id", "reviewer_name", "reviewer_id", "saved_at"]
-
-
 class StorageMixin:
-    # ── 저장 위치 ──
+    # ── 결과 폴더 위치 ──
     @staticmethod
     def default_out_dir(pj):
-        """기본 저장 위치
-           - images / labels 가 있는 데이터 폴더 → 그 데이터 폴더 자체 (images/·labels/ 아래 하위 폴더)
-           - 이미지만 있는 일반 폴더 → 옆에 '폴더명_labeled' (안에 images/·labels/ 를 만들면
-             다음에 열 때 데이터 폴더로 잘못 인식되므로 바깥에 만듦)"""
-        if pj["img_root"] != pj["proj"]:
-            return pj["proj"]
-        return pj["proj"] + "_labeled"
-
-    # ── _done 폴더 규칙 ──
-    @staticmethod
-    def split_rel(rel):
-        """원본 상대경로 → (상위 폴더, 나머지)
-           'train/a.jpg' → ('train', 'a.jpg') / 'a.jpg' → ('', 'a.jpg')"""
-        parts = rel.split(os.sep)
-        if len(parts) == 1:
-            return "", parts[0]
-        return parts[0], os.path.join(*parts[1:])
+        """기본 결과 기준 위치: 프로그램 폴더(visol04) — 그 안의 data/, reviews/, manifests/ 사용"""
+        return BASE_DIR
 
     @staticmethod
-    def done_dir(base, kind, top):
-        """base/images/train/train_done  (kind: images | labels, top: 원본 하위 폴더 이름)"""
-        if top:
-            return os.path.join(base, kind, top, top + DONE_SUFFIX)
-        return os.path.join(base, kind, DEFAULT_DONE)
+    def manifest_path(pj):
+        """manifest 위치: 결과 기준 위치 아래 manifests/"""
+        return os.path.join(pj["out_dir"], MANIFEST_DIR, MANIFEST_FILE)
 
     @staticmethod
     def is_output_dir(parent, name, root):
-        """원본 탐색(os.walk) 중 건너뛸 결과 폴더인지 — root: images 또는 labels 폴더"""
+        """원본 탐색(os.walk) 중 건너뛸 이전 버전 결과 폴더인지 — root: images 또는 labels 폴더"""
         if name == os.path.basename(parent) + DONE_SUFFIX:        # train/train_done
             return True
         if os.path.normpath(parent) == os.path.normpath(root):    # images/ 바로 아래
@@ -88,47 +85,45 @@ class StorageMixin:
             return False
 
     def ask_out_dir(self, pj):
-        """저장 위치를 사용자에게 고르게 한다. 원본 폴더 안은 거부. 취소하면 None"""
+        """[변경] 버튼용 — 결과 폴더를 고르게 한다. 데이터 폴더 안쪽은 거부, 취소하면 None"""
         src = os.path.abspath(pj["proj"])
-        # 선택 창 시작 위치: 지금 저장 위치 → 기본 저장 폴더 → 원본의 상위 폴더 순
         start = pj["out_dir"] or os.path.dirname(src)
         while True:
             d = filedialog.askdirectory(
-                title=f"[{pj['name']}] 저장 위치 선택 — images / labels / review / issues 폴더가 생성됩니다",
+                title=f"[{pj['name']}] 결과 폴더 선택 — 이 안에 data/, reviews/ 가 생성됩니다",
                 initialdir=start)
             if not d:
                 return None
             d = os.path.abspath(d)
-            # 데이터 폴더 자체(기본값)나 바깥은 가능, 데이터 폴더 '안쪽'(images, labels 등)은 불가
-            if d != src and self._is_inside(d, src):
-                messagebox.showwarning("저장 위치 오류",
-                                       f"데이터 폴더 안쪽(images, labels 등)은 고를 수 없습니다.\n"
-                                       f"데이터 폴더 자체 또는 바깥의 위치를 선택하세요.\n\n데이터 폴더: {src}")
+            if self._is_inside(d, src):
+                messagebox.showwarning("결과 폴더 오류",
+                                       f"원본 데이터 폴더 안에는 만들 수 없습니다.\n"
+                                       f"바깥의 위치를 선택하세요.\n\n원본: {src}")
                 continue
             return d
 
-    def out_subdirs(self, d, top):
-        """저장 위치 d 의 원본 하위 폴더 top 에 대해 만들 _done 폴더 목록"""
-        img_done = self.done_dir(d, "images", top)
-        lbl_done = self.done_dir(d, "labels", top)
-        subs = [os.path.join(img_done, DONE_IMG_FINAL), os.path.join(img_done, DONE_IMG_REVIEW),
-                os.path.join(img_done, DONE_IMG_PREVIEW),
-                os.path.join(lbl_done, DONE_LBL_YOLO), os.path.join(lbl_done, DONE_LBL_ISSUES)]
-        subs += [os.path.join(lbl_done, DONE_LBL_CSV, folder) for _, folder in STAGES]
+    @staticmethod
+    def out_subdirs(d):
+        """결과 폴더 d 아래에 만들 폴더 목록"""
+        locs = [RAW_DIR, ISSUES_DIR] + list(STAGE_DIRS.values())
+        subs = [os.path.join(d, *loc, sub) for loc in locs for sub in (IMG_SUB, TXT_SUB)]
+        subs.append(os.path.join(d, *CSV_DIR))
+        subs.append(os.path.join(d, MANIFEST_DIR))
         return subs
 
-    def set_out_dir(self, pj, d):
-        """저장 위치 확정 → 폴더 생성 + 그 위치에 이미 저장된 이미지 표시. 반환: 기존 저장본 수"""
+    def prepare_out_dir(self, pj, d=None):
+        """폴더를 열 때 호출 — 결과 폴더 구조를 채우고 원본을 raw 로 가져온다 (이미 있는 것은 그대로)"""
+        d = d or os.path.abspath(self.default_out_dir(pj))
         pj["out_dir"] = d
-        # 이 프로젝트 원본의 하위 폴더(train 등)마다 _done 폴더 생성
-        tops = {self.split_rel(self.rel_of(p))[0] for p, owner in self.proj_of.items() if owner is pj}
-        for top in tops:
-            for sub in self.out_subdirs(d, top):
-                os.makedirs(sub, exist_ok=True)
-            # 줄 번호 = 클래스 번호 (사용 안 하는 4번도 번호를 맞추기 위해 남겨 둠)
-            yolo_dir = os.path.join(self.done_dir(d, "labels", top), DONE_LBL_YOLO)
-            with open(os.path.join(yolo_dir, "classes.txt"), "w", encoding="utf-8") as f:
-                f.write("\n".join(CLASS_NAMES) + "\n")
+        for sub in self.out_subdirs(d):
+            os.makedirs(sub, exist_ok=True)
+        with open(os.path.join(d, "data", "classes.txt"), "w", encoding="utf-8") as f:
+            f.write("\n".join(CLASS_NAMES) + "\n")   # 줄 번호 = 클래스 번호 (4번도 번호 맞춤용으로 유지)
+        return self.import_raw(pj)
+
+    def set_out_dir(self, pj, d):
+        """결과 폴더 확정 → 폴더 생성 + 원본을 raw 로 가져오기 + 저장된 이미지 표시. 반환: 기존 저장본 수"""
+        self.prepare_out_dir(pj, d)
 
         cur = self.cur_path()
         n_saved = 0
@@ -136,7 +131,7 @@ class StorageMixin:
             if owner is not pj:
                 continue
             if not self.saved_stages(p):
-                self.done.discard(p)     # 위치를 바꾼 경우: 새 위치에 없는 이미지는 저장 표시 해제
+                self.done.discard(p)
                 continue
             n_saved += 1
             self.done.add(p)
@@ -154,8 +149,28 @@ class StorageMixin:
         self.update_out_dir_label()
         return n_saved
 
+    def import_raw(self, pj):
+        """아직 어느 단계에도 없는 원본 이미지를 data/raw 로 복사 (원본 라벨이 있으면 txt 도). 반환: 가져온 수"""
+        targets = [p for p, owner in self.proj_of.items() if owner is pj and self.location(p) is None]
+        for n, p in enumerate(targets, 1):
+            paths = self.out_paths(p)
+            img, txt = paths["raw"]
+            self.copy_if_needed(p, img)
+            raw = self.raw_label_path(p)
+            if raw:
+                os.makedirs(os.path.dirname(txt), exist_ok=True)
+                with open(raw, encoding="utf-8") as fi, open(txt, "w", encoding="utf-8") as fo:
+                    for line in fi:                       # 쉼표 csv → 공백 YOLO txt 로 통일
+                        v = line.replace(",", " ").split()
+                        if len(v) == 5:
+                            fo.write(" ".join(v) + "\n")
+            if n % 20 == 0 or n == len(targets):
+                self.status(f"원본을 raw 로 가져오는 중... {n} / {len(targets)}")
+                self.root.update_idletasks()
+        return len(targets)
+
     def ensure_out_dir(self, pj, for_save=True):
-        """저장 위치가 없으면 고르게 한다. 취소하면 False
+        """결과 폴더가 없으면 기본 위치(<데이터 폴더>_labeled)에 만든다
            for_save=False: 단계 보기에서 호출 — 현재 이미지 저장본은 묻지 않고 불러옴"""
         if pj["out_dir"]:
             return True
@@ -166,18 +181,19 @@ class StorageMixin:
             self.reload_current()
         elif p and self.P(p) is pj and self.saved_stages(p) and not messagebox.askyesno(
                 "덮어쓰기 확인",
-                "선택한 위치에 현재 이미지의 저장본이 이미 있습니다.\n"
+                "결과 폴더에 현재 이미지의 저장본이 이미 있습니다.\n"
                 "지금 화면의 박스로 저장할까요?\n\n(아니오: 저장을 취소하고 저장본을 불러옵니다)"):
             self.reload_current()
             return False
-        messagebox.showinfo("저장 위치 생성",
-                            f"저장 위치를 만들었습니다.\n\n{d}\n\n"
-                            f"images·labels 의 원본 폴더 아래 _done 폴더(예: train/train_done)가 생성되었고,\n"
-                            f"이후 이 작업의 저장은 모두 이 위치에 됩니다.")
+        messagebox.showinfo("결과 폴더 생성",
+                            f"결과 폴더를 만들었습니다.\n\n{d}\n\n"
+                            f"data/(raw, work/1차·2차, final, issues, csv), reviews/, manifests/ 를 준비했고\n"
+                            f"원본 이미지를 data/raw 로 가져왔습니다.\n"
+                            f"manifest: {self.manifest_path(pj)}")
         return True
 
     def change_out_dir(self):
-        """[변경] 버튼 — 기본 저장 위치 대신 다른 위치를 쓰고 싶을 때"""
+        """[변경] 버튼 — 기본 결과 폴더 대신 다른 위치를 쓰고 싶을 때"""
         p = self.cur_path()
         if not p:
             messagebox.showinfo("알림", "먼저 폴더를 열어 주세요.")
@@ -189,15 +205,15 @@ class StorageMixin:
         try:
             n = self.set_out_dir(pj, d)
         except OSError as e:
-            messagebox.showerror("저장 위치 오류", str(e))
+            messagebox.showerror("결과 폴더 오류", str(e))
             return
         if self.saved_stages(p) and messagebox.askyesno(
                 "저장본 불러오기",
                 "새 위치에 현재 이미지의 저장본이 있습니다.\n"
-                "저장본으로 화면을 바꿀까요?\n\n(아니오: 지금 화면 유지 — 저장하면 덮어씀)"):
+                "저장본으로 화면을 바꿀까요?\n\n(아니오: 지금 화면 유지 — 저장하면 그 내용으로 기록)"):
             self.reload_current()
-        self.apply_filter(keep=p)          # 단계 보기가 켜져 있으면 새 위치 기준으로 다시 분류
-        self.status(f"저장 위치 변경: {d}   (기존 저장본 {n}장)")
+        self.apply_filter(keep=p)
+        self.status(f"결과 폴더 변경: {d}   (기존 저장본 {n}장)")
 
     def reload_current(self):
         """현재 이미지를 저장본 기준으로 다시 읽어 화면 갱신"""
@@ -217,43 +233,66 @@ class StorageMixin:
             self.outDirLabel.config(text="저장 위치: -")
             return
         pj = self.P(p)
-        top = self.split_rel(self.rel_of(p))[0]
-        done = os.path.basename(self.done_dir("", "images", top))        # train_done
-        sub = f"images·labels/{top}/{done}" if top else f"images·labels/{done}"
         if pj["out_dir"]:
-            self.outDirLabel.config(text=f"저장 위치: {pj['out_dir']}\n→ {sub}")
+            self.outDirLabel.config(text=f"저장 위치: {pj['out_dir']}\n→ data/, reviews/, manifests/")
         else:
-            self.outDirLabel.config(text=f"저장 위치: {self.default_out_dir(pj)}\n→ {sub}  (첫 저장 때 생성)")
+            self.outDirLabel.config(text=f"저장 위치: {self.default_out_dir(pj)}\n(첫 저장 때 생성)")
 
-    # ── 경로 ──
+    # ── 경로 / 현재 위치 ──
     def out_paths(self, p):
         od = self.P(p)["out_dir"]
-        top, inner = self.split_rel(self.rel_of(p))      # 'train', 'a.jpg'
-        stem = os.path.splitext(inner)[0]
-        img_done = self.done_dir(od, "images", top)       # .../images/train/train_done
-        lbl_done = self.done_dir(od, "labels", top)       # .../labels/train/train_done
-        return {"csv": {st: os.path.join(lbl_done, DONE_LBL_CSV, folder, stem + ".csv")
-                        for st, folder in STAGES},
-                "yolo": os.path.join(lbl_done, DONE_LBL_YOLO, stem + ".txt"),
-                "image": os.path.join(img_done, DONE_IMG_FINAL, inner),
-                "review_img": os.path.join(img_done, DONE_IMG_REVIEW, inner),
-                "preview": os.path.join(img_done, DONE_IMG_PREVIEW, inner),
-                "issue_txt": os.path.join(lbl_done, DONE_LBL_ISSUES, stem + "_issue.txt")}
+        rel = self.rel_of(p)                          # 'train/a.jpg'
+        stem = os.path.splitext(rel)[0]
 
-    def saved_stages(self, p):
-        """이 이미지가 저장된 단계 목록 (저장 위치가 없으면 빈 목록)"""
+        def pair(loc):                                # (이미지 경로, YOLO txt 경로)
+            return (os.path.join(od, *loc, IMG_SUB, rel),
+                    os.path.join(od, *loc, TXT_SUB, stem + ".txt"))
+
+        return {"raw": pair(RAW_DIR),
+                "stage": {st: pair(loc) for st, loc in STAGE_DIRS.items()},
+                "issues": pair(ISSUES_DIR),
+                "issue_note": os.path.join(od, *ISSUES_DIR, TXT_SUB, stem + "_issue.txt"),
+                "csv": os.path.join(od, *CSV_DIR, stem + ".csv")}
+
+    def location(self, p):
+        """이 이미지가 지금 있는 단계: final / review / 2차 / 1차 / raw / None(아직 없음)"""
         if not self.P(p)["out_dir"]:
-            return []
-        csvs = self.out_paths(p)["csv"]
-        return [st for st, _ in STAGES if os.path.exists(csvs[st])]
+            return None
+        paths = self.out_paths(p)
+        for st in LOCATION_ORDER:
+            if os.path.exists(paths["stage"][st][0]):
+                return st
+        if os.path.exists(paths["raw"][0]):
+            return "raw"
+        return None
 
     def latest_stage(self, p):
-        """가장 최근에 저장한 단계 (파일 수정 시각 기준)"""
-        stages = self.saved_stages(p)
-        if not stages:
+        """현재 검수 단계 (raw 이거나 아직 없으면 빈 문자열)"""
+        loc = self.location(p)
+        return loc if loc in STAGE_DIRS else ""
+
+    def recorded_stage(self, p):
+        """이력 csv 에 마지막으로 기록된 단계 (기록이 없으면 빈 문자열)"""
+        if not self.P(p)["out_dir"]:
             return ""
-        csvs = self.out_paths(p)["csv"]
-        return max(stages, key=lambda st: os.path.getmtime(csvs[st]))
+        path = self.out_paths(p)["csv"]
+        if not os.path.exists(path):
+            return ""
+        last = ""
+        with open(path, encoding="utf-8-sig", newline="") as f:
+            for row in csv.DictReader(f):
+                last = row.get("stage", "") or ""
+        return last
+
+    def is_in_progress(self, p):
+        """작업 중(저장 전) — 지금 있는 단계 폴더와 마지막 기록 단계가 다르면 작업 중"""
+        loc = self.latest_stage(p)
+        return bool(loc) and self.recorded_stage(p) != loc
+
+    def saved_stages(self, p):
+        """저장된 단계 목록 — 현재 단계가 기록(csv)과 일치할 때만 (작업 중이면 빈 목록)"""
+        st = self.latest_stage(p)
+        return [st] if st and not self.is_in_progress(p) else []
 
     def raw_label_path(self, p):
         """원본(입력) 라벨 파일 찾기 — labels 폴더 색인 → 같은 위치의 csv/txt 순"""
@@ -273,7 +312,7 @@ class StorageMixin:
 
     # ── 읽기 ──
     def read_label_file(self, path):
-        """원본 라벨 읽기 — YOLO txt(공백) / 쉼표 5칸 csv"""
+        """라벨 읽기 — YOLO txt(공백) / 쉼표 5칸 csv"""
         boxes = []
         with open(path, encoding="utf-8") as f:
             for line in f:
@@ -285,49 +324,35 @@ class StorageMixin:
                         pass
         return boxes
 
-    def read_stage_csv(self, path):
-        """단계별 csv 읽기 (헤더 있음, 객체 없음 행은 건너뜀)"""
-        boxes = []
-        with open(path, encoding="utf-8-sig", newline="") as f:
+    @staticmethod
+    def last_issue_note(csv_path):
+        """이력 csv 의 마지막 저장분에 기록된 이슈 노트"""
+        if not os.path.exists(csv_path):
+            return ""
+        last = ""
+        with open(csv_path, encoding="utf-8-sig", newline="") as f:
             for row in csv.DictReader(f):
-                try:
-                    boxes.append(self.yolo_to_box(int(row["class_id"]),
-                                                  float(row["x_center"]), float(row["y_center"]),
-                                                  float(row["width"]), float(row["height"])))
-                except (KeyError, ValueError, TypeError):
-                    pass
-        return boxes
+                last = row.get("issue_note", "") or ""
+        return last
 
     def load_saved(self, p):
-        """→ (박스 리스트, 이슈 노트). 최근 단계 저장본이 있으면 저장본, 없으면 원본 라벨"""
-        raw = self.raw_label_path(p)
+        """→ (박스 리스트, 이슈 노트). 현재 단계 폴더의 txt → raw txt → 원본 라벨 순"""
         if not self.P(p)["out_dir"]:
+            raw = self.raw_label_path(p)
             return (self.read_label_file(raw) if raw else []), ""
         paths = self.out_paths(p)
-        st = self.latest_stage(p)
-        if st:
-            boxes = self.read_stage_csv(paths["csv"][st])
-            self.review_status.setdefault(p, st)
-        elif raw:
-            boxes = self.read_label_file(raw)
+        loc = self.location(p)
+        if loc in STAGE_DIRS:
+            txt = paths["stage"][loc][1]
+            self.review_status.setdefault(p, loc)
+        elif loc == "raw":
+            txt = paths["raw"][1]
         else:
-            boxes = []
+            txt = self.raw_label_path(p)
+        boxes = self.read_label_file(txt) if txt and os.path.exists(txt) else []
+        return boxes, self.last_issue_note(paths["csv"])
 
-        note = ""
-        if os.path.exists(paths["issue_txt"]):
-            in_note, lines = False, []
-            with open(paths["issue_txt"], encoding="utf-8") as f:
-                for line in f.read().splitlines():
-                    if in_note:
-                        lines.append(line)
-                    elif line.startswith("[이슈 내용]"):
-                        in_note = True
-                    elif line.startswith("작성자:") and not self.workerVar.get():
-                        self.workerVar.set(line.split(":", 1)[1].strip())
-            note = "\n".join(lines).strip()
-        return boxes, note
-
-    # ── 쓰기 ──
+    # ── 쓰기 도우미 ──
     @staticmethod
     def copy_if_needed(src, dst):
         os.makedirs(os.path.dirname(dst), exist_ok=True)
@@ -345,28 +370,49 @@ class StorageMixin:
         """라벨로 저장할 박스 — 클래스 미지정·이슈 박스 제외"""
         return [b for b in boxes if b["cls"] is not None and b["cls"] != ISSUE_ID]
 
-    def _meta(self, stage):
+    def _meta(self, stage, prev):
         w = self.workerInfo.get_data()
         r = self.reviewerInfo.get_data()
-        return {"stage": stage,
+        return {"stage": stage, "from": prev,
                 "worker_name": w["이름"], "worker_id": w["ID"],
                 "reviewer_name": r["이름"], "reviewer_id": r["ID"],
                 "saved_at": datetime.now().strftime("%Y-%m-%d %H:%M:%S")}
 
-    def _write_stage_csv(self, path, p, boxes, meta):
-        """단계별 csv — 박스 1개당 1행 + 작업 정보. 박스가 없으면 '객체 없음' 1행"""
+    @staticmethod
+    def _append_rows(path, header, rows):
+        """csv 에 행 추가 (파일이 없으면 헤더부터). 기존 줄은 건드리지 않음"""
         os.makedirs(os.path.dirname(path), exist_ok=True)
-        tail = [meta[k] for k in CSV_HEADER[7:]]
-        with open(path, "w", encoding="utf-8-sig", newline="") as f:   # utf-8-sig: 엑셀 한글 깨짐 방지
+        new = not os.path.exists(path)
+        with open(path, "a", encoding="utf-8-sig" if new else "utf-8", newline="") as f:
             wr = csv.writer(f)
-            wr.writerow(CSV_HEADER)
-            rows = self._label_boxes(boxes)
-            for b in rows:
-                xc, yc, w, h = self.box_to_yolo(b)
-                wr.writerow([self.rel_of(p), b["cls"], CLASS_NAMES[b["cls"]],
-                             f"{xc:.6f}", f"{yc:.6f}", f"{w:.6f}", f"{h:.6f}"] + tail)
-            if not rows:
-                wr.writerow([self.rel_of(p), "", "객체 없음", "", "", "", ""] + tail)
+            if new:
+                wr.writerow(header)
+            wr.writerows(rows)
+
+    def _append_history(self, path, p, boxes, meta, note):
+        """이미지별 이력 csv — 박스 1개당 1행, 박스가 없으면 '객체 없음' 1행"""
+        who = [meta["worker_name"], meta["worker_id"], meta["reviewer_name"], meta["reviewer_id"]]
+        head = [self.rel_of(p), meta["stage"], meta["from"]]
+        rows = []
+        for b in self._label_boxes(boxes):
+            xc, yc, w, h = self.box_to_yolo(b)
+            rows.append(head + [b["cls"], CLASS_NAMES[b["cls"]],
+                                f"{xc:.6f}", f"{yc:.6f}", f"{w:.6f}", f"{h:.6f}"]
+                        + who + [note, meta["saved_at"]])
+        if not rows:
+            rows.append(head + ["", "객체 없음", "", "", "", ""] + who + [note, meta["saved_at"]])
+        self._append_rows(path, CSV_HEADER, rows)
+
+    def _append_manifest(self, p, boxes, meta, note):
+        """전체 진행 대장 — 이미지 1장당 1행 추가"""
+        pj = self.P(p)
+        parts = self.rel_of(p).split(os.sep)
+        split = parts[0] if len(parts) > 1 else ""
+        scene = parts[1] if len(parts) > 2 else ""
+        row = [os.path.basename(p), pj["name"], split, scene, meta["stage"], meta["from"],
+               len(self._label_boxes(boxes)), meta["worker_name"], meta["worker_id"],
+               meta["reviewer_name"], meta["reviewer_id"], "Y" if note else "", meta["saved_at"]]
+        self._append_rows(self.manifest_path(pj), MANIFEST_HEADER, [row])
 
     def _write_yolo(self, path, boxes):
         """YOLO 학습용 txt — 'cls xc yc w h' (공백 구분)"""
@@ -381,14 +427,13 @@ class StorageMixin:
         im = self.img.copy()                       # 화면용 원본(RGB) 사본에 그림 — 원본 파일은 그대로
         draw = ImageDraw.Draw(im)
         short = min(im.size)
-        lw = max(2, round(short / 300))            # 이미지 크기에 맞춘 선 굵기
+        lw = max(2, round(short / 300))
         font, korean = preview_font(max(14, round(short / 35)))
         pad = max(2, lw)
         for b in self._label_boxes(boxes):
             color = COLORS[b["cls"] % len(COLORS)]
             x1, y1, x2, y2 = b["x1"], b["y1"], b["x2"], b["y2"]
             draw.rectangle((x1, y1, x2, y2), outline=color, width=lw)
-
             text = f"{b['cls']}: {CLASS_NAMES[b['cls']]}" if korean else str(b["cls"])
             l, t, r, btm = draw.textbbox((0, 0), text, font=font)
             tw, th = r - l, btm - t
@@ -399,24 +444,43 @@ class StorageMixin:
             draw.text((x1 + pad - l, ty + pad - t), text, fill="white", font=font)
         im.save(path)
 
-    def _save_issue(self, p, path, meta):
-        """이슈 노트가 있으면 issues/ 에 txt 저장, 비어 있으면 기존 txt 삭제"""
-        note = self.notes.get(p, "").strip()
-        if not note:
-            self.remove_if_exists(path)
-            return
-        os.makedirs(os.path.dirname(path), exist_ok=True)
-        with open(path, "w", encoding="utf-8") as f:
-            f.write(f"이미지: {self.disp(p)}\n")
-            f.write(f"원본 경로: {p}\n")
-            f.write(f"단계: {meta['stage']}\n")
+    def _append_issue(self, p, paths, boxes, meta, note):
+        """이슈: 이미지·라벨 사본을 issues 에 두고, 이슈 기록 txt 에는 내용을 덧붙이기만 함"""
+        img, txt = paths["issues"]
+        self.copy_if_needed(p, img)
+        self._write_yolo(txt, boxes)
+        with open(paths["issue_note"], "a", encoding="utf-8") as f:
+            f.write(f"===== {meta['saved_at']}  단계: {meta['stage']}  (이전: {meta['from']})\n")
             f.write(f"작성자: {self.workerVar.get().strip()}\n")
             f.write(f"작업자: {meta['worker_name']} ({meta['worker_id']})\n")
             f.write(f"검수자: {meta['reviewer_name']} ({meta['reviewer_id']})\n")
-            f.write(f"저장시각: {meta['saved_at']}\n")
-            f.write("[이슈 내용]\n")
-            f.write(note + "\n")
+            f.write(f"이미지: {self.disp(p)}\n")
+            f.write("[이슈 내용]\n" + note + "\n\n")
 
+    # ── 작업 중 자동 저장 (기록 없이 work 의 txt 만 갱신) ──
+    def autosave_work(self):
+        """편집할 때마다 호출 — raw(또는 미반입) 이미지는 work/1차 로 옮기고 txt 에 현재 박스를 바로 씀.
+           review·final 에 있는 이미지는 승인 기록을 건드리지 않도록 자동 저장하지 않음([저장] 때 반영)"""
+        p = self.cur_path()
+        if not p or not self.img or not self.P(p)["out_dir"]:
+            return
+        loc = self.location(p)
+        if loc in ("review", "final"):
+            return
+        paths = self.out_paths(p)
+        try:
+            if loc in (None, "raw"):                 # 작업 시작 → raw 에서 work/1차 로 이동
+                img, txt = paths["stage"][WORK_START]
+                self.copy_if_needed(p, img)
+                self.remove_if_exists(paths["raw"][0])
+                self.remove_if_exists(paths["raw"][1])
+                loc = WORK_START
+                self.status(f"작업 시작: {self.disp(p)} → work/{WORK_START} (편집 내용 자동 저장)")
+            self._write_yolo(paths["stage"][loc][1], self.cur_boxes())
+        except OSError as e:
+            self.status(f"자동 저장 실패: {e}")
+
+    # ── 저장 ──
     def save(self):
         p = self.cur_path()
         if not p or not self.img:
@@ -435,7 +499,7 @@ class StorageMixin:
             return False
 
         try:
-            if not self.ensure_out_dir(self.P(p)):      # 저장 위치가 없으면 여기서 선택
+            if not self.ensure_out_dir(self.P(p)):      # 결과 폴더가 없으면 여기서 생성
                 return False
 
             # 2) 사용하지 않는 4번 클래스 박스 처리
@@ -450,31 +514,34 @@ class StorageMixin:
                     return False
                 boxes[:] = [b for b in boxes if b["cls"] != UNUSED_CLASS]
 
-            # 3) 단계 기록 (csv) — 현재 단계 폴더로 '이동': 다른 단계 폴더의 csv 는 지움
             paths = self.out_paths(p)
-            meta = self._meta(stage)
-            self._write_stage_csv(paths["csv"][stage], p, boxes, meta)
-            for st, _ in STAGES:
+            prev = self.recorded_stage(p) or "raw"      # 작업 중(work/1차)이어도 기록상 이전 단계
+            meta = self._meta(stage, prev)
+            note = self.notes.get(p, "").strip()
+
+            # 3) 기록 — 이미지별 이력 csv 에 추가 (1차 검수자 기록 등 이전 줄은 그대로)
+            self._append_history(paths["csv"], p, boxes, meta, note)
+
+            # 4) 이동 — 이전 위치(raw 포함)의 img·txt 를 치우고 이번 단계 폴더에 둠
+            for st, (img, txt) in paths["stage"].items():
                 if st != stage:
-                    self.remove_if_exists(paths["csv"][st])
-
-            # 4) 단계별 결과물 — 현재 단계에 맞는 것만 남김
-            if stage == "final":            # 승인 → 학습용 라벨 + 이미지
-                self._write_yolo(paths["yolo"], boxes)
-                self.copy_if_needed(p, paths["image"])
-            else:                           # final 이 아니면 학습용에서 제외 (승인 취소 포함)
-                self.remove_if_exists(paths["yolo"])
-                self.remove_if_exists(paths["image"])
-            if stage == "review":           # 재작업 필요 → review 폴더로
-                self.copy_if_needed(p, paths["review_img"])
+                    self.remove_if_exists(img)
+                    self.remove_if_exists(txt)
+            self.remove_if_exists(paths["raw"][0])
+            self.remove_if_exists(paths["raw"][1])
+            img, txt = paths["stage"][stage]
+            if stage == "review":
+                self._write_preview(img, boxes)          # 검수용: 박스를 그려 넣은 이미지
             else:
-                self.remove_if_exists(paths["review_img"])
+                self.copy_if_needed(p, img)              # 그 외: 원본 그대로 (학습용)
+            self._write_yolo(txt, boxes)
 
-            # 5) 확인용 이미지 (박스 + 클래스 이름)
-            self._write_preview(paths["preview"], boxes)
+            # 5) 이슈 노트가 있으면 issues 에 추가
+            if note:
+                self._append_issue(p, paths, boxes, meta, note)
 
-            # 6) 이슈 노트
-            self._save_issue(p, paths["issue_txt"], meta)
+            # 6) 전체 진행 대장에 추가
+            self._append_manifest(p, boxes, meta, note)
         except OSError as e:
             messagebox.showerror("저장 오류", str(e))
             return False
@@ -490,7 +557,7 @@ class StorageMixin:
         self.done.add(p)
         self.imageList.itemconfig(self.idx, fg=DONE_LIST_COLOR)
         self.update_stage_counts()
-        self.status(f"저장 완료 [{stage}]: {self.disp(p)}")
+        self.status(f"저장 완료 [{prev} → {stage}]: {self.disp(p)}")
         return True
 
     def save_and_next(self):

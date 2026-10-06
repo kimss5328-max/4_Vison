@@ -1,8 +1,8 @@
-"""마우스로 박스 그리기·선택·크기조절 / 클래스 지정 / 삭제 / 크기 정보 패널"""
+"""마우스로 박스 그리기·선택·크기조절 / 휠 확대·축소 / 클래스 지정 / 삭제 / 크기 정보 패널"""
 from tkinter import messagebox
 
-from src.config import (CLASS_NAMES, CLASS_IDS, ISSUE_ID, PENDING_COLOR,
-                    HANDLE_R, SHIFT, CTRL)
+from src.config import (CLASS_IDS, ISSUE_ID, PENDING_COLOR,
+                    HANDLE_R, SHIFT, CTRL, WHEEL_STEP)
 
 
 class EditMixin:
@@ -125,6 +125,7 @@ class EditMixin:
             self.redraw_boxes()
             self.refresh_info()
             self.status("크기 조절 완료")
+            self.autosave_work()             # 작업 중 자동 저장
             return
 
         if mode in ("draw", "zoomsel"):
@@ -162,6 +163,17 @@ class EditMixin:
             self.redraw_boxes()
             self.refresh_info()
 
+    # ── 마우스 휠 확대·축소 ──
+    def on_wheel(self, e):
+        """휠 위로 = 확대, 아래로 = 축소 (마우스 포인터 위치를 중심으로)
+           Windows·macOS: <MouseWheel> 이벤트의 delta 부호로 방향 판단
+           리눅스(WSL)  : <Button-4> = 위, <Button-5> = 아래"""
+        if not self.img or self.mode:          # 박스를 그리거나 이동하는 중에는 무시
+            return "break"
+        up = getattr(e, "num", None) == 4 or getattr(e, "delta", 0) > 0
+        self.zoom_at(WHEEL_STEP if up else 1 / WHEEL_STEP, e.x, e.y)
+        return "break"
+
     def on_escape(self, _=None):
         if self.zoom_mode:
             self.set_zoom_mode(False)
@@ -189,6 +201,7 @@ class EditMixin:
         self.redraw_boxes()
         self.refresh_info()
         self.imageCanvas.focus_set()
+        self.autosave_work()                 # 박스 확정·클래스 변경 → 작업 중 자동 저장
 
     def discard_pending(self, silent=False):
         if not self.pending:
@@ -224,6 +237,7 @@ class EditMixin:
         self.redraw_boxes()
         self.refresh_info()
         self.status(f"박스 {n}개 삭제됨")
+        self.autosave_work()                 # 삭제 → 작업 중 자동 저장
 
     # ── 크기 정보 패널 ──
     def refresh_info(self):
