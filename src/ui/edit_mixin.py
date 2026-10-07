@@ -1,8 +1,8 @@
-"""마우스로 박스 그리기·선택·크기조절 / 클래스 지정 / 삭제 / 크기 정보 패널"""
+"""마우스로 박스 그리기·선택·크기조절 / 휠 확대·축소 / 클래스 지정 / 삭제 / 크기 정보 패널"""
 from tkinter import messagebox
 
-from src.config import (CLASS_NAMES, ISSUE_ID, UNUSED_CLASS, PENDING_COLOR,
-                    HANDLE_R, SHIFT, CTRL)
+from src.config import (CLASS_IDS, ISSUE_ID, PENDING_COLOR,
+                    HANDLE_R, SHIFT, CTRL, WHEEL_STEP)
 
 
 class EditMixin:
@@ -125,6 +125,7 @@ class EditMixin:
             self.redraw_boxes()
             self.refresh_info()
             self.status("크기 조절 완료")
+            self.autosave_work()             # 작업 중 자동 저장
             return
 
         if mode in ("draw", "zoomsel"):
@@ -157,13 +158,21 @@ class EditMixin:
             b = self.hit_test(e.x, e.y)
             self.selected = [b] if b else []
             self.classList.selection_clear(0, "end")
-            if b and b["cls"] is not None:
-                # [수정] 화면 리스트박스 매핑된 인덱스를 찾아 선택
-                if hasattr(self, 'listbox_to_cls') and b["cls"] in self.listbox_to_cls:
-                    i = self.listbox_to_cls.index(b["cls"])
-                    self.classList.selection_set(i)
+            if b and b["cls"] in CLASS_IDS:
+                self.classList.selection_set(CLASS_IDS.index(b["cls"]))
             self.redraw_boxes()
             self.refresh_info()
+
+    # ── 마우스 휠 확대·축소 ──
+    def on_wheel(self, e):
+        """휠 위로 = 확대, 아래로 = 축소 (마우스 포인터 위치를 중심으로)
+           Windows·macOS: <MouseWheel> 이벤트의 delta 부호로 방향 판단
+           리눅스(WSL)  : <Button-4> = 위, <Button-5> = 아래"""
+        if not self.img or self.mode:          # 박스를 그리거나 이동하는 중에는 무시
+            return "break"
+        up = getattr(e, "num", None) == 4 or getattr(e, "delta", 0) > 0
+        self.zoom_at(WHEEL_STEP if up else 1 / WHEEL_STEP, e.x, e.y)
+        return "break"
 
     def on_escape(self, _=None):
         if self.zoom_mode:
@@ -177,11 +186,7 @@ class EditMixin:
         sel = self.classList.curselection()
         if not sel or not self.img:
             return
-        
-        # [수정] 숨겨진 4번 때문에 밀린 인덱스를 실제 클래스 번호로 매핑하여 사용
-        vis_idx = sel[0]
-        cls = self.listbox_to_cls[vis_idx]
-        
+        cls = CLASS_IDS[sel[0]]           # 목록 줄 번호 → 실제 클래스 번호
         if self.pending:
             self.pending["cls"] = cls
             self.pending = None
@@ -196,6 +201,7 @@ class EditMixin:
         self.redraw_boxes()
         self.refresh_info()
         self.imageCanvas.focus_set()
+        self.autosave_work()                 # 박스 확정·클래스 변경 → 작업 중 자동 저장
 
     def discard_pending(self, silent=False):
         if not self.pending:
@@ -231,6 +237,7 @@ class EditMixin:
         self.redraw_boxes()
         self.refresh_info()
         self.status(f"박스 {n}개 삭제됨")
+        self.autosave_work()                 # 삭제 → 작업 중 자동 저장
 
     # ── 크기 정보 패널 ──
     def refresh_info(self):
