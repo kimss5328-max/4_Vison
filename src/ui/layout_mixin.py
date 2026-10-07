@@ -3,8 +3,9 @@ import tkinter as tk
 from tkinter import ttk
 
 from src.config import (COLORS, LOCKED_CLASS_COLOR, STAGES, STAGE_FILTERS, DEFAULT_CONF,
+                        SCENE_TYPES, REVIEW_REASONS,
                     FONT, FONT_B, FONT_S)
-from src.ui.panels import PersonPanel, ReviewPanel, HistoryPanel
+from src.ui.panels import PersonPanel, ReviewPanel, HistoryPanel, ScenePanel
 from src.bbox.workflow import people_labels
 from src.validation.rules import list_ids, display_name, is_selectable
 
@@ -240,6 +241,10 @@ class LayoutMixin:
         self.personPanel = PersonPanel(left, "작업자 정보", people_labels(),
                                        on_change=self.update_review_buttons)
         self.personPanel.pack(side="top", fill="x", pady=(6, 0))
+
+        # ③ Scene Type / REVIEW 사유 → manifest (저장 시 유형 필수, review 로 보낼 때 사유 필수)
+        self.scenePanel = ScenePanel(left, SCENE_TYPES, REVIEW_REASONS)
+        self.scenePanel.pack(side="top", fill="x", pady=(6, 0))
 
         # 오른쪽 절반: 이슈 노트
         lf_issue = tk.LabelFrame(lower, text="이슈 노트", font=FONT_B)

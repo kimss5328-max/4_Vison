@@ -83,6 +83,7 @@ class NavigationMixin:
         self.render()
         self.issueNote.delete("1.0", "end")
         self.reviewPanel.set_state("")
+        self.scenePanel.set_values("", "")
         self.refresh_workflow()
         self.refresh_info()
 
@@ -125,6 +126,9 @@ class NavigationMixin:
         self.issueNote.see("end")                   # 이슈 기록이 길면 맨 아래(최근 기록·입력 위치)를 보여줌
         # 검수 상태 선택지·작업 이력·수정 권한 (현재 위치 + 이력 csv 기준)
         self.refresh_workflow()
+        # Scene Type / REVIEW 사유 — 이 이미지의 manifest 값 (없으면 빈칸 → 이전 이미지 값이 남지 않음)
+        row = self.manifest_row(p) or {}
+        self.scenePanel.set_values(row.get("scene_type", ""), row.get("review_reason", ""))
 
         self.imageList.selection_clear(0, "end")
         self.imageList.selection_set(i)

@@ -1,4 +1,4 @@
-"""독립 위젯 패널 — 작업자 선택 / 검수 상태 / 작업 이력"""
+"""독립 위젯 패널 — 작업자 선택 / 검수 상태 / Scene Type·REVIEW 사유 / 작업 이력"""
 import tkinter as tk
 from tkinter import ttk
 
@@ -86,3 +86,33 @@ class HistoryPanel(tk.LabelFrame):
         t.insert("end", "\n".join(log) if log else "(이동 기록 없음)")
         t.config(state="disabled")
         t.see("end")
+
+
+class ScenePanel(tk.LabelFrame):
+    """Scene Type(이미지 유형)·REVIEW 사유 선택 — 목록에서 고르기만 (오타 방지). 값은 manifest 에 기록
+       scenes: ((기록값, 설명), ...), reasons: (기록값, ...)"""
+
+    def __init__(self, parent, scenes, reasons):
+        super().__init__(parent, text="Scene Type / REVIEW 사유", font=FONT_B)
+        self.columnconfigure(1, weight=1)
+        self._scene_of = {f"{k} ({d})": k for k, d in scenes}     # 표시 글자 → 기록값
+        self._label_of = {k: lbl for lbl, k in self._scene_of.items()}
+        self.scene_var = tk.StringVar()
+        self.reason_var = tk.StringVar()
+        tk.Label(self, text="유형", font=FONT_S, anchor="w").grid(row=0, column=0, sticky="w", padx=(4, 2))
+        ttk.Combobox(self, textvariable=self.scene_var, values=list(self._scene_of),
+                     state="readonly", font=FONT_S, width=1).grid(row=0, column=1, sticky="ew", padx=(0, 4), pady=(2, 1))
+        tk.Label(self, text="사유", font=FONT_S, anchor="w").grid(row=1, column=0, sticky="w", padx=(4, 2))
+        ttk.Combobox(self, textvariable=self.reason_var, values=list(reasons),
+                     state="readonly", font=FONT_S, width=1).grid(row=1, column=1, sticky="ew", padx=(0, 4), pady=(1, 4))
+
+    def get_scene(self):
+        return self._scene_of.get(self.scene_var.get(), "")
+
+    def get_reason(self):
+        return self.reason_var.get()
+
+    def set_values(self, scene, reason):
+        """이미지를 열 때 manifest 값으로 채움 (없으면 빈칸)"""
+        self.scene_var.set(self._label_of.get(scene, ""))
+        self.reason_var.set(reason or "")

@@ -6,33 +6,66 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))   # 프�
 PICK_START_DIR = os.path.expanduser("~/exe_01")          # 이미지 폴더 선택 창의 시작 위치
 SETTINGS_PATH = os.path.expanduser("~/.labeling_tool_config.json")   # 마지막 폴더 기억 (저장소 밖)
 
-# 결과 구조 — (상위, 하위, ...) 튜플은 BASE_DIR(visol04) 기준 경로
+# 결과 구조 — 데이터셋마다 결과 폴더를 따로 만듦 (원본은 고른 경로의 images·labels 에서 읽기만)
 #   visol04/
-#   ├── data/                    (원본은 고른 경로의 images·labels 에서 읽기만 — 저장할 때 그 이미지만 복사)
-#   │   ├── work/                작업자가 보낸 결과
-#   │   │   ├── pass/     img, txt   딥러닝 결과 그대로 문제없음
-#   │   │   ├── edited/   img, txt   추가·수정함
-#   │   │   └── review/   img, txt   검수자에게 판단 요청 (+ preview/ 박스를 그려 넣은 확인용 이미지)
-#   │   ├── view/     img, txt   검수자 → 작업자: 재작업 요청
-#   │   ├── final/    img, txt   검수자: 최종 승인 → 학습용
-#   │   ├── working/  txt        편집했지만 아직 [저장] 안 한 박스 (임시, 저장하면 지워짐)
-#   │   ├── issues/   img, txt   이슈 노트에 글자를 적어 저장한 이미지 사본 + 이슈 기록 <이미지>_issue.txt (추가만)
-#   │   ├── csv/                 이미지별 이력 csv (추가만)
-#   │   └── classes.txt
-#   └── manifests/dataset_manifest.csv   전체 진행 대장 (추가만)
+#   ├── result/
+#   │   ├── dataset1_result/          ← <데이터셋 이름(DATASET_NAMES)>_result
+#   │   │   ├── work/                 작업자가 보낸 결과
+#   │   │   │   ├── pass/    img, txt   딥러닝 결과 그대로 문제없음
+#   │   │   │   ├── edited/  img, txt   추가·수정함
+#   │   │   │   └── review/  img, txt   검수자에게 판단 요청 (+ preview/ 박스를 그려 넣은 확인용 이미지)
+#   │   │   ├── view/        img, txt   검수자 → 작업자: 재작업 요청
+#   │   │   ├── final/       img, txt   검수자: 최종 승인 → 학습용
+#   │   │   ├── working/     txt        편집했지만 아직 [저장] 안 한 박스 (임시, 저장하면 지워짐)
+#   │   │   ├── issues/      img, txt   이슈 노트에 글자를 적어 저장한 이미지 사본 + <이미지>_issue.txt (추가만)
+#   │   │   ├── csv/                    이미지별 이력 csv (추가만)
+#   │   │   └── classes.txt
+#   │   └── dataset2_result/ …
+#   └── manifests/dataset_manifest.csv  데이터 대장 (모든 데이터셋 1개 파일, source_dataset 으로 구분)
+#   img·txt 아래는 원본 images 폴더 구조 그대로 — 예) result/dataset1_result/work/pass/img/train/a.jpg
+RESULT_DIR = "result"            # visol04/result
+RESULT_SUFFIX = "_result"        # dataset1 → dataset1_result
 IMG_SUB, TXT_SUB = "img", "txt"
 PREVIEW_SUB = "preview"          # review/preview — 확인용 이미지
-WORKING_DIR = ("data", "working")
-ISSUES_DIR = ("data", "issues")
-CSV_DIR = ("data", "csv")
-STAGE_DIRS = {"pass": ("data", "work", "pass"),
-              "edited": ("data", "work", "edited"),
-              "review": ("data", "work", "review"),
-              "view": ("data", "view"),
-              "final": ("data", "final")}
+# 아래 튜플은 결과 폴더(<데이터셋>_result) 기준 경로
+WORKING_DIR = ("working",)
+ISSUES_DIR = ("issues",)
+CSV_DIR = ("csv",)
+STAGE_DIRS = {"pass": ("work", "pass"),
+              "edited": ("work", "edited"),
+              "review": ("work", "review"),
+              "view": ("view",),
+              "final": ("final",)}
 PREVIEW_STAGES = ("review",)     # 이 단계에 저장할 때 preview/ 확인용 이미지도 만듦
 MANIFEST_DIR = "manifests"
 MANIFEST_FILE = "dataset_manifest.csv"
+
+# ── 데이터 대장(manifest) — 이미지 1장당 1행, 저장할 때마다 그 행을 최신 값으로 덮어씀 ──
+#   이력(누가·언제·어디로)은 result/<데이터셋>_result/csv/<이미지>.csv 에 따로 쌓임. manifest 는 '현재 상태' 결과표
+MANIFEST_HEADER = ["file_name", "source_dataset", "original_split", "scene_type",
+                   "worker", "status", "qa_status", "review_reason"]
+# 저장 단계 → (status, qa_status).  view 는 표에 없음 → status 는 직전 값 유지, qa_status = WAIT
+STAGE_STATUS = {"pass": ("DONE", "WAIT"),
+                "edited": ("EDITED", "WAIT"),
+                "review": ("REVIEW", "WAIT"),
+                "final": ("FINAL", "PASS")}
+QA_WAIT = "WAIT"
+# source_dataset — 데이터셋 폴더(images·labels 를 담은 폴더) 이름 → manifest 에 적을 이름
+#   표에 없는 데이터셋은 폴더 이름 그대로 기록하고, 폴더를 열 때 알림. 새 데이터셋은 여기에 한 줄 추가
+DATASET_NAMES = {
+    "이물검출_학습데이터1": "dataset1",
+    "이물검출_학습데이터2": "dataset2",
+}
+# original_split — 이미지가 들어 있는 폴더 경로에서 찾음 (왼쪽: 폴더 이름, 오른쪽: 기록값)
+SPLIT_NAMES = {"train": "train", "validation": "validation", "val": "validation", "valid": "validation"}
+# scene_type — (기록값, 화면 설명)
+SCENE_TYPES = (("kimchi_with_target", "김치 + 검출 대상 객체"),
+               ("normal_kimchi", "정상 김치"),
+               ("object_only", "검출 대상 객체 단독"),
+               ("other_review", "바로 구분하기 어려움"))
+# review_reason — REVIEW 로 저장할 때 필수. 한 번 기록되면 지우지 않고 새로 고를 때만 바뀜
+REVIEW_REASONS = ("class_ambiguous", "bbox_boundary_ambiguous", "object_unclear",
+                  "empty_label_check", "other")
 
 # 이전 버전 결과 폴더 — 원본 목록에 섞이지 않게 탐색에서 제외
 DONE_SUFFIX = "_done"            # train/train_done

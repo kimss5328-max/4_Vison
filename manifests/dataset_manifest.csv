@@ -1,17 +1,3 @@
-﻿file_name,source_dataset,original_split,scene_type,stage,from,boxes,worker_name,worker_id,reviewer_name,reviewer_id,issue,saved_at
-250410_144403911987.jpg,train,,,edited,raw,6,,,2,2,,2026-10-07 14:35:50
-250410_144449962356.jpg,train,,,edited,raw,5,4,4,,,Y,2026-10-07 14:36:18
-250410_144834943618.jpg,train,,,review,raw,5,4,4,,,Y,2026-10-07 14:36:29
-250410_145804344533.jpg,train,,,pass,raw,5,4,4,,,,2026-10-07 14:37:36
-250410_150306918269.jpg,train,,,pass,raw,5,4,4,,,,2026-10-07 14:37:58
-250410_150808416709.jpg,train,,,pass,raw,5,4,4,,,Y,2026-10-07 14:38:26
-250410_151139983231.jpg,train,,,pass,raw,5,4,4,,,,2026-10-07 14:39:04
-250410_151231944374.jpg,train,,,edited,raw,5,4,4,,,,2026-10-07 14:39:11
-250410_151304603268.jpg,train,,,pass,raw,5,4,4,,,,2026-10-07 14:39:11
-250410_151341801257.jpg,train,,,edited,raw,5,4,4,,,,2026-10-07 14:39:13
-250410_151431800368.jpg,train,,,edited,raw,5,4,4,,,Y,2026-10-07 14:39:17
-250410_151504600233.jpg,train,,,review,raw,5,4,4,,,,2026-10-07 14:39:46
-250410_151546165963.jpg,train,,,review,raw,5,4,4,,,Y,2026-10-07 14:39:49
-250410_144449962356.jpg,visol04,backup,reset_20261007_114024,pass,원본,0,,,1,1,Y,2026-10-07 15:22:58
-250410_144449962356.jpg,visol04,backup,reset_20261007_114024,final,pass,0,,,1,1,,2026-10-07 15:23:07
-250410_144449962356.jpg,이물검출_학습데이터1,train,,edited,원본,5,,,2,2,,2026-10-07 15:56:08
+﻿file_name,source_dataset,original_split,scene_type,worker,status,qa_status,review_reason
+250424_152218486902.jpg,dataset1,train,kimchi_with_target,2,EDITED,WAIT,object_unclear
+250424_152301409922.jpg,dataset2,train,normal_kimchi,2,DONE,WAIT,empty_label_check

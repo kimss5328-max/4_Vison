@@ -6,8 +6,9 @@ import threading
 from tkinter import filedialog, messagebox
 
 from src.config import (IMG_EXTS, AUTO_LIST_COLOR, DONE_LIST_COLOR, STAGE_FILTERS,
-                        PICK_START_DIR, SETTINGS_PATH, BASE_DIR)
+                        PICK_START_DIR, SETTINGS_PATH, BASE_DIR, DATASET_NAMES)
 from src.validation.auto_validator import run_validation, summarize, print_console
+from src.bbox.manifest import split_of
 
 # 프로그램 폴더(visol04) 전체 — 원본으로 열 수 없고, 상위 폴더를 열어도 탐색에서 통째로 제외
 #   (안에 data 결과, backup 사본, venv 등이 있어 원본처럼 읽히면 안 됨)
@@ -21,7 +22,9 @@ class FolderMixin:
         return self.proj_of[p]
 
     def rel_of(self, p):
-        return os.path.relpath(p, self.P(p)["img_root"])
+        """기록·저장에 쓰는 이미지 경로 — 항상 images 폴더 기준 (예: 'train/a.jpg')
+           데이터셋 폴더를 열든 images/train 을 직접 열든 같은 값 → 이력·단계 폴더가 나뉘지 않음"""
+        return os.path.relpath(p, self.P(p)["img_base"])
 
     def disp(self, p):
         """화면 표시용 이름 (프로젝트가 2개 이상이면 프로젝트명 포함)"""
@@ -77,18 +80,26 @@ class FolderMixin:
                 or self.is_result_path(os.path.join(parent, name)))
 
     @staticmethod
-    def label_root_of(proj, img_root):
-        """원본 라벨 폴더 찾기
-           - 프로젝트 폴더를 연 경우: <프로젝트>/labels
-           - images 안쪽 폴더를 직접 연 경우(예: images/train): 같은 위치의 labels/train"""
-        if img_root != proj:
-            return os.path.join(proj, "labels")
+    def bases_of(proj, img_root):
+        """연 폴더 → (데이터셋 폴더, images 기준 폴더, 읽을 labels 폴더, labels 기준 폴더)
+           - 데이터셋 폴더를 연 경우      : 데이터셋/images, 데이터셋/labels
+           - images/train 을 직접 연 경우 : 기준은 위쪽 images·labels, 읽는 곳은 labels/train
+           - images 구조가 없는 폴더      : 연 폴더 자체 (라벨 폴더 없음)"""
+        if img_root != proj:                                     # 데이터셋 폴더(또는 images 폴더)를 연 경우
+            lbl = os.path.join(proj, "labels")
+            lbl = lbl if os.path.isdir(lbl) else None
+            return proj, img_root, lbl, lbl
         parts = os.path.normpath(img_root).split(os.sep)
         for i in range(len(parts) - 1, -1, -1):
-            if parts[i].lower() == "images":
-                cand = os.sep.join(parts[:i] + ["labels"] + parts[i + 1:])
-                return cand if os.path.isdir(cand) else None
-        return None
+            if parts[i].lower() == "images":                     # .../데이터셋/images/train
+                dataset = os.sep.join(parts[:i]) or os.sep
+                img_base = os.sep.join(parts[:i + 1])
+                lbl_base = os.path.join(dataset, "labels")
+                lbl_root = os.sep.join(parts[:i] + ["labels"] + parts[i + 1:])
+                if not os.path.isdir(lbl_root):
+                    lbl_root = lbl_base = None
+                return dataset, img_base, lbl_root, lbl_base
+        return img_root, img_root, None, None
 
     # ── 마지막 폴더 기억 (프로그램 폴더 밖 ~/.labeling_tool_config.json) ──
     @staticmethod
@@ -164,8 +175,11 @@ class FolderMixin:
             if name in used:
                 name += f"({len(used)})"
             used.add(name)
-            lbl_root = self.label_root_of(proj, img_root)
+            dataset_dir, img_base, lbl_root, lbl_base = self.bases_of(proj, img_root)
+            folder = os.path.basename(os.path.normpath(dataset_dir))
             pj = {"proj": proj, "img_root": img_root, "name": name, "lbl_root": lbl_root,
+                  "img_base": img_base, "lbl_base": lbl_base,
+                  "dataset_folder": folder, "dataset": DATASET_NAMES.get(folder, folder),
                   "out_dir": None, "by_rel": {}, "by_name": {}}
             if lbl_root:
                 for dp, dirs, files in os.walk(lbl_root):
@@ -174,7 +188,7 @@ class FolderMixin:
                     for f in files:
                         if f.lower().endswith((".txt", ".csv")):   # txt / csv 모두 인식
                             q = os.path.join(dp, f)
-                            rel = os.path.splitext(os.path.relpath(q, lbl_root))[0]
+                            rel = os.path.splitext(os.path.relpath(q, lbl_base))[0]   # 'train/a' 
                             pj["by_rel"][rel] = q
                             pj["by_name"].setdefault(os.path.splitext(f)[0], q)
             projects.append(pj)      # out_dir(저장 위치)는 아래에서 기존 저장본이 있으면 연결, 없으면 첫 저장 때 정함
@@ -227,7 +241,28 @@ class FolderMixin:
         self.idx = -1
         self.load_folder("__all__", keep=auto_last_img)
         self.remember_folder()
+        self.check_splits()
         self.start_validation()
+
+    def check_splits(self):
+        """폴더를 열 때 한 번 — 이름 표에 없는 데이터셋 / train·validation 밖의 이미지 알림"""
+        unmapped = sorted({pj["dataset_folder"] for pj in self.projects
+                           if pj["dataset_folder"] not in DATASET_NAMES})
+        if unmapped:
+            messagebox.showwarning(
+                "source_dataset 확인 필요",
+                "데이터셋 이름 표(config.DATASET_NAMES)에 없는 폴더입니다.\n"
+                "manifest 의 source_dataset 에 폴더 이름이 그대로 기록됩니다.\n\n"
+                + "\n".join(f"  {f}" for f in unmapped))
+        unknown = sorted(self.disp(p) for p in self.proj_of if not split_of(p))
+        if not unknown:
+            return
+        dirs = sorted({os.path.dirname(p) for p in self.proj_of if not split_of(p)})
+        messagebox.showwarning(
+            "original_split 확인 필요",
+            f"이미지 {len(unknown)}장이 train / validation 폴더 안에 있지 않습니다.\n"
+            f"이 이미지들은 manifest 의 original_split 이 빈칸으로 기록됩니다.\n\n"
+            f"폴더 (최대 5개):\n" + "\n".join(f"  {d}" for d in dirs[:5]))
 
     # ── 자동 validation (원본 검사) ──
     def _validation_jobs(self):

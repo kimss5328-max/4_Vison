@@ -1,27 +1,19 @@
-"""저장 / 불러오기 — 단계 폴더 이동 + 기록(csv·manifest)은 추가만
-   visol04/
-   ├── data/                      (원본은 고른 경로의 images·labels 에서 읽기만)
-   │   ├── work/                  작업자가 보낸 결과
-   │   │   ├── pass/     img, txt   문제없음
-   │   │   ├── edited/   img, txt   추가·수정함
-   │   │   └── review/   img, txt   검수자 판단 요청 (+ preview/ 확인용 이미지)
-   │   ├── view/     img, txt     검수자 → 작업자 재작업 요청
-   │   ├── final/    img, txt     검수자 최종 승인 → 학습용
-   │   ├── working/  txt          편집했지만 [저장] 전인 박스 (임시)
-   │   ├── issues/   img, txt     이슈 노트가 있는 이미지 사본 + 이슈 기록 (추가만)
-   │   ├── csv/                   이미지별 이력 csv (추가만)
-   │   └── classes.txt
-   └── manifests/dataset_manifest.csv   전체 진행 대장 (추가만)
+"""저장 / 불러오기 — 단계 폴더 이동 + 기록
+   결과는 데이터셋마다 visol04/result/<데이터셋>_result/ 에 따로 저장 (구조는 config.py 맨 위 설명)
+     work/pass·edited·review, view, final  — 단계 폴더 (각각 img, txt)
+     working/txt  편집했지만 [저장] 전인 박스 (임시)
+     issues/      이슈 노트 사본 + 이슈 기록 (추가만)
+     csv/         이미지별 이력 (추가만)
+   데이터 대장은 visol04/manifests/dataset_manifest.csv 하나 (이미지 1장당 1행, 최신 값으로 덮어씀)
 
    - 아직 저장 안 한 이미지는 원본 경로에서 바로 읽음 (복사하지 않음)
    - 편집할 때마다 박스를 working/txt 에 임시 저장 (이미지는 원래 위치에 그대로)
      → 꺼져도 다시 켜면 그 박스부터 이어서 작업. 단계 보기 'working' 에 표시
-   - [저장] → 이력 csv·manifest 에 기록 추가 + 검수 상태(단계) 폴더로 이동 + 임시 저장 삭제
+   - [저장] → 이력 csv 에 기록 추가 + 검수 상태(단계) 폴더로 이동 + 임시 저장 삭제 + manifest 갱신
      누가 어디로 보낼 수 있는지는 src/bbox/workflow.py
    - 이슈 노트: 이미지를 열면 지금까지의 이슈 기록(<이미지>_issue.txt)에서 [이슈 내용] 부분만 칸에 불러옴.
      그 뒤에 덧붙여 적은 글자만 이번 저장의 이슈로 기록 (공백·줄바꿈만 있으면 이슈 아님)
-     누가·언제·어느 단계였는지는 기록 파일에 머리줄과 함께 그대로 남음
-   - 기록은 기존 줄을 고치거나 지우지 않고 덧붙이기만 한다. 원본 폴더는 읽기만 한다."""
+   - 이력(csv·issues)은 기존 줄을 고치거나 지우지 않고 덧붙이기만 한다. 원본 폴더는 읽기만 한다."""
 import csv
 import os
 import shutil
@@ -33,10 +25,12 @@ from PIL import ImageDraw, ImageFont
 
 from src.config import (CLASS_NAMES, ISSUE_ID, DONE_LIST_COLOR, COLORS, INFO_FIELDS,
                         BASE_DIR, IMG_SUB, TXT_SUB, PREVIEW_SUB, WORKING_DIR, ISSUES_DIR,
-                        CSV_DIR, STAGE_DIRS, PREVIEW_STAGES, MANIFEST_DIR, MANIFEST_FILE,
+                        CSV_DIR, STAGE_DIRS, PREVIEW_STAGES, MANIFEST_DIR, MANIFEST_FILE, SCENE_TYPES,
+                        RESULT_DIR, RESULT_SUFFIX,
                         DONE_SUFFIX, DEFAULT_DONE, LEGACY_OUT, PREVIEW_FONTS, ROLE_NAMES, SOURCE_LABEL)
 from src.validation.rules import class_name, describe_locked, apply_locked, locked_boxes
 from src.bbox.workflow import Flow, read_events, WORKER, REVIEWER
+from src.bbox import manifest
 
 # 작업자·검수자 열 — config.INFO_FIELDS 로 만듦 (worker_name, worker_id, reviewer_name, reviewer_id)
 #   저장한 사람의 역할 열만 채움
@@ -47,9 +41,6 @@ WHO_COLS = [f"{role}_{key}" for role in (WORKER, REVIEWER) for _, key in INFO_FI
 CSV_HEADER = (["image", "stage", "from", "class_id", "class_name",
                "x_center", "y_center", "width", "height", "review_action"]
               + WHO_COLS + ["issue_note", "saved_at"])
-# 전체 진행 대장 — 저장할 때마다 이미지 1장당 1행씩 아래에 추가
-MANIFEST_HEADER = (["file_name", "source_dataset", "original_split", "scene_type",
-                    "stage", "from", "boxes"] + WHO_COLS + ["issue", "saved_at"])
 # 현재 위치를 찾는 순서
 LOCATION_ORDER = ("final", "view", "review", "edited", "pass")
 
@@ -70,13 +61,13 @@ class StorageMixin:
     # ── 결과 폴더 위치 ──
     @staticmethod
     def default_out_dir(pj):
-        """기본 결과 기준 위치: 프로그램 폴더(visol04) — 그 안의 data/, manifests/ 사용"""
-        return BASE_DIR
+        """기본 결과 폴더: visol04/result/<데이터셋 이름>_result"""
+        return os.path.join(BASE_DIR, RESULT_DIR, pj["dataset"] + RESULT_SUFFIX)
 
     @staticmethod
     def manifest_path(pj):
-        """manifest 위치: 결과 기준 위치 아래 manifests/"""
-        return os.path.join(pj["out_dir"], MANIFEST_DIR, MANIFEST_FILE)
+        """manifest 위치: visol04/manifests/ — 모든 데이터셋이 파일 하나 (source_dataset 으로 구분)"""
+        return os.path.join(BASE_DIR, MANIFEST_DIR, MANIFEST_FILE)
 
     @staticmethod
     def is_output_dir(parent, name, root):
@@ -102,7 +93,7 @@ class StorageMixin:
         start = pj["out_dir"] or os.path.dirname(src)
         while True:
             d = filedialog.askdirectory(
-                title=f"[{pj['name']}] 결과 폴더 선택 — 이 안에 data/, manifests/ 가 생성됩니다",
+                title=f"[{pj['name']}] 결과 폴더 선택 — 이 안에 work/, view/, final/ 등이 생성됩니다",
                 initialdir=start)
             if not d:
                 return None
@@ -122,7 +113,7 @@ class StorageMixin:
         subs += [os.path.join(d, *STAGE_DIRS[st], PREVIEW_SUB) for st in PREVIEW_STAGES]
         subs.append(os.path.join(d, *WORKING_DIR, TXT_SUB))
         subs.append(os.path.join(d, *CSV_DIR))
-        subs.append(os.path.join(d, MANIFEST_DIR))
+        subs.append(os.path.join(BASE_DIR, MANIFEST_DIR))
         return subs
 
     def prepare_out_dir(self, pj, d=None):
@@ -134,7 +125,7 @@ class StorageMixin:
             keep = os.path.join(sub, ".gitkeep")      # Git 에 빈 폴더 구조를 올리기 위한 표시 파일
             if not os.path.exists(keep):
                 open(keep, "w").close()
-        with open(os.path.join(d, "data", "classes.txt"), "w", encoding="utf-8") as f:
+        with open(os.path.join(d, "classes.txt"), "w", encoding="utf-8") as f:
             f.write("\n".join(CLASS_NAMES) + "\n")   # 줄 번호 = 클래스 번호 (4번도 번호 맞춤용으로 유지)
 
     def set_out_dir(self, pj, d):
@@ -182,7 +173,7 @@ class StorageMixin:
             return False
         messagebox.showinfo("결과 폴더 생성",
                             f"결과 폴더를 만들었습니다.\n\n{d}\n\n"
-                            f"data/(work/pass·edited·review, view, final, working, issues, csv), manifests/ 를 준비했습니다.\n"
+                            f"work/pass·edited·review, view, final, working, issues, csv 를 준비했습니다.\n"
                             f"원본은 복사하지 않고 읽기만 합니다.\n"
                             f"manifest: {self.manifest_path(pj)}")
         return True
@@ -229,12 +220,14 @@ class StorageMixin:
             return
         pj = self.P(p)
         if pj["out_dir"]:
-            self.outDirLabel.config(text=f"저장 위치: {pj['out_dir']}\n→ data/, manifests/")
+            self.outDirLabel.config(text=f"저장 위치: {os.path.relpath(pj['out_dir'], BASE_DIR)}\n(데이터셋별 결과 폴더)")
         else:
             self.outDirLabel.config(text=f"저장 위치: {self.default_out_dir(pj)}\n(첫 저장 때 생성)")
 
     # ── 경로 / 현재 위치 ──
     def out_paths(self, p):
+        """결과 경로 — 결과 폴더(데이터셋별) 안에서 단계 → img·txt → 원본 images 구조
+           예) result/dataset1_result/work/pass/img/train/a.jpg, …/work/pass/txt/train/a.txt"""
         od = self.P(p)["out_dir"]
         rel = self.rel_of(p)                          # 'train/a.jpg'
         stem = os.path.splitext(rel)[0]
@@ -499,15 +492,35 @@ class StorageMixin:
         rows += [row(cls, xywh, "삭제") for cls, xywh in deleted]
         self._append_rows(path, CSV_HEADER, rows)
 
-    def _append_manifest(self, p, boxes, meta, note):
-        """전체 진행 대장 — 이미지 1장당 1행 추가"""
-        pj = self.P(p)
-        parts = self.rel_of(p).split(os.sep)
-        row = dict(meta, file_name=os.path.basename(p), source_dataset=pj["name"],
-                   original_split=parts[0] if len(parts) > 1 else "",
-                   scene_type=parts[1] if len(parts) > 2 else "",
-                   boxes=len(self._label_boxes(boxes)), issue="Y" if note else "")
-        self._append_rows(self.manifest_path(pj), MANIFEST_HEADER, [row])
+    # ── 데이터 대장(manifest) — 규칙은 src/bbox/manifest.py ──
+    def dataset_name(self, p):
+        """source_dataset 값 — 데이터셋 폴더 이름을 config.DATASET_NAMES 로 바꾼 값 (표에 없으면 폴더 이름)"""
+        return self.P(p)["dataset"]
+
+    def manifest_key(self, p):
+        """→ (source_dataset, original_split, file_name)"""
+        return self.dataset_name(p), manifest.split_of(p), os.path.basename(p)
+
+    def manifest_row(self, p):
+        """이 이미지의 현재 manifest 행 (없으면 None)"""
+        if not self.P(p)["out_dir"]:
+            return None
+        return manifest.find_row(self.manifest_path(self.P(p)), *self.manifest_key(p))
+
+    def _update_manifest(self, p, stage, person):
+        """저장 1회 → 이 이미지 행을 최신 값으로 덮어씀. 실패해도 라벨 저장은 유지하고 경고만"""
+        path = self.manifest_path(self.P(p))
+        dataset, split, file_name = self.manifest_key(p)
+        try:
+            prev = manifest.find_row(path, dataset, split, file_name)
+            row = manifest.build_row(prev, file_name, dataset, split,
+                                     self.scenePanel.get_scene(), stage, person["name"],
+                                     self.scenePanel.get_reason())
+            manifest.upsert(path, row)
+        except manifest.ManifestFormatError as e:
+            self._save_warnings.append(f"manifest 미기록 — {e} (초기화 필요)")
+        except OSError as e:                         # 예) 엑셀로 열어 둬서 잠김
+            self._save_warnings.append(f"manifest 미기록 — {e}")
 
     def _write_yolo(self, path, boxes):
         """YOLO 학습용 txt — 'cls xc yc w h' (공백 구분)"""
@@ -606,6 +619,14 @@ class StorageMixin:
             messagebox.showwarning("검수 상태", f"저장할 수 있는 단계: {' / '.join(flow.targets(person))}\n"
                                              f"검수 상태에서 선택한 뒤 저장하세요.")
             return False
+        # scene_type 필수 / review 로 보낼 때는 review_reason 필수
+        if not self.scenePanel.get_scene():
+            messagebox.showwarning("Scene Type", "이미지 유형(Scene Type)을 선택한 뒤 저장하세요.\n\n"
+                                   + "\n".join(f"· {k}: {d}" for k, d in SCENE_TYPES))
+            return False
+        if stage == "review" and not self.scenePanel.get_reason():
+            messagebox.showwarning("REVIEW 사유", "review 로 보낼 때는 REVIEW 사유를 선택해야 합니다.")
+            return False
         try:
             if not self.ensure_out_dir(self.P(p)):      # 결과 폴더가 없으면 여기서 생성
                 return False
@@ -664,11 +685,12 @@ class StorageMixin:
             if note:
                 self._append_issue(p, paths, boxes, meta, note, person)
 
-            # 4) 전체 진행 대장에 추가
-            self._append_manifest(p, boxes, meta, note)
         except OSError as e:
             messagebox.showerror("저장 오류", str(e))
             return False
+
+        # 4) 데이터 대장 — 이 이미지 행을 최신 값으로 (실패해도 라벨 저장은 유지, 경고만)
+        self._update_manifest(p, stage, person)
 
         # 저장 = 사람이 확인한 라벨 → 자동 BBox 표시 해제, 다음 비교 기준 갱신
         for b in self.cur_boxes():

@@ -5,9 +5,12 @@ __pycache__/
 *.pyc
 
 # 원본 학습 데이터 폴더 (혹시 visol04 안에 둘 경우)
-이물검출_학습데이터1/
+이물검출_학습데이터*/
 
 # 라벨링 결과 — 폴더 틀(.gitkeep)만 올리고 내용물(img, txt, csv)은 제외
+result/**
+!result/**/
+!result/**/.gitkeep
 data/**
 !data/**/
 !data/**/.gitkeep
