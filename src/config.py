@@ -9,7 +9,7 @@ SETTINGS_PATH = os.path.expanduser("~/.labeling_tool_config.json")   # 마지막
 # 결과 구조 — (상위, 하위, ...) 튜플은 BASE_DIR(visol04) 기준 경로
 #   visol04/
 #   ├── data/                    (원본은 고른 경로의 images·labels 에서 읽기만 — 저장할 때 그 이미지만 복사)
-#   │   ├── DONE/                작업자가 보낸 결과
+#   │   ├── work/                작업자가 보낸 결과
 #   │   │   ├── pass/     img, txt   딥러닝 결과 그대로 문제없음
 #   │   │   ├── edited/   img, txt   추가·수정함
 #   │   │   └── review/   img, txt   검수자에게 판단 요청 (+ preview/ 박스를 그려 넣은 확인용 이미지)

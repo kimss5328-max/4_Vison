@@ -1,7 +1,7 @@
 """저장 / 불러오기 — 단계 폴더 이동 + 기록(csv·manifest)은 추가만
    visol04/
    ├── data/                      (원본은 고른 경로의 images·labels 에서 읽기만)
-   │   ├── DONE/                  작업자가 보낸 결과
+   │   ├── work/                  작업자가 보낸 결과
    │   │   ├── pass/     img, txt   문제없음
    │   │   ├── edited/   img, txt   추가·수정함
    │   │   └── review/   img, txt   검수자 판단 요청 (+ preview/ 확인용 이미지)
