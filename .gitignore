@@ -16,6 +16,9 @@ reviews/**
 !reviews/**/.gitkeep
 # manifests/dataset_manifest.csv 는 올림 (전체 진행 대장)
 
+# 자동 검사 리포트 (폴더 열 때마다 추가되는 개인 로컬 기록)
+reports/validation_report.csv
+
 # 이전 버전 결과 폴더
 *_labeled/
 *_done/

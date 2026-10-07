@@ -2,9 +2,11 @@
 import tkinter as tk
 from tkinter import ttk
 
-from src.config import (CLASS_NAMES, CLASS_IDS, COLORS, STAGES, STAGE_FILTERS,
+from src.config import (COLORS, LOCKED_CLASS_COLOR, STAGES, STAGE_FILTERS, DEFAULT_CONF,
                     FONT, FONT_B, FONT_S)
-from src.ui.panels import InfoPanel, ReviewPanel
+from src.ui.panels import PersonPanel, ReviewPanel, HistoryPanel
+from src.bbox.workflow import people_labels
+from src.validation.rules import list_ids, display_name, is_selectable
 
 
 class LayoutMixin:
@@ -148,10 +150,12 @@ class LayoutMixin:
         self.classList = tk.Listbox(lf_cls, width=14, height=14, font=FONT,
                                     exportselection=False)
         self.classList.pack(fill="both", expand=True, padx=4, pady=4)
-        # 목록 줄 순서 ≠ 클래스 번호 (4번이 빠짐) → CLASS_IDS 로 번호를 찾음
-        for row, cid in enumerate(CLASS_IDS):
-            self.classList.insert("end", f"{cid}: {CLASS_NAMES[cid]}")
-            self.classList.itemconfig(row, fg=COLORS[cid % len(COLORS)])
+        # 숨김(hidden)이 아닌 클래스를 번호 순으로 표시 (목록 줄 i = list_ids()[i])
+        # 지정 불가 클래스는 회색 + '(지정 불가 → N번)' — 클릭해도 지정되지 않음 (edit_mixin.on_class_select)
+        for row, cid in enumerate(list_ids()):
+            self.classList.insert("end", display_name(cid))
+            color = COLORS[cid % len(COLORS)] if is_selectable(cid) else LOCKED_CLASS_COLOR
+            self.classList.itemconfig(row, fg=color)
         self.classList.bind("<<ListboxSelect>>", self.on_class_select)
 
         lf_info = tk.LabelFrame(upper, text="클래스 크기 정보", font=FONT_B)
@@ -177,8 +181,13 @@ class LayoutMixin:
             self.labelDetail[key] = v
 
     def _build_auto_panel(self, right):
-        lf_auto = tk.LabelFrame(right, text="자동 라벨링 (YOLO)", font=FONT_B)
-        lf_auto.pack(side="top", fill="x", pady=(6, 0))
+        # 자동 라벨링(왼쪽) + 작업 이력(오른쪽 남는 공간)
+        mid = tk.Frame(right)
+        mid.pack(side="top", fill="x", pady=(6, 0))
+        lf_auto = tk.LabelFrame(mid, text="자동 라벨링 (YOLO)", font=FONT_B)
+        lf_auto.pack(side="left", fill="y")
+        self.historyPanel = HistoryPanel(mid)
+        self.historyPanel.pack(side="left", fill="both", expand=True, padx=(6, 0))
 
         row1 = tk.Frame(lf_auto)
         row1.pack(fill="x", padx=4, pady=(4, 0))
@@ -192,7 +201,7 @@ class LayoutMixin:
         row2 = tk.Frame(lf_auto)
         row2.pack(fill="x", padx=4, pady=(4, 0))
         tk.Label(row2, text="신뢰도(conf)", font=FONT).pack(side="left")
-        self.confVar = tk.StringVar(value="0.25")
+        self.confVar = tk.StringVar(value=f"{DEFAULT_CONF:.2f}")
         tk.Spinbox(row2, from_=0.05, to=0.95, increment=0.05, format="%.2f",
                    textvariable=self.confVar, width=6, font=FONT).pack(side="left", padx=6)
         self.autoOnOpen = tk.BooleanVar(value=False)
@@ -209,13 +218,11 @@ class LayoutMixin:
         self.autoBatchBtn.pack(side="left", padx=(4, 0))
 
         tk.Label(lf_auto, font=FONT_S, fg="#666", justify="left",
-                 text="※ 자동 BBox는 점선 + 'AI %' 로 표시됩니다.\n"
-                      "   확인/수정 후 '저장'을 누르면 확정됩니다.\n"
-                      "   (잘못된 박스: 선택 후 삭제 / 클래스 재지정)"
+                 text="※ 자동 BBox(점선 + 'AI %') → 확인·수정 후 저장하면 확정"
                  ).pack(anchor="w", padx=4, pady=(2, 4))
 
     def _build_lower_panel(self, right):
-        # 왼쪽 절반(작성자·검수) / 오른쪽 절반(이슈 노트)
+        # 왼쪽 절반(검수 상태·작업자) / 오른쪽 절반(이슈 노트)
         lower = tk.Frame(right)
         lower.pack(side="top", fill="both", expand=True, pady=(6, 0))
         lower.columnconfigure(0, weight=1, uniform="half")   # uniform → 두 열 폭을 똑같이
@@ -225,27 +232,14 @@ class LayoutMixin:
         left = tk.Frame(lower)
         left.grid(row=0, column=0, sticky="nsew", padx=(0, 3))
 
-        # ① 작성자
-        lf_author = tk.LabelFrame(left, text="작성자", font=FONT_B)
-        lf_author.pack(side="top", fill="x")
-        self.workerVar = tk.StringVar()
-        tk.Entry(lf_author, textvariable=self.workerVar, font=FONT,
-                 width=1).pack(fill="x", padx=4, pady=4)
+        # ① 검수 상태 = 저장할 단계 (고를 수 있는 단계는 사람 역할에 따라 — src/bbox/workflow.py)
+        self.reviewPanel = ReviewPanel(left, STAGES, on_change=self.on_review_select)
+        self.reviewPanel.pack(side="top", fill="x")
 
-        # ② 검수 상태 (1차·2차: 작업자 정보 입력 후 / review·final: 검수자 정보 입력 후 선택 가능)
-        self.reviewPanel = ReviewPanel(left, [st for st, _ in STAGES], on_change=self.on_review_select)
-        self.reviewPanel.pack(side="top", fill="x", pady=(6, 0))
-
-        # ③ 작업자 정보 → 1차, 2차
-        self.workerInfo = InfoPanel(left, "작업자 정보 (1차·2차)", ("이름", "ID"),
-                                    on_change=self.update_review_buttons)
-        self.workerInfo.pack(side="top", fill="x", pady=(6, 0))
-
-        # ④ 검수자 정보 → review, final
-        self.reviewerInfo = InfoPanel(left, "검수자 정보 (review·final)", ("이름", "ID"),
-                                      on_change=self.update_review_buttons)
-        self.reviewerInfo.pack(side="top", fill="x", pady=(6, 0))
-        self.update_review_buttons()          # 처음에는 전부 비활성
+        # ② 작업자 정보 — 선택 목록(config.PEOPLE)에서 고르기만
+        self.personPanel = PersonPanel(left, "작업자 정보", people_labels(),
+                                       on_change=self.update_review_buttons)
+        self.personPanel.pack(side="top", fill="x", pady=(6, 0))
 
         # 오른쪽 절반: 이슈 노트
         lf_issue = tk.LabelFrame(lower, text="이슈 노트", font=FONT_B)
@@ -253,7 +247,7 @@ class LayoutMixin:
         self.issueNote = tk.Text(lf_issue, width=1, height=8, wrap="word", font=FONT)
         self.issueNote.pack(fill="both", expand=True, padx=4, pady=4)
         tk.Label(lf_issue, font=FONT_S, fg="#666", justify="left",
-                 text="※ 내용을 입력하고 저장하면\n   issues 폴더에 txt 로 저장"
+                 text="※ 지난 이슈 기록 아래에 적고 저장하면\n   issues 에 추가 (공백만 있으면 무시)"
                  ).pack(anchor="w", padx=4)
 
     # ── 공용 ──

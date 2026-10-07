@@ -1,10 +1,17 @@
 """폴더 열기 / 프로젝트 구성 / 이미지 목록 / 단계 보기 / 진행률 / 마지막 폴더 기억"""
 import json
 import os
+import queue
+import threading
 from tkinter import filedialog, messagebox
 
 from src.config import (IMG_EXTS, AUTO_LIST_COLOR, DONE_LIST_COLOR, STAGE_FILTERS,
-                        PICK_START_DIR, SETTINGS_PATH)
+                        PICK_START_DIR, SETTINGS_PATH, BASE_DIR)
+from src.validation.auto_validator import run_validation, summarize, print_console
+
+# 프로그램 폴더(visol04) 전체 — 원본으로 열 수 없고, 상위 폴더를 열어도 탐색에서 통째로 제외
+#   (안에 data 결과, backup 사본, venv 등이 있어 원본처럼 읽히면 안 됨)
+PROGRAM_ROOT = os.path.normpath(BASE_DIR)
 
 
 class FolderMixin:
@@ -55,6 +62,34 @@ class FolderMixin:
         # 4. 아무 프로젝트도 없으면 선택한 폴더 자체를 이미지 폴더로 사용
         return [(d, d)]
 
+    @staticmethod
+    def is_result_path(path):
+        """프로그램 폴더(visol04) 자체이거나 그 안쪽인지"""
+        path = os.path.normpath(os.path.abspath(path))
+        try:
+            return os.path.commonpath([path, PROGRAM_ROOT]) == PROGRAM_ROOT
+        except ValueError:              # 서로 다른 드라이브 (Windows)
+            return False
+
+    def _skip_dir(self, parent, name, root):
+        """원본 탐색 중 건너뛸 폴더 — 이전 버전 결과 폴더 + 프로그램 폴더(visol04) 전체"""
+        return (self.is_output_dir(parent, name, root)
+                or self.is_result_path(os.path.join(parent, name)))
+
+    @staticmethod
+    def label_root_of(proj, img_root):
+        """원본 라벨 폴더 찾기
+           - 프로젝트 폴더를 연 경우: <프로젝트>/labels
+           - images 안쪽 폴더를 직접 연 경우(예: images/train): 같은 위치의 labels/train"""
+        if img_root != proj:
+            return os.path.join(proj, "labels")
+        parts = os.path.normpath(img_root).split(os.sep)
+        for i in range(len(parts) - 1, -1, -1):
+            if parts[i].lower() == "images":
+                cand = os.sep.join(parts[:i] + ["labels"] + parts[i + 1:])
+                return cand if os.path.isdir(cand) else None
+        return None
+
     # ── 마지막 폴더 기억 (프로그램 폴더 밖 ~/.labeling_tool_config.json) ──
     @staticmethod
     def save_last_folder(picked, last_img=None):
@@ -100,6 +135,13 @@ class FolderMixin:
                     initialdir=start)
                 if not d:
                     break
+                if self.is_result_path(d):
+                    messagebox.showwarning(
+                        "원본 폴더 아님",
+                        "프로그램 폴더(visol04)와 그 안쪽(data, backup 등)은 원본으로 열 수 없습니다.\n"
+                        "원본 이미지 폴더(images + labels)를 선택하세요.\n\n"
+                        "작업한 이미지는 원본 폴더를 열면 단계 보기에서 확인할 수 있습니다.")
+                    continue
                 for item in self._find_roots(d):
                     if item not in picked:
                         picked.append(item)
@@ -110,6 +152,10 @@ class FolderMixin:
                     break
             if not picked:
                 return
+        picked = [item for item in picked if not self.is_result_path(item[0])]
+        if not picked:                   # 예) 마지막으로 연 폴더가 프로그램 폴더였던 경우
+            self.status("프로그램 폴더(visol04)는 원본으로 열 수 없습니다. [폴더 열기]로 원본 이미지 폴더를 선택하세요.")
+            return
 
         projects, proj_of, folders = [], {}, {}
         used = set()
@@ -118,13 +164,13 @@ class FolderMixin:
             if name in used:
                 name += f"({len(used)})"
             used.add(name)
-            pj = {"proj": proj, "img_root": img_root, "name": name,
+            lbl_root = self.label_root_of(proj, img_root)
+            pj = {"proj": proj, "img_root": img_root, "name": name, "lbl_root": lbl_root,
                   "out_dir": None, "by_rel": {}, "by_name": {}}
-            if img_root != proj:
-                lbl_root = os.path.join(proj, "labels")
+            if lbl_root:
                 for dp, dirs, files in os.walk(lbl_root):
                     # 프로그램이 만든 결과 폴더(train_done 등)는 원본 라벨로 읽지 않음
-                    dirs[:] = [x for x in dirs if not self.is_output_dir(dp, x, lbl_root)]
+                    dirs[:] = [x for x in dirs if not self._skip_dir(dp, x, lbl_root)]
                     for f in files:
                         if f.lower().endswith((".txt", ".csv")):   # txt / csv 모두 인식
                             q = os.path.join(dp, f)
@@ -134,7 +180,7 @@ class FolderMixin:
             projects.append(pj)      # out_dir(저장 위치)는 아래에서 기존 저장본이 있으면 연결, 없으면 첫 저장 때 정함
 
             for cur, dirs, files in os.walk(img_root):
-                dirs[:] = [x for x in dirs if not self.is_output_dir(cur, x, img_root)]
+                dirs[:] = [x for x in dirs if not self._skip_dir(cur, x, img_root)]
                 imgs = sorted(f for f in files if f.lower().endswith(IMG_EXTS))
                 if imgs:
                     rel = os.path.relpath(cur, img_root)
@@ -164,12 +210,13 @@ class FolderMixin:
 
         self.annotations.clear()
         self.notes.clear()
-        self.review_status.clear()
+        self.note_base.clear()
+        self.baseline.clear()
         self.done.clear()
         self.passed.clear()
         self.auto_pred.clear()
         # 결과 구조(visol04/data, reviews, manifests)를 바로 준비 →
-        # 아직 없는 원본만 raw 로 가져오고, 저장했던 이미지는 초록색 + 단계 보기 바로 사용
+        # 결과 폴더 구조만 준비 (원본은 복사하지 않고 읽기만). 저장했던 이미지는 초록색 + 단계 보기 바로 사용
         for pj in projects:
             self.prepare_out_dir(pj)
         for p in proj_of:
@@ -180,6 +227,65 @@ class FolderMixin:
         self.idx = -1
         self.load_folder("__all__", keep=auto_last_img)
         self.remember_folder()
+        self.start_validation()
+
+    # ── 자동 validation (원본 검사) ──
+    def _validation_jobs(self):
+        """프로젝트별 검사 목록 — 쌍은 프로그램이 원본 라벨을 찾는 방식(raw_label_path) 그대로"""
+        jobs = []
+        for pj in self.projects:
+            pairs, used = [], set()
+            for p in sorted(q for q, owner in self.proj_of.items() if owner is pj):
+                lbl = self.raw_label_path(p)
+                if lbl:
+                    used.add(os.path.normpath(lbl))
+                pairs.append((self.disp(p), p, lbl))
+            lbl_root = pj["lbl_root"]
+            orphans = [(os.path.relpath(q, lbl_root), q) for q in sorted(pj["by_rel"].values())
+                       if os.path.normpath(q) not in used] if lbl_root else []
+            jobs.append({"project": pj["name"], "pairs": pairs, "orphans": orphans})
+        return jobs
+
+    def start_validation(self):
+        """폴더를 열 때 호출 — 검사는 백그라운드, 결과 표시는 메인 스레드(root.after)에서"""
+        jobs = self._validation_jobs()
+        total = sum(len(j["pairs"]) for j in jobs)
+        token = object()                 # 검사 중 다른 폴더를 열면 이전 결과는 무시
+        self._validation_token = token
+        out = queue.Queue()
+
+        def work():                      # ※ 여기서는 tkinter 를 건드리지 않음
+            results = {}
+            try:
+                for job in jobs:
+                    results[job["project"]] = run_validation(job)
+                out.put(("ok", results))
+            except Exception as e:       # 검사 오류가 프로그램을 멈추지 않게
+                out.put(("fail", e))
+
+        def poll():
+            if self._validation_token is not token:
+                return
+            try:
+                kind, value = out.get_nowait()
+            except queue.Empty:
+                self.root.after(200, poll)
+                return
+            if kind == "fail":
+                print(f"자동 검사 오류: {value}")
+                self.status(f"자동 검사 중 오류가 발생했습니다: {value}")
+                return
+            print_console(value)
+            popup, line, clean = summarize(value, total)
+            self.status(line)
+            if clean:
+                messagebox.showinfo("자동 검사 결과", popup, parent=self.root)
+            else:
+                messagebox.showwarning("자동 검사 결과", popup, parent=self.root)
+
+        self.status(f"자동 검사 중... (이미지 {total}장, 작업은 계속 가능)")
+        threading.Thread(target=work, daemon=True).start()
+        self.root.after(200, poll)
 
     def on_folder_select(self, _=None):
         i = self.folderSelect.current()
@@ -199,11 +305,21 @@ class FolderMixin:
         self.folder_images = list(dict.fromkeys(all_images))
         self.apply_filter(keep=keep)
 
-    # ── 단계 보기 ((전체 이미지) 선택 시: 전체 / 1차 / 2차 / review / final) ──
+    # ── 단계 보기 ((전체 이미지) 선택 시: 전체 / working / pass … final / 이슈) ──
+    def _filter_keys(self, p):
+        """이 이미지가 해당하는 단계 보기 키들"""
+        keys = []
+        st = self.latest_stage(p)              # 지금 있는 단계 폴더
+        if st:
+            keys.append(st)
+        if self.is_in_progress(p):             # 편집했지만 저장 전
+            keys.append("working")
+        if self.has_issue(p):                  # 이슈 기록이 있음
+            keys.append("issue")
+        return keys
+
     def _match_filter(self, p):
-        if self.view_filter == "all":
-            return True
-        return self.latest_stage(p) == self.view_filter   # 지금 그 단계에 있는 이미지만
+        return self.view_filter == "all" or self.view_filter in self._filter_keys(p)
 
     def apply_filter(self, keep=None):
         """folder_images 에 단계 보기를 적용해 self.images(작업 목록)를 다시 만든다.
@@ -249,9 +365,8 @@ class FolderMixin:
         for key, _ in STAGE_FILTERS[1:]:
             counts[key] = 0
         for p in self.folder_images:
-            st = self.latest_stage(p)          # 가장 최근에 저장한 단계 = 현재 단계
-            if st:
-                counts[st] += 1
+            for key in self._filter_keys(p):
+                counts[key] += 1
         self.stageSelect["values"] = [f"{name} ({counts[key]})" for key, name in STAGE_FILTERS]
         self.stageSelect.current([key for key, _ in STAGE_FILTERS].index(self.view_filter))
 

@@ -27,13 +27,16 @@ class LabelingApp(LayoutMixin, FolderMixin, NavigationMixin, ViewMixin,
         self.folder_keys = []
         self.folder_images = []    # 선택한 폴더의 전체 이미지 (단계 보기 적용 전)
         self.images = []           # 단계 보기가 적용된 실제 작업 목록
-        self.view_filter = "all"   # all / 1차 / 2차 / review / final
+        self.view_filter = "all"   # config.STAGE_FILTERS 의 키 (all / working / pass … / issue)
         self.idx = -1
         self.annotations = {}      # 이미지 경로 → 박스 리스트
-        self.notes = {}            # 이미지 경로 → 이슈 노트
-        self.review_status = {}    # 이미지 경로 → 검수 상태 (1차 / 2차 / review / final)
-        self.last_stage = ""       # 마지막으로 고른 검수 상태
+        self.notes = {}            # 이미지 경로 → 이슈 노트 칸 내용
+        self.note_base = {}        # 이미지 경로 → 불러온 이슈 기록 (이 뒤에 덧붙인 글자만 새 이슈)
         self.done = set()          # 저장된 이미지 (목록 초록색 표시)
+        self.baseline = {}         # 이미지 경로 → 불러온 박스 기준 (검수자 수정 내용 기록용)
+        self.cur_flow = None       # 현재 이미지의 단계 흐름 (workflow.Flow)
+        self._flow_path = None
+        self.edit_ok, self.edit_why = False, ""   # 현재 이미지 수정 권한 / 안 되는 이유
         self.passed = set()        # 진행률용: 다음/저장 후 다음으로 넘긴 이미지
 
         # 화면(뷰) 상태
@@ -92,7 +95,7 @@ class LabelingApp(LayoutMixin, FolderMixin, NavigationMixin, ViewMixin,
 
     def on_closing(self):
         p = self.cur_path()
-        if p and self.img and p not in self.done:
+        if p and self.img and (p not in self.done or self.is_in_progress(p)):
             answer = messagebox.askyesnocancel(
                 "종료 확인",
                 "현재 이미지는 아직 저장하지 않았습니다.\n\n"

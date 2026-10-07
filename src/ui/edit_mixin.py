@@ -1,8 +1,9 @@
 """마우스로 박스 그리기·선택·크기조절 / 휠 확대·축소 / 클래스 지정 / 삭제 / 크기 정보 패널"""
 from tkinter import messagebox
 
-from src.config import (CLASS_IDS, ISSUE_ID, PENDING_COLOR,
-                    HANDLE_R, SHIFT, CTRL, WHEEL_STEP)
+from src.config import (ISSUE_ID, PENDING_COLOR, HANDLE_R, MIN_BOX_PX,
+                    SHIFT, CTRL, WHEEL_STEP)
+from src.validation.rules import list_ids, is_selectable, guide_message
 
 
 class EditMixin:
@@ -35,7 +36,7 @@ class EditMixin:
             self.discard_pending()
 
         hd = self.handle_at(e.x, e.y)
-        if hd and not (e.state & (SHIFT | CTRL)):
+        if hd and not (e.state & (SHIFT | CTRL)) and self.check_edit():
             self.mode, self.resize_hd = "resize", hd
             self.status("크기 조절 중... (놓으면 확정)")
             return
@@ -82,13 +83,13 @@ class EditMixin:
             x, y = self.clamp_img_pt(*self.to_image(e.x, e.y))
             hd = self.resize_hd
             if "w" in hd:
-                b["x1"] = min(x, b["x2"] - 2)
+                b["x1"] = min(x, b["x2"] - MIN_BOX_PX)
             else:
-                b["x2"] = max(x, b["x1"] + 2)
+                b["x2"] = max(x, b["x1"] + MIN_BOX_PX)
             if "n" in hd:
-                b["y1"] = min(y, b["y2"] - 2)
+                b["y1"] = min(y, b["y2"] - MIN_BOX_PX)
             else:
-                b["y2"] = max(y, b["y1"] + 2)
+                b["y2"] = max(y, b["y1"] + MIN_BOX_PX)
             self.redraw_boxes()
             return
 
@@ -97,6 +98,9 @@ class EditMixin:
         px, py = self.press_xy
         if self.mode == "press":
             if abs(e.x - px) < 4 and abs(e.y - py) < 4:
+                return
+            if not self.check_edit():          # 권한 없음 → 그리기 대신 아무것도 안 함
+                self.mode = None
                 return
             self.mode = "draw"
 
@@ -143,7 +147,7 @@ class EditMixin:
                     self.redraw_boxes()
                 return
 
-            if x2 - x1 >= 2 and y2 - y1 >= 2:
+            if x2 - x1 >= MIN_BOX_PX and y2 - y1 >= MIN_BOX_PX:
                 b = {"cls": None, "x1": x1, "y1": y1, "x2": x2, "y2": y2}
                 self.cur_boxes().append(b)
                 self.pending = b
@@ -158,8 +162,8 @@ class EditMixin:
             b = self.hit_test(e.x, e.y)
             self.selected = [b] if b else []
             self.classList.selection_clear(0, "end")
-            if b and b["cls"] in CLASS_IDS:
-                self.classList.selection_set(CLASS_IDS.index(b["cls"]))
+            if b and b["cls"] in list_ids():           # 목록 줄 i = list_ids()[i]
+                self.classList.selection_set(list_ids().index(b["cls"]))
             self.redraw_boxes()
             self.refresh_info()
 
@@ -186,7 +190,15 @@ class EditMixin:
         sel = self.classList.curselection()
         if not sel or not self.img:
             return
-        cls = CLASS_IDS[sel[0]]           # 목록 줄 번호 → 실제 클래스 번호
+        cls = list_ids()[sel[0]]          # 목록 줄 → 클래스 번호 (숨김 클래스는 목록에 없음)
+        if (self.pending or self.selected) and not self.check_edit():
+            self.classList.selection_clear(0, "end")
+            return
+        if not is_selectable(cls):        # 지정 불가 클래스 → 선택만 풀고 안내 (박스는 그대로)
+            self.classList.selection_clear(0, "end")
+            self.status(guide_message(cls))
+            self.imageCanvas.focus_set()
+            return
         if self.pending:
             self.pending["cls"] = cls
             self.pending = None
@@ -222,6 +234,8 @@ class EditMixin:
             return
         if not self.selected:
             messagebox.showinfo("알림", "삭제할 박스를 먼저 선택하세요.\n(Ctrl+클릭으로 여러 개 선택)")
+            return
+        if not self.check_edit():
             return
         n = len(self.selected)
         if not messagebox.askyesno("경고",
