@@ -67,18 +67,37 @@ class FolderMixin:
 
     @staticmethod
     def is_result_path(path):
-        """프로그램 폴더(visol04) 자체이거나 그 안쪽인지"""
+        """프로그램 내부의 결과 폴더인지.
+        
+        예외:
+            visol04/data/raw 및 그 하위 폴더는 원본으로 허용한다.
+        """
         path = os.path.normpath(os.path.abspath(path))
+        program_root = os.path.normpath(os.path.abspath(PROGRAM_ROOT))
+        raw_root = os.path.normpath(
+            os.path.join(program_root, "data", "raw")
+        )
+
         try:
-            return os.path.commonpath([path, PROGRAM_ROOT]) == PROGRAM_ROOT
-        except ValueError:              # 서로 다른 드라이브 (Windows)
+            # 프로그램 폴더 바깥이면 차단 대상 아님
+            if os.path.commonpath([path, program_root]) != program_root:
+                return False
+
+            # data/raw 및 그 안쪽은 원본으로 허용
+            if os.path.commonpath([path, raw_root]) == raw_root:
+                return False
+
+            # 나머지 visol04 내부는 결과/프로그램 폴더로 취급
+            return True
+
+        except ValueError:
             return False
 
     def _skip_dir(self, parent, name, root):
-        """원본 탐색 중 건너뛸 폴더 — 이전 버전 결과 폴더 + 프로그램 폴더(visol04) 전체"""
         return (self.is_output_dir(parent, name, root)
                 or self.is_result_path(os.path.join(parent, name)))
 
+    
     @staticmethod
     def bases_of(proj, img_root):
         """연 폴더 → (데이터셋 폴더, images 기준 폴더, 읽을 labels 폴더, labels 기준 폴더)
