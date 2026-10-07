@@ -1,5 +1,5 @@
 """저장 / 불러오기 — 단계 폴더 이동 + 기록
-   결과는 데이터셋마다 visol04/result/<데이터셋>_result/ 에 따로 저장 (구조는 config.py 맨 위 설명)
+   결과는 데이터셋마다 visol04/data/<데이터셋>_result/ 에 따로 저장 (구조는 config.py 맨 위 설명)
      work/pass·edited·review, view, final  — 단계 폴더 (각각 img, txt)
      working/txt  편집했지만 [저장] 전인 박스 (임시)
      issues/      이슈 노트 사본 + 이슈 기록 (추가만)
@@ -61,7 +61,7 @@ class StorageMixin:
     # ── 결과 폴더 위치 ──
     @staticmethod
     def default_out_dir(pj):
-        """기본 결과 폴더: visol04/result/<데이터셋 이름>_result"""
+        """기본 결과 폴더: visol04/data/<데이터셋 이름>_result"""
         return os.path.join(BASE_DIR, RESULT_DIR, pj["dataset"] + RESULT_SUFFIX)
 
     @staticmethod
@@ -227,7 +227,7 @@ class StorageMixin:
     # ── 경로 / 현재 위치 ──
     def out_paths(self, p):
         """결과 경로 — 결과 폴더(데이터셋별) 안에서 단계 → img·txt → 원본 images 구조
-           예) result/dataset1_result/work/pass/img/train/a.jpg, …/work/pass/txt/train/a.txt"""
+           예) data/dataset1_result/work/pass/img/train/a.jpg, …/work/pass/txt/train/a.txt"""
         od = self.P(p)["out_dir"]
         rel = self.rel_of(p)                          # 'train/a.jpg'
         stem = os.path.splitext(rel)[0]

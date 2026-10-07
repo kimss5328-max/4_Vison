@@ -8,7 +8,7 @@ SETTINGS_PATH = os.path.expanduser("~/.labeling_tool_config.json")   # 마지막
 
 # 결과 구조 — 데이터셋마다 결과 폴더를 따로 만듦 (원본은 고른 경로의 images·labels 에서 읽기만)
 #   visol04/
-#   ├── result/
+#   ├── data/
 #   │   ├── dataset1_result/          ← <데이터셋 이름(DATASET_NAMES)>_result
 #   │   │   ├── work/                 작업자가 보낸 결과
 #   │   │   │   ├── pass/    img, txt   딥러닝 결과 그대로 문제없음
@@ -22,8 +22,8 @@ SETTINGS_PATH = os.path.expanduser("~/.labeling_tool_config.json")   # 마지막
 #   │   │   └── classes.txt
 #   │   └── dataset2_result/ …
 #   └── manifests/dataset_manifest.csv  데이터 대장 (모든 데이터셋 1개 파일, source_dataset 으로 구분)
-#   img·txt 아래는 원본 images 폴더 구조 그대로 — 예) result/dataset1_result/work/pass/img/train/a.jpg
-RESULT_DIR = "result"            # visol04/result
+#   img·txt 아래는 원본 images 폴더 구조 그대로 — 예) data/dataset1_result/work/pass/img/train/a.jpg
+RESULT_DIR = "data"              # visol04/data
 RESULT_SUFFIX = "_result"        # dataset1 → dataset1_result
 IMG_SUB, TXT_SUB = "img", "txt"
 PREVIEW_SUB = "preview"          # review/preview — 확인용 이미지
@@ -41,7 +41,7 @@ MANIFEST_DIR = "manifests"
 MANIFEST_FILE = "dataset_manifest.csv"
 
 # ── 데이터 대장(manifest) — 이미지 1장당 1행, 저장할 때마다 그 행을 최신 값으로 덮어씀 ──
-#   이력(누가·언제·어디로)은 result/<데이터셋>_result/csv/<이미지>.csv 에 따로 쌓임. manifest 는 '현재 상태' 결과표
+#   이력(누가·언제·어디로)은 data/<데이터셋>_result/csv/<이미지>.csv 에 따로 쌓임. manifest 는 '현재 상태' 결과표
 MANIFEST_HEADER = ["file_name", "source_dataset", "original_split", "scene_type",
                    "worker", "status", "qa_status", "review_reason"]
 # 저장 단계 → (status, qa_status).  view 는 표에 없음 → status 는 직전 값 유지, qa_status = WAIT
