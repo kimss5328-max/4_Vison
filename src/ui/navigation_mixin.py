@@ -4,7 +4,7 @@ from tkinter import messagebox
 
 from PIL import Image
 
-from src.config import UNUSED_CLASS
+from src.config import UNUSED_CLASS, STAGES, WORKER_STAGES, REVIEWER_STAGES
 
 
 class NavigationMixin:
@@ -22,9 +22,23 @@ class NavigationMixin:
 
     def on_review_select(self, state):
         p = self.cur_path()
+        self.last_stage = state            # 저장 안 된 다음 이미지에도 같은 단계를 미리 선택
         if p:
             self.review_status[p] = state
             self.status(f"검수 상태: {state}")
+
+    # ── 검수 상태 선택 가능 여부 ──
+    def stage_allowed(self, stage):
+        if stage in WORKER_STAGES:
+            return self.workerInfo.is_complete()
+        if stage in REVIEWER_STAGES:
+            return self.reviewerInfo.is_complete()
+        return False
+
+    def update_review_buttons(self):
+        """작업자/검수자 정보를 입력할 때마다 호출 → 선택지 활성/비활성"""
+        for st, _ in STAGES:
+            self.reviewPanel.set_enabled(st, self.stage_allowed(st))
 
     def clear_view(self):
         """보여줄 이미지가 없을 때 화면 비우기"""
@@ -72,7 +86,8 @@ class NavigationMixin:
 
         self.issueNote.delete("1.0", "end")
         self.issueNote.insert("1.0", self.notes.get(p, ""))
-        self.reviewPanel.set_state(self.review_status.get(p, ""))
+        # 저장된 단계가 있으면 그 단계, 없으면 직전에 고른 단계
+        self.reviewPanel.set_state(self.review_status.get(p, self.last_stage))
 
         self.imageList.selection_clear(0, "end")
         self.imageList.selection_set(i)
@@ -86,8 +101,12 @@ class NavigationMixin:
         if n_auto:
             msg += f"   🤖 자동 BBox {n_auto}개 → 확인/수정 후 저장하세요"
         if any(b["cls"] == UNUSED_CLASS for b in self.cur_boxes()):
-            msg += "   ⚠ Class 4(사용 안 함) 박스 있음 → 확인 필요 (자동 삭제 안 함)"
+            msg += "   ⚠ 4번(사용 안 함) 박스 있음 → 다른 클래스로 바꾸거나 저장 시 삭제"
+        if self.is_in_progress(p):
+            msg += "   ✎ 작업 중 (자동 저장됨, [저장] 전)"
         self.status(msg)
+        self.update_out_dir_label()
+        self.remember_folder()               # 보던 이미지 기억 → 꺼져도 다시 켜면 여기부터
         self.prefetch(i + 1)
 
     def prefetch(self, j):

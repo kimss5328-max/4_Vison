@@ -2,9 +2,8 @@
 import tkinter as tk
 from tkinter import ttk
 
-# [수정] UNUSED_CLASS, ISSUE_ID 임포트 추가
-from src.config import (CLASS_NAMES, COLORS, ISSUE_LABEL, ISSUE_COLOR, REVIEW_STATES,
-                    FONT, FONT_B, FONT_S, UNUSED_CLASS, ISSUE_ID)
+from src.config import (CLASS_NAMES, CLASS_IDS, COLORS, STAGES, STAGE_FILTERS,
+                    FONT, FONT_B, FONT_S)
 from src.ui.panels import InfoPanel, ReviewPanel
 
 
@@ -48,9 +47,27 @@ class LayoutMixin:
         self.openFolderBtn = tk.Button(lf_folder, text="폴더 열기", font=FONT,
                                        command=self.open_folder)
         self.openFolderBtn.pack(fill="x", padx=4, pady=(4, 2))
+        # 저장 위치 표시 + [변경] (기본: 데이터 폴더의 images·labels/train/train_done)
+        outRow = tk.Frame(lf_folder)
+        outRow.pack(fill="x", padx=4)
+        self.outDirChangeBtn = tk.Button(outRow, text="변경", font=FONT_S, padx=4, pady=0,
+                                         command=self.change_out_dir)
+        self.outDirChangeBtn.pack(side="right", anchor="n")
+        self.outDirLabel = tk.Label(outRow, text="저장 위치: -", font=FONT_S, fg="#666",
+                                    anchor="w", justify="left", wraplength=150)
+        self.outDirLabel.pack(side="left", fill="x", expand=True)
         self.folderSelect = ttk.Combobox(lf_folder, state="readonly", font=FONT)
         self.folderSelect.pack(fill="x", padx=4, pady=(2, 6))
         self.folderSelect.bind("<<ComboboxSelected>>", self.on_folder_select)
+
+        # (전체 이미지)를 골랐을 때만 보이는 단계 선택: 전체 / 1차 / 2차 / review / final
+        self.stageRow = tk.Frame(lf_folder)
+        tk.Label(self.stageRow, text="단계", font=FONT_B).pack(side="left", padx=(0, 4))
+        self.stageSelect = ttk.Combobox(self.stageRow, state="readonly", font=FONT, width=14,
+                                        values=[name for _, name in STAGE_FILTERS])
+        self.stageSelect.pack(side="left", fill="x", expand=True)
+        self.stageSelect.current(0)
+        self.stageSelect.bind("<<ComboboxSelected>>", self.on_stage_filter_select)
 
         lf_list = tk.LabelFrame(self.sidebar, text="폴더 내 이미지", font=FONT_B)
         lf_list.pack(fill="both", expand=True, pady=(6, 0))
@@ -91,12 +108,6 @@ class LayoutMixin:
         self.zoomOutBtn = tk.Button(bottom, text="축소", font=FONT, width=8,
                                     command=self.zoom_out)
         self.zoomOutBtn.pack(side="left", padx=(4, 0))
-        # 보기 필터: 전체 / 미라벨 / 라벨 완료 (괄호 안은 개수)
-        tk.Label(bottom, text="보기", font=FONT_B).pack(side="left", padx=(16, 4))
-        self.filterSelect = ttk.Combobox(bottom, state="readonly", font=FONT, width=16)
-        self.filterSelect.pack(side="left")
-        self.filterSelect.bind("<<ComboboxSelected>>", self.on_filter_select)
-        self.update_filter_counts()
         self.deleteBtn = tk.Button(bottom, text="삭제", font=FONT, fg="#c62828",
                                    command=self.delete_selected)
         self.deleteBtn.pack(side="right")
@@ -137,20 +148,10 @@ class LayoutMixin:
         self.classList = tk.Listbox(lf_cls, width=14, height=14, font=FONT,
                                     exportselection=False)
         self.classList.pack(fill="both", expand=True, padx=4, pady=4)
-        
-        # [수정] 4번 고무장갑 숨기기를 위한 매핑 리스트 생성
-        self.listbox_to_cls = []
-        for i, name in enumerate(CLASS_NAMES):
-            if i == UNUSED_CLASS:
-                continue
-            self.classList.insert("end", f"{i}: {name}")
-            self.classList.itemconfig(len(self.listbox_to_cls), fg=COLORS[i % len(COLORS)])
-            self.listbox_to_cls.append(i)
-            
-        self.classList.insert("end", ISSUE_LABEL)
-        self.classList.itemconfig(len(self.listbox_to_cls), fg=ISSUE_COLOR)
-        self.listbox_to_cls.append(ISSUE_ID)
-        
+        # 목록 줄 순서 ≠ 클래스 번호 (4번이 빠짐) → CLASS_IDS 로 번호를 찾음
+        for row, cid in enumerate(CLASS_IDS):
+            self.classList.insert("end", f"{cid}: {CLASS_NAMES[cid]}")
+            self.classList.itemconfig(row, fg=COLORS[cid % len(COLORS)])
         self.classList.bind("<<ListboxSelect>>", self.on_class_select)
 
         lf_info = tk.LabelFrame(upper, text="클래스 크기 정보", font=FONT_B)
@@ -231,17 +232,20 @@ class LayoutMixin:
         tk.Entry(lf_author, textvariable=self.workerVar, font=FONT,
                  width=1).pack(fill="x", padx=4, pady=4)
 
-        # ② 검수 상태
-        self.reviewPanel = ReviewPanel(left, REVIEW_STATES, on_change=self.on_review_select)
+        # ② 검수 상태 (1차·2차: 작업자 정보 입력 후 / review·final: 검수자 정보 입력 후 선택 가능)
+        self.reviewPanel = ReviewPanel(left, [st for st, _ in STAGES], on_change=self.on_review_select)
         self.reviewPanel.pack(side="top", fill="x", pady=(6, 0))
 
-        # ③ 작업자 정보 (빼려면 아래 두 줄 주석 처리)
-        self.workerInfo = InfoPanel(left, "작업자 정보", ("이름", "ID"))
+        # ③ 작업자 정보 → 1차, 2차
+        self.workerInfo = InfoPanel(left, "작업자 정보 (1차·2차)", ("이름", "ID"),
+                                    on_change=self.update_review_buttons)
         self.workerInfo.pack(side="top", fill="x", pady=(6, 0))
 
-        # ④ 검수자 정보
-        self.reviewerInfo = InfoPanel(left, "검수자 정보", ("이름", "ID"))
+        # ④ 검수자 정보 → review, final
+        self.reviewerInfo = InfoPanel(left, "검수자 정보 (review·final)", ("이름", "ID"),
+                                      on_change=self.update_review_buttons)
         self.reviewerInfo.pack(side="top", fill="x", pady=(6, 0))
+        self.update_review_buttons()          # 처음에는 전부 비활성
 
         # 오른쪽 절반: 이슈 노트
         lf_issue = tk.LabelFrame(lower, text="이슈 노트", font=FONT_B)
@@ -249,7 +253,7 @@ class LayoutMixin:
         self.issueNote = tk.Text(lf_issue, width=1, height=8, wrap="word", font=FONT)
         self.issueNote.pack(fill="both", expand=True, padx=4, pady=4)
         tk.Label(lf_issue, font=FONT_S, fg="#666", justify="left",
-                 text="※ 내용 또는 [이슈] 박스가\n   있으면 issues 폴더에 저장"
+                 text="※ 내용을 입력하고 저장하면\n   issues 폴더에 txt 로 저장"
                  ).pack(anchor="w", padx=4)
 
     # ── 공용 ──
