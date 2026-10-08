@@ -99,6 +99,7 @@ class LayoutMixin:
         self.imageCanvas.bind("<Delete>", lambda e: self.delete_selected())
         self.imageCanvas.bind("<Escape>", self.on_escape)
         self.imageCanvas.bind("<Motion>", self.on_motion)
+        self._build_stats_view(center)        # 단계 보기 '그래프' — 같은 자리에 겹쳐 두고 평소엔 숨김 (stats_mixin)
 
         bottom = tk.Frame(center)
         bottom.grid(row=1, column=0, sticky="ew", pady=(4, 0))

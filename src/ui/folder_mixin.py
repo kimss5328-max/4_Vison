@@ -244,6 +244,7 @@ class FolderMixin:
         self.annotations.clear()
         self.notes.clear()
         self.note_base.clear()
+        self.hide_stats()
         self.baseline.clear()
         self.done.clear()
         self.passed.clear()
@@ -405,6 +406,11 @@ class FolderMixin:
         if i < 0 or not self.folder_images:
             return
         key = STAGE_FILTERS[i][0]
+        if key == "graph":                 # 통계 화면 — 목록·단계 보기는 그대로 두고 가운데만 바꿈
+            if not self.show_stats():
+                self.update_stage_counts()
+            return
+        self.hide_stats()
         # 저장 위치를 아직 안 정했으면 단계 폴더를 볼 수 없으니 먼저 고르게 함 (이어서 작업할 때)
         p = self.cur_path() or self.folder_images[0]
         if key != "all" and not self.ensure_out_dir(self.P(p), for_save=False):
@@ -421,8 +427,10 @@ class FolderMixin:
         for p in self.folder_images:
             for key in self._filter_keys(p):
                 counts[key] += 1
-        self.stageSelect["values"] = [f"{name} ({counts[key]})" for key, name in STAGE_FILTERS]
-        self.stageSelect.current([key for key, _ in STAGE_FILTERS].index(self.view_filter))
+        self.stageSelect["values"] = [name if key == "graph" else f"{name} ({counts[key]})"
+                                      for key, name in STAGE_FILTERS]
+        shown = "graph" if getattr(self, "stats_on", False) else self.view_filter
+        self.stageSelect.current([key for key, _ in STAGE_FILTERS].index(shown))
 
     # ── 목록 / 진행률 ──
     def refresh_image_list(self):
@@ -447,5 +455,9 @@ class FolderMixin:
 
     def on_image_list_select(self, _=None):
         sel = self.imageList.curselection()
+        if sel and getattr(self, "stats_on", False):     # 통계 화면에서 이미지를 고르면 이미지 화면으로
+            self.hide_stats()
+            self.show_image(sel[0])
+            return
         if sel and sel[0] != self.idx:
             self.show_image(sel[0])

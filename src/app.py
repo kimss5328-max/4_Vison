@@ -9,10 +9,11 @@ from src.ui.view_mixin import ViewMixin
 from src.ui.edit_mixin import EditMixin
 from src.yolo.auto_mixin import AutoLabelMixin
 from src.bbox.storage_mixin import StorageMixin
+from src.ui.stats_mixin import StatsMixin
 
 
 class LabelingApp(LayoutMixin, FolderMixin, NavigationMixin, ViewMixin,
-                  EditMixin, AutoLabelMixin, StorageMixin):
+                  EditMixin, AutoLabelMixin, StorageMixin, StatsMixin):
     def __init__(self, root):
         self.root = root
         root.title("라벨링 프로그램")

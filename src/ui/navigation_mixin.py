@@ -89,6 +89,7 @@ class NavigationMixin:
 
     # ── 이미지 열기 ──
     def show_image(self, i):
+        self.hide_stats()                    # 통계 화면이 열려 있으면 이미지 화면으로
         self.discard_pending(silent=True)
         self.save_current_note()
         p = self.images[i]

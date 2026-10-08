@@ -129,8 +129,25 @@ STAGE_LABELS = {st: st for st in STAGES}             # 작업 이력 패널 표�
 
 # 단계 보기 ((전체 이미지) 선택 시) — (키, 표시 이름)
 #   working: 편집했지만 저장 안 한 이미지 / issue: 이슈 기록(issues/txt/<이미지>_issue.txt)이 있는 이미지
+#   graph: 이미지 대신 통계 화면(그래프·표)을 보여줌 (목록은 그대로)
 STAGE_FILTERS = ((("all", "전체"), ("working", "working"))
-                 + tuple((st, st) for st in STAGES) + (("issue", "이슈"),))
+                 + tuple((st, st) for st in STAGES) + (("issue", "이슈"), ("graph", "그래프")))
+
+# ── 통계 화면 (단계 보기 '그래프') ──
+#   작업 상태 — (단계 키, 표시 이름, 색). '' = 아직 저장 안 한 이미지
+STATS_STAGES = (("", "미작업", "#7f8c8d"),      # 회색
+                ("pass", "pass", "#27ae60"),     # 초록
+                ("edited", "edited", "#f39c12"), # 주황
+                ("review", "review", "#2f80ed"), # 파랑
+                ("view", "view", "#e74c3c"),     # 빨강 (파랑·보라와 헷갈리지 않게)
+                ("final", "final", "#2c3e50"))   # 짙은 남색 (초록과 구분)
+STATS_FONT = ("맑은 고딕", 13)                 # 통계 화면 글씨 (일반 화면보다 크게)
+STATS_FONT_B = ("맑은 고딕", 13, "bold")
+STATS_FONT_BIG = ("맑은 고딕", 20, "bold")      # 도넛 가운데 'N장'
+STATS_ROW_H = 30                                # 표 한 줄 높이
+STATS_DONUT_W, STATS_DONUT_H = 250, 250         # 도넛 그림 크기 (범례는 표가 대신함)
+STATS_LABEL_MIN = 10                            # 도넛 조각 안에 비율(%)을 쓰는 최소 비율 — 10% 미만은 안 씀
+STATS_DIR = "reports"            # [CSV 저장] 위치: visol04/reports/stats_<날짜시각>.csv
 
 # ── 색상 ──
 COLORS = ["#2f80ed", "#27ae60", "#f2994a", "#9b51e0",
