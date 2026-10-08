@@ -98,17 +98,24 @@ class Flow:
         return REVIEWER_TARGETS if person["role"] == REVIEWER else WORKER_TARGETS
 
     def default_target(self, person):
-        """검수 상태 기본 선택
-           작업자: 지금 있는 단계(pass·edited·review) 그대로, 그 외(원본·view)는 pass
-           검수자: 확인할 이미지면 final, final 이면 view"""
-        if person and person["role"] == REVIEWER:
-            if self.stage in ("pass", "edited", "review"):
-                return "final"
-            if self.stage == "final":
-                return "view"
-        if self.stage in WORKER_TARGETS:
+        """검수 상태 기본 선택 = 지금 있는 단계 (받은 작업도 저장된 단계 그대로 보임)
+           그 사람이 보낼 수 없는 단계(작업자의 view·final)이거나 미작업이면 pass
+           검수자의 final 승인·view 요청은 직접 고름"""
+        allowed = self.targets(person) if person else WORKER_TARGETS
+        if self.stage in allowed:
             return self.stage
         return DEFAULT_TARGET
+
+    def last_saver(self):
+        """마지막으로 저장한 사람 이름 (기록이 없으면 '')"""
+        if not self.events:
+            return ""
+        ev = self.events[-1]
+        for role in (REVIEWER, WORKER):
+            name = ev.get(f"{role}_{INFO_FIELDS[0][1]}", "")
+            if name:
+                return name
+        return ""
 
     @staticmethod
     def records_review(person):

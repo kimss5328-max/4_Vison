@@ -50,6 +50,7 @@ class NavigationMixin:
             self.edit_ok, self.edit_why = False, ""
             for st in STAGES:
                 self.reviewPanel.set_enabled(st, False)
+            self.reviewPanel.set_current("")
             self.historyPanel.show([], [])
             return
         if reload or self.cur_flow is None or self._flow_path != p:
@@ -66,6 +67,9 @@ class NavigationMixin:
         if reload or sel not in targets:
             sel = flow.default_target(person)
         self.reviewPanel.set_state(sel)
+        # 현재 단계 + 마지막 저장한 사람 (이름을 고르지 않아도, 다른 사람 작업을 받아도 보임)
+        saver = flow.last_saver()
+        self.reviewPanel.set_current((flow.stage or "미작업") + (f" ({saver} 저장)" if flow.stage and saver else ""))
 
         self.historyPanel.show(*flow.history_lines())
 

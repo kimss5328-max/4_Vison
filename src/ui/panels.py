@@ -59,6 +59,10 @@ class ReviewPanel(tk.LabelFrame):
     def set_state(self, state):
         self.var.set(state)
 
+    def set_current(self, text=""):
+        """제목 옆에 현재 단계 표시 — 예) '검수 상태 — 현재: review (3 저장)'"""
+        self.config(text="검수 상태" + (f" — 현재: {text}" if text else ""))
+
     def set_enabled(self, state, enabled):
         """선택지 하나를 누를 수 있게 / 없게"""
         self.buttons[state].config(state="normal" if enabled else "disabled")

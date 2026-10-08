@@ -6,7 +6,8 @@ import threading
 from tkinter import filedialog, messagebox
 
 from src.config import (IMG_EXTS, AUTO_LIST_COLOR, DONE_LIST_COLOR, STAGE_FILTERS,
-                        PICK_START_DIR, SETTINGS_PATH, BASE_DIR, DATASET_NAMES)
+                        PICK_START_DIR, SETTINGS_PATH, BASE_DIR, DATASET_NAMES,
+                        RESULT_DIR, RESULT_SUFFIX)
 from src.validation.auto_validator import run_validation, summarize, print_console
 from src.bbox.manifest import split_of
 
@@ -67,31 +68,23 @@ class FolderMixin:
 
     @staticmethod
     def is_result_path(path):
-        """프로그램 내부의 결과 폴더인지.
-        
-        예외:
-            visol04/data/raw 및 그 하위 폴더는 원본으로 허용한다.
-        """
+        """원본으로 열면 안 되는 폴더인지 (프로그램 폴더 안쪽만 검사)
+           - 프로그램 폴더 바깥                  : 허용
+           - data/ 와 그 안의 원본 폴더          : 허용  (예: data, data/raw, data/이물검출_학습데이터1)
+           - data/<이름>_result/ (결과 폴더)     : 차단
+           - 그 밖의 프로그램 폴더 (src, venv, manifests, reports, backup 등) : 차단"""
         path = os.path.normpath(os.path.abspath(path))
         program_root = os.path.normpath(os.path.abspath(PROGRAM_ROOT))
-        raw_root = os.path.normpath(
-            os.path.join(program_root, "data", "raw")
-        )
-
+        data_root = os.path.join(program_root, RESULT_DIR)
         try:
-            # 프로그램 폴더 바깥이면 차단 대상 아님
             if os.path.commonpath([path, program_root]) != program_root:
-                return False
-
-            # data/raw 및 그 안쪽은 원본으로 허용
-            if os.path.commonpath([path, raw_root]) == raw_root:
-                return False
-
-            # 나머지 visol04 내부는 결과/프로그램 폴더로 취급
-            return True
-
-        except ValueError:
+                return False                                   # 프로그램 폴더 바깥
+            if os.path.commonpath([path, data_root]) != data_root:
+                return True                                    # 프로그램 폴더 자체·코드 폴더
+        except ValueError:                                     # 드라이브가 다른 경우 (Windows)
             return False
+        first = os.path.relpath(path, data_root).split(os.sep)[0]
+        return first.endswith(RESULT_SUFFIX)                   # data/dataset1_result/... 만 차단
 
     def _skip_dir(self, parent, name, root):
         return (self.is_output_dir(parent, name, root)
@@ -168,7 +161,8 @@ class FolderMixin:
                 if self.is_result_path(d):
                     messagebox.showwarning(
                         "원본 폴더 아님",
-                        "프로그램 폴더(visol04)와 그 안쪽(data, backup 등)은 원본으로 열 수 없습니다.\n"
+                        "프로그램 폴더 안에서는 data 안의 원본 폴더만 열 수 있습니다.\n"
+                        "(결과 폴더 *_result 와 src·manifests·reports 등은 열 수 없음)\n"
                         "원본 이미지 폴더(images + labels)를 선택하세요.\n\n"
                         "작업한 이미지는 원본 폴더를 열면 단계 보기에서 확인할 수 있습니다.")
                     continue
