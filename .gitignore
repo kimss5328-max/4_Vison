@@ -38,5 +38,12 @@ id_*
 *Zone.Identifier
 backup/
 code_dump.txt
-reports/
+
+# 보고서: 자동 생성물은 제외, 제출 문서(8·9번)만 올림
+reports/*
+!reports/qa_summary.md
+!reports/test_report.md
+
+# 최종 학습 데이터 (NDA) / manifest 백업
 total_final_data/
+manifests/backup/
