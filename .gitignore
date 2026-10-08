@@ -47,3 +47,9 @@ reports/*
 # 최종 학습 데이터 (NDA) / manifest 백업
 total_final_data/
 manifests/backup/
+
+# 이미지·라벨 데이터는 어디에 있든 올리지 않음 (NDA)
+data/final/
+*.jpg
+*.jpeg
+*.png
