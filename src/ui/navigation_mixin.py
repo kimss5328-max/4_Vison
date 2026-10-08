@@ -36,7 +36,7 @@ class NavigationMixin:
         """작업자를 고를 때마다 호출 → 권한·선택지 다시 판정 (이력은 다시 읽지 않음)"""
         person = self.current_person()
         if person:
-            what = "모든 단계 작업 + final 판정" if person["role"] == "reviewer" else "원본·view 작업 → pass / edited / review"
+            what = "모든 단계 작업 + final 판정" if person["role"] == "reviewer" else "final 외 작업·수정 → pass / edited / review"
             self.personPanel.set_hint(f"ID {person['id']} · {ROLE_NAMES[person['role']]}: {what}")
         else:
             self.personPanel.set_hint("이름을 선택하세요")

@@ -121,7 +121,9 @@ STAGES = ("pass", "edited", "review", "view", "final")
 WORKER_TARGETS = ("pass", "edited", "review")        # 작업자가 보낼 수 있는 곳
 REVIEWER_TARGETS = STAGES                            # 검수자는 전부 (작업자 일 포함)
 SOURCE_LABEL = "원본"              # 아직 저장 안 한 이미지의 위치 표시 (csv 'from' 칸·상태 표시줄)
-WORKER_EDITABLE = ("", "view")     # 작업자가 다룰 수 있는 이미지의 현재 위치 ('' = 원본)
+# 작업자가 다룰 수 있는 이미지의 현재 위치 ('' = 원본) — 저장한 뒤(pass·edited·review)에도 다시 고칠 수 있음
+#   (작업자라면 누구나. final 만 검수자 전용)
+WORKER_EDITABLE = ("", "pass", "edited", "review", "view")
 DEFAULT_TARGET = "pass"            # 검수 상태 기본값
 STAGE_LABELS = {st: st for st in STAGES}             # 작업 이력 패널 표시 이름
 

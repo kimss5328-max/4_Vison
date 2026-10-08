@@ -1,6 +1,6 @@
 """단계 흐름 규칙 — 누가 / 어떤 이미지를 / 어디로 보낼 수 있는지 + 작업 이력
    화면(tkinter)과 파일 이동은 다루지 않고, 사람 목록(config.PEOPLE)과 이력 csv 로 '판정'만 한다.
-     작업자 : 원본(아직 저장 안 함)·view 에 있는 이미지만 작업 → pass / edited / review 로 저장
+     작업자 : final 을 뺀 모든 이미지 작업 → pass / edited / review 로 저장 (저장한 뒤에도 다시 수정 가능)
      검수자 : 모든 이미지 작업 가능 (작업자 일 포함) → pass / edited / review / view / final
               (pass·edited·review 확인 → final 승인 또는 view 로 재작업 요청, final 도 언제든 view 로)"""
 import csv
@@ -88,7 +88,7 @@ class Flow:
             return True, ""
         if self.stage == "final":
             return False, "final 이미지는 검수자만 다룰 수 있습니다."
-        return False, f"{self.stage} 이미지는 검수자 확인 대기 중입니다. (작업자는 원본·view 만 작업)"
+        return False, f"{self.stage} 이미지는 작업자가 다룰 수 없습니다."
 
     @staticmethod
     def targets(person):
@@ -98,12 +98,16 @@ class Flow:
         return REVIEWER_TARGETS if person["role"] == REVIEWER else WORKER_TARGETS
 
     def default_target(self, person):
-        """검수 상태 기본 선택 — 작업자: pass / 검수자: 확인할 이미지면 final, final 이면 view"""
+        """검수 상태 기본 선택
+           작업자: 지금 있는 단계(pass·edited·review) 그대로, 그 외(원본·view)는 pass
+           검수자: 확인할 이미지면 final, final 이면 view"""
         if person and person["role"] == REVIEWER:
             if self.stage in ("pass", "edited", "review"):
                 return "final"
             if self.stage == "final":
                 return "view"
+        if self.stage in WORKER_TARGETS:
+            return self.stage
         return DEFAULT_TARGET
 
     @staticmethod
