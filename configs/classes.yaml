@@ -1,25 +1,23 @@
-# 조각김치 이물검출 Class 정의 (회사 제공 ID 0~6, 번호 재배치 금지)
-# 프로그램 실제 설정: src/config.py 의 CLASSES — 바꿀 때는 두 곳을 함께 수정
+# 조각김치 이물검출 Class 정의 — src/config.py 의 CLASSES 와 동일하게 유지 (바꿀 때 두 곳 함께 수정)
+# 회사 제공 ID 0~6, 번호 재배치 금지
 classes:
   0:
     name: "나뭇잎·종이류"
-    enabled: true
   1:
-    name: "플라스틱류·돌·금속류"
-    enabled: true
+    name: "플라스틱·돌·금속류"
   2:
     name: "나뭇가지류"
-    enabled: true
   3:
     name: "벌레류"
-    enabled: true
   4:
+    # 고무장갑은 실제로 1번(플라스틱·돌·금속류)으로 분석해 온 이력이 있어 4번 삭제(숨김) 확정
+    # 번호 4 는 모델 학습 번호 맞춤용으로 남기고, 목록에서 숨김 + 라벨에 있으면 1번으로 변경 안내
     name: "고무장갑"
-    enabled: false        # 이번 프로젝트에서 사용하지 않음 (목록에서 숨김)
-    replace_with: 1       # 기존 라벨에 4가 있으면 1(플라스틱류·돌·금속류)로 변경 안내
+    selectable: false     # 박스에 지정 불가
+    hidden: true          # 클래스 목록에서 숨김
+    replace_with: 1       # 라벨에 있으면 1번으로 변경 안내
+    auto_label: drop      # 자동 라벨링 결과에서는 버림
   5:
     name: "병해·갈변"
-    enabled: true
   6:
     name: "파·고추"
-    enabled: true
