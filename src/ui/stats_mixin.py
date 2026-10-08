@@ -9,7 +9,7 @@ import tkinter as tk
 from datetime import datetime
 from tkinter import ttk, messagebox
 
-from src.config import (BASE_DIR, STATS_DIR, MANIFEST_DIR, MANIFEST_FILE,
+from src.config import (BASE_DIR, STATS_DIR, MANIFEST_DIR, MANIFEST_FILE, DATASET_NAMES,
                         STATS_FONT, STATS_FONT_B, STATS_FONT_BIG, STATS_ROW_H,
                         STATS_DONUT_W, STATS_DONUT_H, STATS_LABEL_MIN, STATS_STAGES)
 from src.bbox import stats, manifest
@@ -134,7 +134,7 @@ class StatsMixin:
                     r.get("scene_type", "") for r in rows}
         checked = {key for key, v in self.scope_vars.items() if v.get()}
         entries = []
-        for p in self.proj_of:                          # 지금 열린 이미지 전체 중 체크한 단계만
+        for p in self.folder_images:                    # 폴더 분류에서 고른 폴더의 이미지 중 체크한 단계만
             stage = self.latest_stage(p)
             if stage not in checked:
                 continue
@@ -168,7 +168,7 @@ class StatsMixin:
         self._stats = stats.summarize(self._stats_entries())
         s = self._stats
         n_scope = sum(v.get() for v in self.scope_vars.values())
-        self.statsTitle.config(text=f"작업 결과 통계 — 선택 범위 {s['total']}장 "
+        self.statsTitle.config(text=f"작업 결과 통계 — {self._stats_folder_name()} "
                                     f"({n_scope}/{len(self.scope_vars)}개 단계)")
         self.statsStagePanel.config(text=f"작업 상태별 분포 (총 {s['total']}장)")
         self.statsTable.delete(*self.statsTable.get_children())
@@ -186,6 +186,13 @@ class StatsMixin:
         self._redraw_stats()
         self.status(f"통계: 선택 범위 {s['total']}장 — 체크박스로 범위를 넣고 뺄 수 있습니다. "
                     f"목록에서 이미지를 누르면 이미지 화면으로 돌아갑니다.")
+
+    def _stats_folder_name(self):
+        """제목용 폴더 이름 — 데이터셋 폴더는 짧은 이름으로 (이물검출_학습데이터1/train → dataset1/train)"""
+        name = self.folderSelect.get() or "(전체 이미지)"
+        for folder, short in DATASET_NAMES.items():
+            name = name.replace(folder, short)
+        return name
 
     # ── 그리기 ──
     def _redraw_stats(self):

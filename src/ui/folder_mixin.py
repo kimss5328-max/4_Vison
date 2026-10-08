@@ -344,17 +344,19 @@ class FolderMixin:
             self.load_folder(self.folder_keys[i])
 
     def load_folder(self, key, keep=None):
+        """폴더 분류에서 고른 폴더 → 목록. 단계 보기는 어느 폴더에서든 쓸 수 있고, 폴더를 바꾸면 '전체'로 돌아감"""
         if key == "__all__":
             all_images = [p for k in sorted(self.folders) for p in self.folders[k]]
-            self.stageRow.pack(fill="x", padx=4, pady=(0, 6))   # (전체 이미지) → 단계 선택 보이기
         else:
             all_images = self.folders[key]
-            self.stageRow.pack_forget()                          # 개별 폴더 → 숨기고 전체로
-            self.view_filter = "all"
+        if not self.stageRow.winfo_manager():
+            self.stageRow.pack(fill="x", padx=4, pady=(0, 6))
+        self.hide_stats()
+        self.view_filter = "all"
         self.folder_images = list(dict.fromkeys(all_images))
         self.apply_filter(keep=keep)
 
-    # ── 단계 보기 ((전체 이미지) 선택 시: 전체 / working / pass … final / 이슈) ──
+    # ── 단계 보기 (고른 폴더 안에서: 전체 / working / pass … final / 이슈 / 그래프) ──
     def _filter_keys(self, p):
         """이 이미지가 해당하는 단계 보기 키들"""
         keys = []
