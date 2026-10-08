@@ -48,13 +48,24 @@ def groups():
 
 
 # ── 원본 색인: 파일 이름(확장자 뺀 것) → 데이터셋·split ──
+SKIP_TAILS = ("_labeled", "_done", RESULT_SUFFIX)    # 예전 버전·프로그램이 만든 결과 폴더는 원본으로 보지 않음
+MAX_DEPTH = 3
+
+
 def dataset_dirs(origin):
-    """origin 이 데이터셋 폴더면 그것, 아니면 바로 아래의 데이터셋 폴더들"""
+    """origin 과 그 아래(최대 3단계)에서 데이터셋 폴더 찾기
+       — 이름이 config.DATASET_NAMES 에 있고 images 폴더가 있는 것만 (예: 이물검출_학습데이터1)"""
     origin = os.path.abspath(os.path.expanduser(origin))
-    if os.path.isdir(os.path.join(origin, "images")):
-        return [origin]
-    return sorted(os.path.join(origin, n) for n in os.listdir(origin)
-                  if os.path.isdir(os.path.join(origin, n, "images")))
+    found = []
+    base_depth = origin.rstrip(os.sep).count(os.sep)
+    for cur, dirs, _ in os.walk(origin):
+        dirs[:] = sorted(d for d in dirs if not d.endswith(SKIP_TAILS))
+        if os.path.basename(cur) in DATASET_NAMES and os.path.isdir(os.path.join(cur, "images")):
+            found.append(cur)
+            dirs[:] = []                                 # 데이터셋 안쪽은 더 찾지 않음
+        elif cur.count(os.sep) - base_depth >= MAX_DEPTH:
+            dirs[:] = []
+    return found
 
 
 def build_index(origins):
@@ -66,7 +77,8 @@ def build_index(origins):
             folder = os.path.basename(ds_dir)
             found.append(ds_dir)
             img_base = os.path.join(ds_dir, "images")
-            for cur, _, files in os.walk(img_base):
+            for cur, dirs, files in os.walk(img_base):
+                dirs[:] = [d for d in dirs if not d.endswith(SKIP_TAILS)]
                 for f in files:
                     if not f.lower().endswith(IMG_EXTS):
                         continue
@@ -197,7 +209,8 @@ def main():
         sys.exit(f"결과 폴더가 없습니다: {src_dir}")
     index, dup, found = build_index(a.origin)
     if not found:
-        sys.exit("원본 데이터셋 폴더(images 가 있는 폴더)를 찾지 못했습니다: " + ", ".join(a.origin))
+        sys.exit("원본 데이터셋 폴더를 찾지 못했습니다: " + ", ".join(a.origin)
+                 + "\n  찾는 이름: " + ", ".join(DATASET_NAMES) + " (안에 images 폴더가 있어야 함)")
 
     jobs, missing, exists, done = plan(src_dir, index)
     if a.apply:
