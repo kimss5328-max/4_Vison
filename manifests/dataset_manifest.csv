@@ -190,7 +190,7 @@
 250424_153015693567.jpg,dataset2,train,other_review,5,REVIEW,WAIT,other
 250424_153120277271.jpg,dataset2,train,kimchi_with_target,5,FINAL,PASS,
 250424_153155248673.jpg,dataset2,train,kimchi_with_target,5,FINAL,PASS,other
-250424_153338308367.jpg,dataset2,train,kimchi_with_target,5,DONE,WAIT,
+250424_153338308367.jpg,dataset2,train,kimchi_with_target,5,FINAL,PASS,
 250424_153421707254.jpg,dataset2,train,other_review,5,REVIEW,WAIT,other
 250424_153453270568.jpg,dataset2,train,other_review,5,REVIEW,WAIT,other
 250424_153520639358.jpg,dataset2,train,other_review,5,REVIEW,WAIT,other
@@ -514,7 +514,7 @@
 250424_135855115910.jpg,dataset1,train,other_review,3,REVIEW,WAIT,other
 250424_135944045455.jpg,dataset1,train,other_review,3,REVIEW,WAIT,other
 250424_140037360411.jpg,dataset1,train,other_review,3,REVIEW,WAIT,other
-250424_140115786154.jpg,dataset1,train,other_review,3,DONE,WAIT,other
+250424_140115786154.jpg,dataset1,train,other_review,3,REVIEW,WAIT,other
 250424_142451194734.jpg,dataset1,train,other_review,3,REVIEW,WAIT,other
 250424_142525298132.jpg,dataset1,train,other_review,3,REVIEW,WAIT,other
 250424_142552771765.jpg,dataset1,train,other_review,3,REVIEW,WAIT,other
@@ -660,7 +660,7 @@
 250411_111523441250.jpg,dataset1,train,kimchi_with_target,3,FINAL,PASS,
 250411_111607753620.jpg,dataset1,train,kimchi_with_target,3,FINAL,PASS,
 250411_111804424043.jpg,dataset1,train,kimchi_with_target,3,FINAL,PASS,
-250411_111931684327.jpg,dataset1,train,kimchi_with_target,3,DONE,WAIT,
+250411_111931684327.jpg,dataset1,train,kimchi_with_target,3,FINAL,PASS,
 250411_112016533939.jpg,dataset1,train,kimchi_with_target,3,FINAL,PASS,
 250411_112108693050.jpg,dataset1,train,kimchi_with_target,3,FINAL,PASS,
 250411_112539453476.jpg,dataset1,train,kimchi_with_target,3,FINAL,PASS,
