@@ -1,0 +1,87 @@
+﻿file_name,source_dataset,original_split,group,split,primary_class,classes,boxes,note
+250410_150133469509.jpg,dataset1,train,pool,train,6,6,5,
+250410_150722732261.jpg,dataset2,validation,pool,val,6,6,5,
+250410_151029696229.jpg,dataset1,train,pool,train,6,6,5,
+250410_151231944374.jpg,dataset1,train,pool,train,6,6,5,
+250410_174322665070.jpg,dataset1,train,pool,train,2,2,5,
+250410_174748966576.jpg,dataset1,train,pool,val,2,2,5,
+250410_180500624542.jpg,dataset1,train,pool,train,2,2,5,
+250411_092352338943.jpg,dataset2,validation,pool,train,1,1,5,
+250411_093700427956.jpg,dataset1,train,pool,train,1,1,5,
+250411_095715404683.jpg,dataset1,train,pool,train,0,0 1,5,
+250411_100456783421.jpg,dataset1,train,pool,val,3,1 2 3,5,
+250411_105105168397.jpg,dataset1,train,pool,val,1,1,5,
+250411_112619535807.jpg,dataset1,train,pool,test,1,1,5,
+250411_113335977212.jpg,dataset1,train,pool,train,1,1,5,
+250411_113506054354.jpg,dataset2,validation,pool,val,1,1,5,
+250411_114451800273.jpg,dataset1,train,pool,train,1,1,7,
+250411_133550188212.jpg,dataset1,train,pool,train,3,1 3,6,
+250411_135211530132.jpg,dataset1,train,pool,val,2,1 2,5,
+250411_140005265446.jpg,dataset1,train,review,,,1,6,manifest(class_ambiguous)
+250411_140059718969.jpg,dataset1,train,review,,,1,5,manifest(class_ambiguous)
+250411_140154662081.jpg,dataset1,train,review,,,1,5,manifest(class_ambiguous)
+250411_140314154941.jpg,dataset1,train,review,,,1,5,manifest(class_ambiguous)
+250411_140452731605.jpg,dataset1,train,review,,,1,5,manifest(other)
+250411_140553670865.jpg,dataset1,train,review,,,1,5,manifest(class_ambiguous)
+250411_140647006979.jpg,dataset1,train,review,,,1,5,manifest(class_ambiguous)
+250411_140734845588.jpg,dataset1,train,review,,,1,5,manifest(class_ambiguous)
+250411_140826997754.jpg,dataset1,train,review,,,1,5,manifest(class_ambiguous)
+250411_140908232349.jpg,dataset1,train,review,,,1,5,manifest(class_ambiguous)
+250411_140956814957.jpg,dataset1,train,review,,,1,5,manifest(class_ambiguous)
+250411_141042153876.jpg,dataset1,train,review,,,1,5,manifest(class_ambiguous)
+250411_141717372582.jpg,dataset1,train,review,,,1,5,manifest(class_ambiguous)
+250411_141809689183.jpg,dataset1,train,review,,,1,5,manifest(other)
+250411_141859877677.jpg,dataset1,train,review,,,1,5,manifest(other)
+250411_141947463304.jpg,dataset1,train,review,,,1,6,manifest(other)
+250411_142033408182.jpg,dataset1,train,review,,,1,5,manifest(other)
+250411_142123259727.jpg,dataset1,train,review,,,1,5,manifest(other)
+250411_142216814830.jpg,dataset1,train,review,,,1,5,manifest(other)
+250411_142304725518.jpg,dataset1,train,review,,,1,5,manifest(other)
+250411_142354319596.jpg,dataset1,train,review,,,1,5,manifest(other)
+250411_152117347333.jpg,dataset1,train,review,,,0 1 3 5,5,manifest(other)
+250411_152216764651.jpg,dataset1,train,review,,,1 2 3,5,manifest(other)
+250411_152317457996.jpg,dataset1,train,review,,,1 2 5,5,manifest(other)
+250411_152459280077.jpg,dataset1,train,review,,,1,5,manifest(other)
+250411_153202843304.jpg,dataset1,train,pool,train,5,1 2 5,5,
+250411_153351252246.jpg,dataset1,train,review,,,1 2 3,5,manifest(other)
+250411_153808979651.jpg,dataset1,train,pool,train,3,1 3,5,
+250411_154123030062.jpg,dataset1,train,review,,,1 3,5,manifest(other)
+250411_154545289934.jpg,dataset1,train,pool,train,5,5,5,
+250411_155257817932.jpg,dataset1,train,pool,train,5,5,5,
+250411_155751552207.jpg,dataset1,train,pool,train,5,5,5,
+250411_160333681517.jpg,dataset2,validation,pool,val,5,5,5,
+250411_162212242373.jpg,dataset1,train,review,,,1 5,5,manifest(class_ambiguous)
+250411_163231309394.jpg,dataset2,validation,pool,test,5,1 5,5,
+250424_110200584818.jpg,dataset1,train,pool,train,2,2,6,
+250424_110748018790.jpg,dataset1,train,pool,train,2,2,8,
+250424_112408452967.jpg,dataset1,train,pool,train,5,0 1 2 5,6,
+250424_112626180721.jpg,dataset1,train,pool,train,0,0 1 2,5,
+250424_115126242024.jpg,dataset1,train,pool,train,1,1,5,
+250424_131300572776.jpg,dataset2,validation,review,,,0 1,5,manifest(other)
+250424_131717240598.jpg,dataset1,train,review,,,1 2 5,7,manifest(other)
+250424_131814741865.jpg,dataset1,train,review,,,1 2 5,6,manifest(other)
+250424_131847882251.jpg,dataset1,train,review,,,1,5,manifest(other)
+250424_133202379766.jpg,dataset1,train,pool,train,0,0,6,
+250424_134108731645.jpg,dataset1,train,pool,train,0,0,5,
+250424_134126674217.jpg,dataset1,train,pool,train,0,0,5,
+250424_134609468397.jpg,dataset2,validation,pool,val,0,0 1 2,5,
+250424_142024804916.jpg,dataset1,train,pool,train,0,0,5,
+250424_151431421246.jpg,dataset1,train,pool,val,5,2 5,6,
+250424_151740506562.jpg,dataset1,train,pool,test,2,1 2,5,
+250424_152301409922.jpg,dataset2,train,review,,,1 2 5,7,이력 csv + manifest(other)
+250424_153120277271.jpg,dataset2,train,pool,train,3,1 2 3,5,
+250424_153155248673.jpg,dataset2,train,review,,,1 2 3,5,manifest(other)
+250424_154322097228.jpg,dataset2,train,pool,train,3,3,5,
+250424_154704448893.jpg,dataset2,train,pool,train,3,3,5,
+250424_155103672911.jpg,dataset2,validation,pool,val,3,3,4,
+250424_155439226083.jpg,dataset2,train,pool,train,3,3,5,
+250424_165045797026.jpg,dataset2,train,pool,test,0,0,5,
+250424_165356368327.jpg,dataset2,validation,review,,,0 1,5,이력 csv + manifest(other)
+250424_170003430959.jpg,dataset2,train,pool,train,0,0 1,5,
+250513_015420675871.jpg,dataset2,train,pool,train,0,0 1,3,
+250513_020320098243.jpg,dataset2,train,pool,train,1,1,5,
+250513_020440264823.jpg,dataset2,train,review,,,0 1 2,5,manifest(other)
+250513_020750875797.jpg,dataset2,train,pool,train,2,1 2,4,
+250513_021204824022.jpg,dataset2,train,pool,train,0,0,1,
+250513_021344514305.jpg,dataset2,train,pool,train,2,2,7,
+250513_021558743377.jpg,dataset2,train,pool,test,3,1 3,5,
