@@ -92,8 +92,8 @@ CLASSES = [
     {"id": 3, "name": "벌레류"},
     # 고무장갑은 실제로 1번(플라스틱·돌·금속류)으로 분석해 온 이력이 있어 4번 삭제(숨김) 확정
     #   번호 4 는 모델 학습 번호 맞춤용으로 남기고, 목록에서 숨김 + 라벨에 있으면 1번으로 변경 안내
-    {"id": 4, "name": "고무장갑", "selectable": False, "hidden": True,
-     "replace_with": 1, "auto_label": "drop"},
+    {"id": 4, "name": "고무장갑", "selectable": True, "hidden": False,
+     "auto_label": "keep"},
     {"id": 5, "name": "병해·갈변"},
     {"id": 6, "name": "파·고추"},
 ]
