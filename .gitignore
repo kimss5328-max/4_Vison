@@ -53,3 +53,7 @@ data/final/
 *.jpg
 *.jpeg
 *.png
+!reports/smoke_test.md
+!reports/full_train.md
+data/exe_01_result/
+*.zip
