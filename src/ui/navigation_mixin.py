@@ -1,0 +1,194 @@
+"""현재 이미지 열기 / 이전·다음 이동 / 이미지별 메모(이슈 노트·검수 상태)"""
+import threading
+from tkinter import messagebox
+
+from PIL import Image
+
+from src.config import UNUSED_CLASS, STAGES, WORKER_STAGES, REVIEWER_STAGES
+
+
+class NavigationMixin:
+    def cur_path(self):
+        return self.images[self.idx] if 0 <= self.idx < len(self.images) else None
+
+    def cur_boxes(self):
+        return self.annotations.setdefault(self.cur_path(), [])
+
+    # ── 이미지별 메모 ──
+    def save_current_note(self):
+        p = self.cur_path()
+        if p:
+            self.notes[p] = self.issueNote.get("1.0", "end-1c")
+
+    def on_review_select(self, state):
+        p = self.cur_path()
+        self.last_stage = state            # 저장 안 된 다음 이미지에도 같은 단계를 미리 선택
+        if p:
+            self.review_status[p] = state
+            self.status(f"검수 상태: {state}")
+
+    # ── 검수 상태 선택 가능 여부 ──
+    def stage_allowed(self, stage):
+        # review 상태는 1차/2차 작업자도 검수 요청 목적으로 항상 누를 수 있음
+        if stage == "review":
+            return self.workerInfo.is_complete() or self.reviewerInfo.is_complete()
+            
+        if stage in WORKER_STAGES:
+            return self.workerInfo.is_complete()
+        if stage in REVIEWER_STAGES:
+            return self.reviewerInfo.is_complete()
+        return False
+
+    def update_review_buttons(self):
+        """작업자/검수자 정보를 입력할 때마다 호출 → 선택지 활성/비활성"""
+        for st, _ in STAGES:
+            self.reviewPanel.set_enabled(st, self.stage_allowed(st))
+
+    def clear_view(self):
+        """보여줄 이미지가 없을 때 화면 비우기"""
+        self.img = None
+        self.selected = []
+        self.pending = None
+        self.render()
+        self.issueNote.delete("1.0", "end")
+        self.reviewPanel.set_state("")
+        self.refresh_info()
+
+    # ── 이미지 열기 ──
+    def show_image(self, i):
+        self.discard_pending(silent=True)
+        self.save_current_note()
+        p = self.images[i]
+        try:
+            cached = self._cache.pop(p, None)
+            if cached is not None:
+                self.img = cached
+            else:
+                img = Image.open(p)
+                img.load()
+                self.img = img.convert("RGB")
+        except Exception as e:
+            messagebox.showerror("오류", f"이미지를 열 수 없습니다.\n{p}\n{e}")
+            return
+
+        self.idx = i
+        if p not in self.annotations:
+            self.annotations[p], self.notes[p] = self.load_saved(p)
+            # 기존 라벨이 없고 저장된 적도 없는 이미지 → 자동 BBox 적용
+            if not self.annotations[p] and p not in self.done and self.labeler.loaded:
+                preds = self.auto_pred.pop(p, None)          # 일괄 추론 결과 우선
+                if preds is None and self.autoOnOpen.get() and not self._batch_running:
+                    try:
+                        preds = self.predict_image(self.img)
+                    except Exception as e:
+                        preds = None
+                        self.status(f"자동 추론 실패: {e}")
+                if preds:
+                    self.apply_auto(p, preds)
+        self.selected = []
+        self.pending = None
+
+        self.issueNote.delete("1.0", "end")
+        self.issueNote.insert("1.0", self.notes.get(p, ""))
+        # 저장된 단계가 있으면 그 단계, 없으면 직전에 고른 단계
+        self.reviewPanel.set_state(self.review_status.get(p, self.last_stage))
+
+        self.imageList.selection_clear(0, "end")
+        self.imageList.selection_set(i)
+        self.imageList.see(i)
+        self.set_zoom_mode(False)
+        self.fit_view()
+        self.refresh_info()
+        w, h = self.img.size
+        msg = f"{self.disp(p)}   ({w} x {h})   [{i + 1} / {len(self.images)}]"
+        n_auto = sum(1 for b in self.cur_boxes() if b.get("auto"))
+        if n_auto:
+            msg += f"   🤖 자동 BBox {n_auto}개 → 확인/수정 후 저장하세요"
+        if any(b["cls"] == UNUSED_CLASS for b in self.cur_boxes()):
+            msg += "   ⚠ 4번(사용 안 함) 박스 있음 → 다른 클래스로 바꾸거나 저장 시 삭제"
+        if self.is_in_progress(p):
+            msg += "   ✎ 작업 중 (자동 저장됨, [저장] 전)"
+        self.status(msg)
+        self.update_out_dir_label()
+        self.remember_folder()               # 보던 이미지 기억 → 꺼져도 다시 켜면 여기부터
+        self.prefetch(i + 1)
+
+        # =====================================================================
+        # [UI 자동 맞춤 로직] 이미지 로드 후 Manifest 상태에 따라 UI 제어
+        # =====================================================================
+        if hasattr(self, 'reviewPanel') or hasattr(self, 'reviewerInfo'):
+            import os
+            import csv
+            
+            file_name_val = os.path.basename(p)
+            current_status = ""
+            
+            if self.P(p) and self.P(p).get("out_dir"):
+                manifest_path = self.manifest_path(self.P(p))
+                if os.path.exists(manifest_path):
+                    with open(manifest_path, "r", encoding="utf-8-sig") as f:
+                        for row in csv.DictReader(f):
+                            if row.get("file_name") == file_name_val:
+                                current_status = row.get("status", "")
+                                break
+            
+            if hasattr(self, 'reviewPanel'):
+                if current_status == "DONE":
+                    self.reviewPanel.set_state("2차")
+                elif current_status in ["EDITED", "FINAL", "REVIEW"]:
+                    pass 
+                else:
+                    self.reviewPanel.set_state("1차")
+
+            if hasattr(self, 'reviewerInfo'):
+                is_unlocked = current_status in ["EDITED", "FINAL", "REVIEW"]
+                target_state = "normal" if is_unlocked else "disabled"
+                
+                if not is_unlocked and hasattr(self.reviewerInfo, 'vars'):
+                    for var in self.reviewerInfo.vars.values():
+                        var.set("")
+                
+                for child in self.reviewerInfo.winfo_children():
+                    if child.winfo_class() == 'Entry':
+                        child.config(state=target_state)
+        # =====================================================================
+
+    def prefetch(self, j):
+        if not 0 <= j < len(self.images):
+            return
+        q = self.images[j]
+        if q in self._cache:
+            return
+
+        def work():
+            try:
+                im = Image.open(q)
+                im.load()
+                self._cache.clear()
+                self._cache[q] = im.convert("RGB")
+            except Exception:
+                pass
+        threading.Thread(target=work, daemon=True).start()
+
+    # ── 이동 ──
+    def prev_image(self):
+        if not self.images:
+            return
+        if self.idx > 0:
+            self.show_image(self.idx - 1)
+            self.passed.discard(self.images[self.idx])
+            self.update_progress()
+        else:
+            messagebox.showinfo("알림", "첫 번째 이미지입니다.")
+
+    def next_image(self, last_msg="마지막 이미지입니다."):
+        if not self.images:
+            return
+        cur = self.cur_path()
+        if cur:
+            self.passed.add(cur)
+        self.update_progress()
+        if self.idx < len(self.images) - 1:
+            self.show_image(self.idx + 1)
+        else:
+            messagebox.showinfo("알림", last_msg)
