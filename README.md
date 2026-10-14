@@ -297,4 +297,4 @@ FINAL 데이터는 교과 8 Object Detection 학습에 사용합니다.
 - 수정 후 반드시 저장과 Reload를 확인합니다.
 - 최종 제출 전 Validation을 실행합니다.
 
-
+![프로젝트 구조도 설명](architecture.png)
