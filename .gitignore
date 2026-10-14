@@ -61,3 +61,6 @@ data/exe_01_result/
 !reports/logs/build_split/
 !reports/logs/build_split/build_split_20261013_111107.md
 !reports/logs/build_split/build_split_20261013_162244.md
+!reports/baseline_training_condition.md
+!reports/baseline_metrics.csv
+!reports/failure_candidates.csv
