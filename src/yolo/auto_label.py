@@ -1,7 +1,7 @@
 """YOLO 모델 로드 / 추론 전담 클래스 (화면과 무관 — 모델만 다룸)"""
 import os
 
-from src.config import CLASS_NAMES, UNUSED_CLASS
+from src.validation.rules import auto_label_class
 
 
 class YoloAutoLabeler:
@@ -33,8 +33,8 @@ class YoloAutoLabeler:
         cls = res.boxes.cls.cpu().numpy().astype(int)
         cfs = res.boxes.conf.cpu().numpy()
         for (x1, y1, x2, y2), c, s in zip(xyxy, cls, cfs):
-            c = int(c)
-            if c == UNUSED_CLASS or not 0 <= c < len(CLASS_NAMES):
+            c = auto_label_class(int(c))       # 클래스별 처리 방식 (config.CLASSES 의 auto_label)
+            if c is None:                       # drop 또는 표에 없는 번호 → 버림
                 continue
             out.append((c, (((x1 + x2) / 2) / iw, ((y1 + y2) / 2) / ih,
                             (x2 - x1) / iw, (y2 - y1) / ih), float(s)))

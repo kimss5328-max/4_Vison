@@ -1,0 +1,17 @@
+# YOLO 학습 설정 — tools/build_split.py 가 2026-10-13 16:22 에 만듦
+# 비율 7:2:1 · seed 42 · 50장 표본
+# 단일 클래스 학습은 이 파일 그대로 + 학습 옵션 single_cls=True
+# Bridge Holdout(data/bridge_holdout)은 교과 14 보존용 — 여기에 넣지 않음
+path: /home/user1/exe_01/visol04/data/smoke
+train: images/train
+val: images/val
+test: images/test
+nc: 7
+names:
+  0: "나뭇잎·종이류"
+  1: "플라스틱·돌·금속류"
+  2: "나뭇가지류"
+  3: "벌레류"
+  4: "고무장갑"
+  5: "병해·갈변"
+  6: "파·고추"

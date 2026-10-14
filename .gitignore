@@ -5,7 +5,7 @@ __pycache__/
 *.pyc
 
 # 원본 학습 데이터 폴더 (혹시 visol04 안에 둘 경우)
-이물검출_학습데이터1/
+이물검출_학습데이터*/
 
 # 라벨링 결과 — 폴더 틀(.gitkeep)만 올리고 내용물(img, txt, csv)은 제외
 data/**
@@ -15,6 +15,9 @@ reviews/**
 !reviews/**/
 !reviews/**/.gitkeep
 # manifests/dataset_manifest.csv 는 올림 (전체 진행 대장)
+
+# 자동 검사 리포트 (폴더 열 때마다 추가되는 개인 로컬 기록)
+reports/validation_report.csv
 
 # 이전 버전 결과 폴더
 *_labeled/
@@ -35,3 +38,26 @@ id_*
 *Zone.Identifier
 backup/
 code_dump.txt
+
+# 보고서: 자동 생성물은 제외, 제출 문서(8·9번)만 올림
+reports/*
+!reports/qa_summary.md
+!reports/test_report.md
+
+# 최종 학습 데이터 (NDA) / manifest 백업
+total_final_data/
+manifests/backup/
+
+# 이미지·라벨 데이터는 어디에 있든 올리지 않음 (NDA)
+data/final/
+*.jpg
+*.jpeg
+*.png
+!reports/smoke_test.md
+!reports/full_train.md
+data/exe_01_result/
+*.zip
+!reports/logs/
+!reports/logs/build_split/
+!reports/logs/build_split/build_split_20261013_111107.md
+!reports/logs/build_split/build_split_20261013_162244.md

@@ -5,7 +5,7 @@ from tkinter import filedialog, messagebox
 
 from PIL import Image
 
-from src.config import CLASS_NAMES
+from src.config import CLASS_NAMES, DEFAULT_CONF
 
 
 class AutoLabelMixin:
@@ -13,7 +13,7 @@ class AutoLabelMixin:
         try:
             return min(max(float(self.confVar.get()), 0.01), 0.99)
         except ValueError:
-            return 0.25
+            return DEFAULT_CONF
 
     def load_model(self):
         path = filedialog.askopenfilename(
@@ -42,7 +42,7 @@ class AutoLabelMixin:
                 "클래스 수 확인",
                 f"모델 클래스 수({n_cls})가 프로그램 클래스 수({len(CLASS_NAMES)})와 다릅니다.\n"
                 f"클래스 번호(0~{len(CLASS_NAMES) - 1})가 서로 같은지 확인하세요.\n"
-                f"범위를 벗어나거나 4번(사용 안 함)인 결과는 무시됩니다.")
+                f"범위를 벗어난 결과는 무시되고, 지정 불가 클래스는 설정(config.CLASSES 의 auto_label)대로 처리됩니다.")
         self.status(f"모델 로드 완료: {self.labeler.name}")
         return True
 
@@ -71,6 +71,8 @@ class AutoLabelMixin:
             return
         if self._batch_running:
             messagebox.showinfo("알림", "일괄 추론 중에는 사용할 수 없습니다.")
+            return
+        if not self.check_edit():            # 수정 권한이 없는 이미지 (예: final, 정보 미입력)
             return
         if not self.ensure_model():
             return
