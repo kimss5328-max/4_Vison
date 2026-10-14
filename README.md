@@ -298,3 +298,217 @@ FINAL 데이터는 교과 8 Object Detection 학습에 사용합니다.
 - 최종 제출 전 Validation을 실행합니다.
 
 
+
+---
+
+## 14. 교과8 — YOLO11 객체검출 (진행 중 · 1~5일차)
+
+교과7에서 만든 FINAL 데이터로 YOLO11 이물검출 모델을 학습·평가합니다. 기준 문서는 교과8 수행가이드입니다 (괄호 안 숫자는 가이드 절 번호).
+
+### 14-1. 교과7 → 교과8 연결
+
+- 입력: `data/final` 900장 (JPG 900 / YOLO TXT 900) — `tools/export_final.py` 로 모음
+- Class ID 0~6 그대로 사용 (7절 표) · Class 4 고무장갑은 팀 회의 결정으로 다시 사용
+- Dataset Version: **kimchi_v1** (labels sha256 앞 12자리 — train `57f0bf5121e4` / val `ab6cc7f98da7`)
+
+### 14-2. Dataset 구성 (11 · `docs/split_policy.md`)
+
+| 역할 | 장 | 용도 | 위치 |
+|---|---|---|---|
+| Train | 600 | 학습 | `data/yolo/{images,labels}/train` |
+| Validation | 100 | Baseline · 개선 실험 비교 | `data/yolo/{images,labels}/val` |
+| Frozen Test | 100 | Final Model 선택 후 1회 평가 | `data/yolo/{images,labels}/test` |
+| Bridge Holdout | 100 | 교과 14 보존 (교과8 사용 금지 · `dataset.yaml` 에 없음) | `data/bridge_holdout/{images,labels}` |
+
+- 대표 클래스 기준 층화 분할 · seed 42 · Split Freeze `1b074fa` (2026-10-13)
+- 900장 중 171장은 교과7 결과 폴더 final 단계 이전 이미지 (Class 4 포함 152 · 검수 대기 19) — 팀 결정으로 사용, 상세는 `docs/split_policy.md` 4절
+
+### 14-3. Data Leakage 확인 (11.4 · 15.3)
+
+- 확인함: 파일·픽셀 SHA-256 중복 0건 · 역할 간 같은 파일 이름 0건 · Smoke 표본과 Test · Holdout 겹침 0장 · Bridge Holdout `dataset.yaml` 미포함
+- **확인 못 함**: capture_group (연속 촬영 · 유사 장면) — 촬영 묶음 정보가 없음. Validation · Test 결과 해석 때 한계로 함께 기록
+
+### 14-4. 환경 (14.3)
+
+| 항목 | 버전 |
+|---|---|
+| GPU | NVIDIA RTX 3060 12GB |
+| Python | 3.10.12 |
+| PyTorch | 2.14.1+cu130 |
+| Ultralytics | 8.4.175 |
+
+### 14-5. 실행 방법 (프로젝트 루트에서, 9.0)
+
+```bash
+source venv/bin/activate
+
+# 데이터 검사 → reports/dataset_summary.csv · audit_issue.csv
+python src/dataset_audit.py
+
+# Baseline 학습 (약 1시간) → runs/baseline_v1/
+python -u tools/06_train_baseline.py 2>&1 | tee runs/baseline_v1.log
+
+# 시험 실행 (1 epoch)
+python -u tools/06_train_baseline.py --epochs 1 --name baseline_dryrun
+
+# Validation 평가
+yolo detect val model=runs/baseline_v1/weights/baseline_best.pt data=configs/dataset.yaml imgsz=1920 batch=3
+```
+
+- 분할(`tools/build_split.py`)은 Freeze 상태라 다시 실행하지 않습니다. `--force` 금지
+- `configs/dataset.yaml` 의 `path` 는 현재 절대경로입니다. 다른 PC에서는 자기 경로로 바꾸거나 `data/yolo` (12절)로 두고 루트에서 실행합니다
+
+### 14-6. Smoke Test (16 · `reports/smoke_test.md`)
+
+- Gate용 Smoke: 7클래스 · 640 · 3 epoch · 표본 50장 (train 600장에서만 추출) → Weight 생성 · Prediction 확인
+- 해상도 비교: 960 · 1088 · 1440 · 1920 · 2432 중 1920 채택
+
+### 14-7. Baseline (17 · 18 · `reports/baseline_training_condition.md`)
+
+| 항목 | 값 |
+|---|---|
+| Model | YOLO11n (`yolo11n.pt` 사전학습) · 7클래스 |
+| 조건 | imgsz 1920 · epoch 100 (patience 30) · batch 3 · seed 0 · AdamW lr 0.000909 · cache ram |
+| 코드 | `src/train_detector.py` (학습 함수, 17.2) · `tools/06_train_baseline.py` (실행 Script, 17.3) |
+| Weight | `runs/baseline_v1/weights/baseline_best.pt` |
+
+| Validation (100장 · 501박스) | P | R | mAP50 | mAP50-95 |
+|---|---|---|---|---|
+| 전체 | 0.926 | 0.849 | 0.889 | 0.780 |
+| 가장 약한 클래스: 5 병해·갈변 | 0.739 | 0.367 | 0.427 | 0.338 |
+
+- 클래스별 지표: `reports/baseline_metrics.csv` · 실패 후보: `reports/failure_candidates.csv`
+- 다음 단계: 6일차 Failure Analysis → 7일차 한 변수 개선 실험
+
+### 14-8. 가이드와 다른 점
+
+| 가이드 | 이 프로젝트 | 이유 |
+|---|---|---|
+| `scripts/` | `tools/` | 기존 폴더 사용 — 최상위 새 폴더 금지 (팀 규칙) |
+| `models/baseline/baseline_best.pt` | `runs/baseline_v1/weights/baseline_best.pt` | 같은 이유 |
+| `scripts/02_audit_subject7_final.py` | `src/dataset_audit.py` 직접 실행 | 기존 파일 유지 |
+| `scripts/03_build_split.py` | `tools/build_split.py` | 기존 도구 유지 |
+| `configs/dataset.yaml` `path: data/yolo` | 절대경로 | 현재 PC 기준 — 다른 PC에서 수정 필요 |
+
+### 14-9. 교과8 문서
+
+| 문서 | 내용 |
+|---|---|
+| `docs/split_policy.md` | 분할 기준 · Freeze · 171장 · 누수 확인 |
+| `reports/dataset_summary.csv` | 네 역할 수량 (합 900 · PASS) |
+| `reports/smoke_test.md` | Smoke 실행 기록 · 해상도 결정 |
+| `reports/baseline_training_condition.md` | Baseline 학습 조건 · 결과 |
+| `reports/baseline_metrics.csv` | 클래스별 Validation 지표 |
+| `reports/failure_candidates.csv` | 6일차 분석 대상 이미지 |
+
+### 14-10. 교과8 보안 주의사항
+
+- `data/`, `runs/`, Weight(`.pt`), 예측 이미지, 그래프 이미지는 Git에 올리지 않습니다 (NDA)
+- 문서에는 파일 이름과 숫자만 적고 이미지는 넣지 않습니다
+
+---
+
+## 14. 교과8 — YOLO11 객체검출 (진행 중 · 1~5일차)
+
+교과7에서 만든 FINAL 데이터로 YOLO11 이물검출 모델을 학습·평가합니다. 기준 문서는 교과8 수행가이드입니다 (괄호 안 숫자는 가이드 절 번호).
+
+### 14-1. 교과7 → 교과8 연결
+
+- 입력: `data/final` 900장 (JPG 900 / YOLO TXT 900) — `tools/export_final.py` 로 모음
+- Class ID 0~6 그대로 사용 (7절 표) · Class 4 고무장갑은 팀 회의 결정으로 다시 사용
+- Dataset Version: **kimchi_v1** (labels sha256 앞 12자리 — train `57f0bf5121e4` / val `ab6cc7f98da7`)
+
+### 14-2. Dataset 구성 (11 · `docs/split_policy.md`)
+
+| 역할 | 장 | 용도 | 위치 |
+|---|---|---|---|
+| Train | 600 | 학습 | `data/yolo/{images,labels}/train` |
+| Validation | 100 | Baseline · 개선 실험 비교 | `data/yolo/{images,labels}/val` |
+| Frozen Test | 100 | Final Model 선택 후 1회 평가 | `data/yolo/{images,labels}/test` |
+| Bridge Holdout | 100 | 교과 14 보존 (교과8 사용 금지 · `dataset.yaml` 에 없음) | `data/bridge_holdout/{images,labels}` |
+
+- 대표 클래스 기준 층화 분할 · seed 42 · Split Freeze `1b074fa` (2026-10-13)
+- 900장 중 171장은 교과7 결과 폴더 final 단계 이전 이미지 (Class 4 포함 152 · 검수 대기 19) — 팀 결정으로 사용, 상세는 `docs/split_policy.md` 4절
+
+### 14-3. Data Leakage 확인 (11.4 · 15.3)
+
+- 확인함: 파일·픽셀 SHA-256 중복 0건 · 역할 간 같은 파일 이름 0건 · Smoke 표본과 Test · Holdout 겹침 0장 · Bridge Holdout `dataset.yaml` 미포함
+- **확인 못 함**: capture_group (연속 촬영 · 유사 장면) — 촬영 묶음 정보가 없음. Validation · Test 결과 해석 때 한계로 함께 기록
+
+### 14-4. 환경 (14.3)
+
+| 항목 | 버전 |
+|---|---|
+| GPU | NVIDIA RTX 3060 12GB |
+| Python | 3.10.12 |
+| PyTorch | 2.14.1+cu130 |
+| Ultralytics | 8.4.175 |
+
+### 14-5. 실행 방법 (프로젝트 루트에서, 9.0)
+
+```bash
+source venv/bin/activate
+
+# 데이터 검사 → reports/dataset_summary.csv · audit_issue.csv
+python src/dataset_audit.py
+
+# Baseline 학습 (약 1시간) → runs/baseline_v1/
+python -u tools/06_train_baseline.py 2>&1 | tee runs/baseline_v1.log
+
+# 시험 실행 (1 epoch)
+python -u tools/06_train_baseline.py --epochs 1 --name baseline_dryrun
+
+# Validation 평가
+yolo detect val model=runs/baseline_v1/weights/baseline_best.pt data=configs/dataset.yaml imgsz=1920 batch=3
+```
+
+- 분할(`tools/build_split.py`)은 Freeze 상태라 다시 실행하지 않습니다. `--force` 금지
+- `configs/dataset.yaml` 의 `path` 는 현재 절대경로입니다. 다른 PC에서는 자기 경로로 바꾸거나 `data/yolo` (12절)로 두고 루트에서 실행합니다
+
+### 14-6. Smoke Test (16 · `reports/smoke_test.md`)
+
+- Gate용 Smoke: 7클래스 · 640 · 3 epoch · 표본 50장 (train 600장에서만 추출) → Weight 생성 · Prediction 확인
+- 해상도 비교: 960 · 1088 · 1440 · 1920 · 2432 중 1920 채택
+
+### 14-7. Baseline (17 · 18 · `reports/baseline_training_condition.md`)
+
+| 항목 | 값 |
+|---|---|
+| Model | YOLO11n (`yolo11n.pt` 사전학습) · 7클래스 |
+| 조건 | imgsz 1920 · epoch 100 (patience 30) · batch 3 · seed 0 · AdamW lr 0.000909 · cache ram |
+| 코드 | `src/train_detector.py` (학습 함수, 17.2) · `tools/06_train_baseline.py` (실행 Script, 17.3) |
+| Weight | `runs/baseline_v1/weights/baseline_best.pt` |
+
+| Validation (100장 · 501박스) | P | R | mAP50 | mAP50-95 |
+|---|---|---|---|---|
+| 전체 | 0.926 | 0.849 | 0.889 | 0.780 |
+| 가장 약한 클래스: 5 병해·갈변 | 0.739 | 0.367 | 0.427 | 0.338 |
+
+- 클래스별 지표: `reports/baseline_metrics.csv` · 실패 후보: `reports/failure_candidates.csv`
+- 다음 단계: 6일차 Failure Analysis → 7일차 한 변수 개선 실험
+
+### 14-8. 가이드와 다른 점
+
+| 가이드 | 이 프로젝트 | 이유 |
+|---|---|---|
+| `scripts/` | `tools/` | 기존 폴더 사용 — 최상위 새 폴더 금지 (팀 규칙) |
+| `models/baseline/baseline_best.pt` | `runs/baseline_v1/weights/baseline_best.pt` | 같은 이유 |
+| `scripts/02_audit_subject7_final.py` | `src/dataset_audit.py` 직접 실행 | 기존 파일 유지 |
+| `scripts/03_build_split.py` | `tools/build_split.py` | 기존 도구 유지 |
+| `configs/dataset.yaml` `path: data/yolo` | 절대경로 | 현재 PC 기준 — 다른 PC에서 수정 필요 |
+
+### 14-9. 교과8 문서
+
+| 문서 | 내용 |
+|---|---|
+| `docs/split_policy.md` | 분할 기준 · Freeze · 171장 · 누수 확인 |
+| `reports/dataset_summary.csv` | 네 역할 수량 (합 900 · PASS) |
+| `reports/smoke_test.md` | Smoke 실행 기록 · 해상도 결정 |
+| `reports/baseline_training_condition.md` | Baseline 학습 조건 · 결과 |
+| `reports/baseline_metrics.csv` | 클래스별 Validation 지표 |
+| `reports/failure_candidates.csv` | 6일차 분석 대상 이미지 |
+
+### 14-10. 교과8 보안 주의사항
+
+- `data/`, `runs/`, Weight(`.pt`), 예측 이미지, 그래프 이미지는 Git에 올리지 않습니다 (NDA)
+- 문서에는 파일 이름과 숫자만 적고 이미지는 넣지 않습니다
