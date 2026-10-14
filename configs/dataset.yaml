@@ -1,4 +1,4 @@
-# YOLO 학습 설정 — tools/build_split.py 가 2026-10-12 16:45 에 만듦
+# YOLO 학습 설정 — tools/build_split.py 가 2026-10-13 11:11 에 만듦
 # 개수 train 600 / val 100 / test 100 / holdout 100 · seed 42
 # 단일 클래스 학습은 이 파일 그대로 + 학습 옵션 single_cls=True
 # Bridge Holdout(data/bridge_holdout)은 교과 14 보존용 — 여기에 넣지 않음

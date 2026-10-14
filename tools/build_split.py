@@ -51,7 +51,7 @@ from src.config import (RESULT_DIR, RESULT_SUFFIX, CSV_DIR, CLASS_NAMES,   # noq
 FINAL_DIR = os.path.join(BASE, RESULT_DIR, "final")
 INDEX_FILE = "final_index.csv"
 CONFIG_DIR = os.path.join(BASE, "configs")
-REPORT_DIR = "reports"
+REPORT_DIR = "reports/logs/build_split"
 SPLITS = ("train", "val", "test")          # dataset.yaml 에 들어가는 역할
 ROLES = SPLITS + ("holdout",)               # + Bridge Holdout (yaml 제외)
 INCLUDE = {"pool": ("pool",), "final": ("pool", "review"), "all": ("pool", "review", "excluded")}

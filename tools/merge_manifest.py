@@ -30,7 +30,7 @@ from src.config import (RESULT_DIR, RESULT_SUFFIX, IMG_SUB, STAGE_DIRS, CSV_DIR,
                         DATASET_NAMES, MANIFEST_DIR, MANIFEST_FILE, MANIFEST_HEADER, STAGE_STATUS)
 from src.bbox import manifest                                                              # noqa: E402
 
-REPORT_DIR = "reports"
+REPORT_DIR = "reports/logs/merge_manifest"
 LOCATION_ORDER = ("final", "view", "review", "edited", "pass")
 RANK = {"FINAL": 4, "REVIEW": 3, "EDITED": 2, "DONE": 1, "": 0}
 VALID_DS = set(DATASET_NAMES.values())

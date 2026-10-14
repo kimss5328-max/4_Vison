@@ -35,7 +35,7 @@ from src.config import (RESULT_DIR, RESULT_SUFFIX, IMG_SUB, TXT_SUB, STAGE_DIRS,
                         CLASS_NAMES, MANIFEST_DIR, MANIFEST_FILE)
 
 OUT_DIR = os.path.join(RESULT_DIR, "final")      # visol04/data/final (data/ 는 Git 제외)
-REPORT_DIR = "reports"
+REPORT_DIR = "reports/logs/export_final"
 TARGET = 900                                   # 전체 이미지 수 (수행가이드)
 NOT_FINAL = [st for st in STAGE_DIRS if st != "final"]
 

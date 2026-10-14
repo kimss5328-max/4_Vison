@@ -33,7 +33,7 @@ from src.config import (RESULT_DIR, RESULT_SUFFIX, IMG_SUB, TXT_SUB, PREVIEW_SUB
 from src.bbox import manifest                                                                 # noqa: E402
 
 ISSUE_TAIL = "_issue"
-REPORT_DIR = "reports"
+REPORT_DIR = "reports/logs/migrate_result"
 
 
 # ── 결과 폴더 안의 묶음 (결과 폴더 기준 경로) ──
