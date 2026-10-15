@@ -4,7 +4,7 @@
 > **작성자:** KimKimJuHan (`wngks37@naver.com`)
 > **기준 가이드:** `c:\Users\user1\Downloads\restructure_guide.md`
 > **작업 브랜치:** `feature/split_7_8` (기반: `feature/7_8`)
-> **최종 커밋:** `329fbec`
+> **최종 커밋:** `cc96920`
 
 ---
 
@@ -64,14 +64,10 @@
     ├── src/                                      ← 재사용 기능 코드
     │   ├── __init__.py
     │   ├── dataset_audit.py                      ← 데이터 감사 모듈
-    │   ├── train_detector.py                     ← 학습 인터페이스 함수 (17.2)
-    │   ├── common/                               ← 경로·해시·검증 공통 유틸
-    │   └── detector/                             ← Trainer / Evaluator 모듈
-    ├── scripts/                                  ← 실행 스크립트
-    │   ├── 01_build_split.py                     ← Split Freeze 검증 래퍼
+    │   └── train_detector.py                     ← 학습 인터페이스 함수 (17.2)
+    ├── scripts/                                  ← 실행 스크립트 (가이드 표준)
     │   ├── 03_build_split.py                     ← 데이터 분할 정규 스크립트
-    │   ├── 06_train_baseline.py                  ← Baseline 정규 학습 스크립트 (17.3)
-    │   └── 06_evaluate.py                        ← Validation 지표 평가 스크립트
+    │   └── 06_train_baseline.py                  ← Baseline 정규 학습 스크립트 (17.3)
     ├── reports/                                  ← baseline_metrics / condition / summary / logs
     ├── docs/                                     ← split_policy.md / restructure_guide.md
     ├── data/                                     ← subject7_final / yolo / smoke / bridge_holdout
@@ -92,7 +88,7 @@
 * `main.py`, `requirements.txt`, `src/`(UI/BBox/Validation/YOLO), `configs/classes.yaml`, `manifests/dataset_manifest.csv`, `docs/`, `reports/`, `tools/`(export_final, merge_manifest, migrate_result), `handoff_subject08/`를 교과 7 폴더로 배치했습니다.
 
 ### 3단계 — 교과 8 파일 배치 (`subject8_kimchi_detection/`)
-* `configs/`(dataset.yaml, smoke_dataset.yaml), `manifests/`(split_manifest, train, val, test, holdout), `src/`(dataset_audit, train_detector, common, detector), `scripts/`(03_build_split, 06_train_baseline), `reports/`, `docs/`를 교과 8 표준 구조로 배치했습니다.
+* `configs/`(dataset.yaml, smoke_dataset.yaml), `manifests/`(split_manifest, train, val, test, holdout), `src/`(dataset_audit, train_detector), `scripts/`(03_build_split, 06_train_baseline), `reports/`, `docs/`를 교과 8 표준 구조로 배치했습니다.
 * 필수 보존 폴더(`.gitkeep`) 11종 생성:
   * `data/subject7_final`, `data/yolo`, `data/bridge_holdout`, `data/smoke`, `data/new_unlabeled`
   * `models/baseline`, `models/improved`, `models/final`
@@ -122,6 +118,19 @@
   * `tools/build_split.py` → `scripts/03_build_split.py` (분할 도구 참조, seed 표기, Data Leakage 항목)
 * `baseline_training_condition.md` 비고란: 해당 파일 내 학습 당시 경로 관련 내용은 과거 기록이므로 수정하지 않음.
 
+### PR 사전 정리 (팀원 요청 반영 · 커밋 `cc96920`)
+1. **`feature/7_8` 최신 커밋 머지:** `be50895` (split_manifest 열 보완 — scene_type · capture_group · dataset_version) 반영. split_manifest.csv 충돌은 origin/feature/7_8 버전(신규 열 포함)으로 해결.
+2. **`scripts/` 정리:** `03_build_split.py`, `06_train_baseline.py` 2개만 남기고 나머지 삭제 (`01_`, `02_`, `03_export`, `04_`, `05_`, `06_evaluate`, 번호 없는 사본 전부).
+3. **`tools/` 폴더 삭제:** 교과 8 쪽 `tools/` 전체 제거. 교과 7 도구(`export_final` · `merge_manifest` · `migrate_result`)는 `subject7_kimchi_labeling/tools/`에만 유지.
+4. **`split_policy.md` 위치 정리:** `subject7_kimchi_labeling/docs/split_policy.md` 삭제 → `subject8_kimchi_detection/docs/`에만 존재.
+5. **리팩토링 대상 분리:** `src/common/`, `src/detector/`, `scripts/05_train.py`, `scripts/06_evaluate.py`는 이번 PR에서 제외하고 별도 리팩토링 PR로 분리.
+6. **fallback 코드 확인 (Freeze 도구 검토):**
+   * `03_build_split.py` — `try/except ModuleNotFoundError`: 교과 7 `src.config` import 실패 시 교과 8 자체 상수로 동작. Split Freeze 배정 로직에 영향 없음.
+   * `03_build_split.py` — `FINAL_DIR`: `data/subject7_final` 우선, 없으면 `data/final` fallback. 같은 900장을 가리키면 결과 동일.
+   * `dataset_audit.py` — manifest 경로: `data/subject7_final/dataset_manifest.csv` 우선, 없으면 `manifests/` fallback.
+   * `dataset_audit.py` — 데이터 경로: `subject7_final/dataset{n}/images` → `subject7_final/images` → `dataset{n}_result/final/img` 순서로 탐색.
+   * **결론: 모든 fallback은 데이터 배치 전 스크립트가 죽지 않도록 한 방어 코드. 배정 숫자·해시값 변경 없음.**
+
 ---
 
 ## 4. 최종 검증 결과 (8대 검증 항목)
@@ -137,6 +146,8 @@
 | 7 | **NDA 보안 검사** | `git status -s` 및 `git ls-files` 추적 검사 | `.pt`, `.jpg`, `.png`, 키 파일 커밋 제외 100% | **PASS** |
 | 8 | **Git 이력 보존** | Git 커밋 로그 확인 (`git log --oneline`) | 이전 교과 7/8 커밋 히스토리 정상 유지 | **PASS** |
 
+※ 2·4·5번은 데이터 배치(가이드 7단계) 후 실데이터 기반으로 재검증 필요.
+
 ---
 
 ## 5. 향후 작업 안내 (데이터 담당 인계 및 실행)
@@ -144,11 +155,13 @@
 1. **데이터 파일 배치 (가이드 7단계):**
    * 교과 7 검수 완료본(900장 JPG/TXT)을 `subject8_kimchi_detection/data/subject7_final/`에 복사본으로 배치합니다.
    * 기 분할된 데이터(`data/yolo/`, `data/bridge_holdout/`, `data/smoke/`) 및 가중치(`models/baseline/baseline_best.pt`)를 각 위치에 배치합니다.
-2. **Baseline 평가 재현:**
+2. **Baseline 평가 재현 (가이드 8단계):**
 ```bash
    cd subject8_kimchi_detection
-   python scripts/06_evaluate.py
-   # 기대치: all mAP50 0.889, mAP50-95 0.780 확인
+   yolo detect val model=models/baseline/baseline_best.pt data=configs/dataset.yaml imgsz=1920 batch=3
+   # 기대치: 전체 P 0.926 · R 0.849 · mAP50 0.889 · mAP50-95 0.780
 ```
 3. **Pull Request:**
-   * 현재 브랜치 `feature/split_7_8`을 원격에 push한 후 `feature/7_8` 브랜치로 PR을 생성하여 최종 머지합니다.
+   * 브랜치 `feature/split_7_8` → `feature/7_8` 으로 PR 생성 후 데이터 담당이 8단계 결과 확인 후 승인·머지.
+4. **리팩토링 PR (별도):**
+   * `src/common/`, `src/detector/`, `scripts/05_train.py`, `scripts/06_evaluate.py` 정리.
