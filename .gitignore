@@ -64,3 +64,4 @@ data/exe_01_result/
 !reports/baseline_training_condition.md
 !reports/baseline_metrics.csv
 !reports/failure_candidates.csv
+!reports/dataset_summary.csv

@@ -7,7 +7,14 @@ from pathlib import Path
 IMG_EXTS = {".jpg", ".jpeg", ".png"}
 NUM_CLASSES = 7
 FALLBACK_EXPECTED = {1: 500, 2: 400}  # manifest에 해당 데이터셋 행이 없을 때만 사용
-
+ROLE_DIRS = {  # 역할 → (이미지 폴더, 라벨 폴더) — 프로젝트 루트 기준
+    "train": ("data/yolo/images/train", "data/yolo/labels/train"),
+    "val": ("data/yolo/images/val", "data/yolo/labels/val"),
+    "test": ("data/yolo/images/test", "data/yolo/labels/test"),
+    "bridge_holdout": ("data/bridge_holdout/images", "data/bridge_holdout/labels"),
+}
+ROLE_ALIAS = {"validation": "val", "holdout": "bridge_holdout", "bridge": "bridge_holdout"}
+EXPECTED_TOTAL = 900
 
 def collect(d: Path, exts=None, suffix=None) -> list[Path]:
     if not d.exists():
@@ -246,6 +253,66 @@ def audit_raw_vs_final(raw_dir: Path, finals: dict, search_roots: list) -> list:
     print(f"  raw {len(raw_stems)} / final {len(final_all)} / raw only {len(missing)} / final only {len(final_all - raw_stems)}")
     return issues
 
+def audit_split_roles(root: Path):
+    """split_manifest.csv와 실제 폴더로 네 역할 수량 확인 (16.8)"""
+    print("\n[split roles]")
+    summary, issues = [], []
+
+    def row(metric, value):
+        summary.append({"Dataset": "ALL", "Category": "Split Role", "Metric": metric, "Value": value})
+
+    def add(filename, issue_type, detail):
+        issues.append({"dataset": "SPLIT_ROLE", "filename": filename,
+                       "issue_type": issue_type, "detail": detail})
+
+    # 1. manifest에서 역할별 장수
+    manifest_counts = defaultdict(int)
+    mpath = root / "manifests" / "split_manifest.csv"
+    if not mpath.exists():
+        add("MANIFEST", "SPLIT_MANIFEST_MISSING", str(mpath))
+    else:
+        with open(mpath, newline="", encoding="utf-8-sig") as f:
+            rd = csv.DictReader(f)
+            col = next((c for c in ("split", "role") if c in (rd.fieldnames or [])), None)
+            if col is None:
+                add("MANIFEST", "SPLIT_COLUMN_MISSING", f"columns={rd.fieldnames}")
+            else:
+                for r in rd:
+                    v = (r[col] or "").strip().lower()
+                    manifest_counts[ROLE_ALIAS.get(v, v)] += 1
+
+    # 2. 역할별 실제 이미지·라벨 수 + 짝 확인
+    role_stems = {}
+    for role, (img_rel, lbl_rel) in ROLE_DIRS.items():
+        imgs = group_by_stem(collect(root / img_rel, exts=IMG_EXTS))
+        lbls = group_by_stem(collect(root / lbl_rel, suffix=".txt"))
+        n_m = manifest_counts.get(role, 0)
+        role_stems[role] = set(imgs)
+        row(role, len(imgs))
+        if not (n_m == len(imgs) == len(lbls)):
+            add(role, "ROLE_COUNT_MISMATCH", f"manifest={n_m}, images={len(imgs)}, txts={len(lbls)}")
+        for s in sorted(set(imgs) ^ set(lbls)):
+            add(s, "ROLE_PAIR_ERROR", f"role={role}, image={s in imgs}, txt={s in lbls}")
+
+    # 3. 두 역할에 같은 이미지 이름이 있는지 (11.4)
+    roles = list(role_stems)
+    for i, a in enumerate(roles):
+        for b in roles[i + 1:]:
+            for s in sorted(role_stems[a] & role_stems[b]):
+                add(s, "ROLE_OVERLAP", f"{a} & {b}")
+
+    # 4. 알 수 없는 역할 값 · 합계
+    for k in sorted(set(manifest_counts) - set(ROLE_DIRS)):
+        add(k, "UNKNOWN_ROLE", f"{manifest_counts[k]} rows")
+    total = sum(len(s) for s in role_stems.values())
+    total_ok = total == EXPECTED_TOTAL == sum(manifest_counts.values()) and not issues
+    row("Total", total)
+    row("Total Status", "PASS" if total_ok else "FAIL")
+
+    print("  " + " / ".join(f"{r} {len(s)}" for r, s in role_stems.items())
+          + f" = {total} -> {'PASS' if total_ok else 'FAIL'} (issues {len(issues)})")
+    return summary, issues
+
 
 def write_csv(path: Path, fields: list, rows: list):
     with open(path, "w", newline="", encoding="utf-8-sig") as f:
@@ -279,7 +346,11 @@ def main():
         all_per_image += r["per_image"]
 
     roots = [data / f"dataset{n}_result" / s for n in (1, 2) for s in ("work", "issues", "view")]
-    all_issues += audit_raw_vs_final(data / "raw" / "img", finals, roots)
+    all_issues += audit_raw_vs_final(data / "raw" / "images", finals, roots)  # ← img → images
+
+    role_summary, role_issues = audit_split_roles(root)  # ← 네 역할 수량 (16.8)
+    all_summary += role_summary
+    all_issues += role_issues
 
     write_csv(reports / "dataset_summary.csv", ["Dataset", "Category", "Metric", "Value"], all_summary)
     write_csv(reports / "audit_issue.csv", ["dataset", "filename", "issue_type", "detail"], all_issues)
