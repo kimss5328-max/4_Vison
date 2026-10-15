@@ -1,0 +1,901 @@
+﻿file_name,source_dataset,original_split,group,split,primary_class,classes,boxes,note,image_path,label_path,scene_type,capture_group,dataset_version
+250410_144403911987.jpg,dataset1,train,pool,train,6,6,6,,data/yolo/images/train/250410_144403911987.jpg,data/yolo/labels/train/250410_144403911987.txt,kimchi_with_target,,kimchi_v1
+250410_144449962356.jpg,dataset1,train,pool,train,6,6,5,,data/yolo/images/train/250410_144449962356.jpg,data/yolo/labels/train/250410_144449962356.txt,kimchi_with_target,,kimchi_v1
+250410_144532010108.jpg,dataset2,validation,pool,test,6,6,5,,data/yolo/images/test/250410_144532010108.jpg,data/yolo/labels/test/250410_144532010108.txt,kimchi_with_target,,kimchi_v1
+250410_144834943618.jpg,dataset1,train,pool,train,6,6,5,,data/yolo/images/train/250410_144834943618.jpg,data/yolo/labels/train/250410_144834943618.txt,kimchi_with_target,,kimchi_v1
+250410_145037640704.jpg,dataset1,train,pool,train,6,6,5,,data/yolo/images/train/250410_145037640704.jpg,data/yolo/labels/train/250410_145037640704.txt,kimchi_with_target,,kimchi_v1
+250410_145141723860.jpg,dataset2,validation,pool,val,6,6,5,,data/yolo/images/val/250410_145141723860.jpg,data/yolo/labels/val/250410_145141723860.txt,kimchi_with_target,,kimchi_v1
+250410_145316482671.jpg,dataset1,train,pool,holdout,6,6,5,,data/bridge_holdout/images/250410_145316482671.jpg,data/bridge_holdout/labels/250410_145316482671.txt,kimchi_with_target,,kimchi_v1
+250410_145433197807.jpg,dataset2,validation,pool,val,6,6,5,,data/yolo/images/val/250410_145433197807.jpg,data/yolo/labels/val/250410_145433197807.txt,kimchi_with_target,,kimchi_v1
+250410_145522054916.jpg,dataset1,train,pool,train,6,6,4,,data/yolo/images/train/250410_145522054916.jpg,data/yolo/labels/train/250410_145522054916.txt,kimchi_with_target,,kimchi_v1
+250410_145804344533.jpg,dataset1,train,pool,train,6,6,5,,data/yolo/images/train/250410_145804344533.jpg,data/yolo/labels/train/250410_145804344533.txt,kimchi_with_target,,kimchi_v1
+250410_150040264734.jpg,dataset1,train,pool,train,6,6,5,,data/yolo/images/train/250410_150040264734.jpg,data/yolo/labels/train/250410_150040264734.txt,kimchi_with_target,,kimchi_v1
+250410_150133469509.jpg,dataset1,train,pool,train,6,6,5,,data/yolo/images/train/250410_150133469509.jpg,data/yolo/labels/train/250410_150133469509.txt,kimchi_with_target,,kimchi_v1
+250410_150216388445.jpg,dataset1,train,pool,train,6,6,5,,data/yolo/images/train/250410_150216388445.jpg,data/yolo/labels/train/250410_150216388445.txt,kimchi_with_target,,kimchi_v1
+250410_150306918269.jpg,dataset1,train,pool,holdout,6,6,5,,data/bridge_holdout/images/250410_150306918269.jpg,data/bridge_holdout/labels/250410_150306918269.txt,kimchi_with_target,,kimchi_v1
+250410_150346868183.jpg,dataset1,train,pool,val,6,6,5,,data/yolo/images/val/250410_150346868183.jpg,data/yolo/labels/val/250410_150346868183.txt,kimchi_with_target,,kimchi_v1
+250410_150427011255.jpg,dataset1,train,pool,test,6,6,5,,data/yolo/images/test/250410_150427011255.jpg,data/yolo/labels/test/250410_150427011255.txt,kimchi_with_target,,kimchi_v1
+250410_150516419769.jpg,dataset1,train,pool,train,6,6,5,,data/yolo/images/train/250410_150516419769.jpg,data/yolo/labels/train/250410_150516419769.txt,kimchi_with_target,,kimchi_v1
+250410_150559581998.jpg,dataset1,train,pool,holdout,6,6,5,,data/bridge_holdout/images/250410_150559581998.jpg,data/bridge_holdout/labels/250410_150559581998.txt,kimchi_with_target,,kimchi_v1
+250410_150635306503.jpg,dataset1,train,pool,train,6,6,5,,data/yolo/images/train/250410_150635306503.jpg,data/yolo/labels/train/250410_150635306503.txt,kimchi_with_target,,kimchi_v1
+250410_150722732261.jpg,dataset2,validation,pool,train,6,6,5,,data/yolo/images/train/250410_150722732261.jpg,data/yolo/labels/train/250410_150722732261.txt,kimchi_with_target,,kimchi_v1
+250410_150808416709.jpg,dataset1,train,pool,train,6,6,5,,data/yolo/images/train/250410_150808416709.jpg,data/yolo/labels/train/250410_150808416709.txt,kimchi_with_target,,kimchi_v1
+250410_150848922166.jpg,dataset1,train,pool,train,6,6,5,,data/yolo/images/train/250410_150848922166.jpg,data/yolo/labels/train/250410_150848922166.txt,kimchi_with_target,,kimchi_v1
+250410_150949043386.jpg,dataset1,train,pool,val,6,6,5,,data/yolo/images/val/250410_150949043386.jpg,data/yolo/labels/val/250410_150949043386.txt,kimchi_with_target,,kimchi_v1
+250410_151029696229.jpg,dataset1,train,pool,train,6,6,5,,data/yolo/images/train/250410_151029696229.jpg,data/yolo/labels/train/250410_151029696229.txt,kimchi_with_target,,kimchi_v1
+250410_151139983231.jpg,dataset1,train,pool,train,6,6,5,,data/yolo/images/train/250410_151139983231.jpg,data/yolo/labels/train/250410_151139983231.txt,kimchi_with_target,,kimchi_v1
+250410_151231944374.jpg,dataset1,train,pool,train,6,6,5,,data/yolo/images/train/250410_151231944374.jpg,data/yolo/labels/train/250410_151231944374.txt,kimchi_with_target,,kimchi_v1
+250410_151304603268.jpg,dataset1,train,pool,train,6,6,5,,data/yolo/images/train/250410_151304603268.jpg,data/yolo/labels/train/250410_151304603268.txt,kimchi_with_target,,kimchi_v1
+250410_151341801257.jpg,dataset1,train,pool,holdout,6,6,5,,data/bridge_holdout/images/250410_151341801257.jpg,data/bridge_holdout/labels/250410_151341801257.txt,kimchi_with_target,,kimchi_v1
+250410_151431800368.jpg,dataset1,train,pool,train,6,6,5,,data/yolo/images/train/250410_151431800368.jpg,data/yolo/labels/train/250410_151431800368.txt,kimchi_with_target,,kimchi_v1
+250410_151504600233.jpg,dataset1,train,pool,train,6,6,5,,data/yolo/images/train/250410_151504600233.jpg,data/yolo/labels/train/250410_151504600233.txt,kimchi_with_target,,kimchi_v1
+250410_151546165963.jpg,dataset1,train,pool,train,6,6,5,,data/yolo/images/train/250410_151546165963.jpg,data/yolo/labels/train/250410_151546165963.txt,kimchi_with_target,,kimchi_v1
+250410_151631868173.jpg,dataset1,train,pool,train,6,6,5,,data/yolo/images/train/250410_151631868173.jpg,data/yolo/labels/train/250410_151631868173.txt,kimchi_with_target,,kimchi_v1
+250410_151713908283.jpg,dataset1,train,pool,val,6,6,5,,data/yolo/images/val/250410_151713908283.jpg,data/yolo/labels/val/250410_151713908283.txt,kimchi_with_target,,kimchi_v1
+250410_151754102631.jpg,dataset1,train,pool,train,6,6,5,,data/yolo/images/train/250410_151754102631.jpg,data/yolo/labels/train/250410_151754102631.txt,kimchi_with_target,,kimchi_v1
+250410_151837622952.jpg,dataset2,validation,pool,test,6,6,5,,data/yolo/images/test/250410_151837622952.jpg,data/yolo/labels/test/250410_151837622952.txt,kimchi_with_target,,kimchi_v1
+250410_151920880325.jpg,dataset1,train,pool,train,6,6,5,,data/yolo/images/train/250410_151920880325.jpg,data/yolo/labels/train/250410_151920880325.txt,kimchi_with_target,,kimchi_v1
+250410_151959551499.jpg,dataset2,validation,pool,train,6,6,5,,data/yolo/images/train/250410_151959551499.jpg,data/yolo/labels/train/250410_151959551499.txt,kimchi_with_target,,kimchi_v1
+250410_152043730782.jpg,dataset2,validation,pool,train,6,6,5,,data/yolo/images/train/250410_152043730782.jpg,data/yolo/labels/train/250410_152043730782.txt,kimchi_with_target,,kimchi_v1
+250410_152120483994.jpg,dataset1,train,pool,train,6,6,5,,data/yolo/images/train/250410_152120483994.jpg,data/yolo/labels/train/250410_152120483994.txt,kimchi_with_target,,kimchi_v1
+250410_152154012800.jpg,dataset2,validation,pool,train,6,6,5,,data/yolo/images/train/250410_152154012800.jpg,data/yolo/labels/train/250410_152154012800.txt,kimchi_with_target,,kimchi_v1
+250410_152232188708.jpg,dataset1,train,pool,test,6,6,5,,data/yolo/images/test/250410_152232188708.jpg,data/yolo/labels/test/250410_152232188708.txt,kimchi_with_target,,kimchi_v1
+250410_152308081822.jpg,dataset1,train,pool,train,6,6,5,,data/yolo/images/train/250410_152308081822.jpg,data/yolo/labels/train/250410_152308081822.txt,kimchi_with_target,,kimchi_v1
+250410_152339920357.jpg,dataset1,train,pool,test,6,6,5,,data/yolo/images/test/250410_152339920357.jpg,data/yolo/labels/test/250410_152339920357.txt,kimchi_with_target,,kimchi_v1
+250410_152413150828.jpg,dataset1,train,pool,train,6,6,5,,data/yolo/images/train/250410_152413150828.jpg,data/yolo/labels/train/250410_152413150828.txt,kimchi_with_target,,kimchi_v1
+250410_152458884244.jpg,dataset2,validation,pool,test,6,6,5,,data/yolo/images/test/250410_152458884244.jpg,data/yolo/labels/test/250410_152458884244.txt,kimchi_with_target,,kimchi_v1
+250410_152531781799.jpg,dataset2,validation,pool,train,6,6,5,,data/yolo/images/train/250410_152531781799.jpg,data/yolo/labels/train/250410_152531781799.txt,kimchi_with_target,,kimchi_v1
+250410_152606438450.jpg,dataset1,train,pool,holdout,6,6,5,,data/bridge_holdout/images/250410_152606438450.jpg,data/bridge_holdout/labels/250410_152606438450.txt,kimchi_with_target,,kimchi_v1
+250410_152647794740.jpg,dataset1,train,pool,val,6,6,5,,data/yolo/images/val/250410_152647794740.jpg,data/yolo/labels/val/250410_152647794740.txt,kimchi_with_target,,kimchi_v1
+250410_152727057876.jpg,dataset1,train,pool,train,6,6,5,,data/yolo/images/train/250410_152727057876.jpg,data/yolo/labels/train/250410_152727057876.txt,kimchi_with_target,,kimchi_v1
+250410_152802371370.jpg,dataset1,train,pool,train,6,6,5,,data/yolo/images/train/250410_152802371370.jpg,data/yolo/labels/train/250410_152802371370.txt,kimchi_with_target,,kimchi_v1
+250410_155009160971.jpg,dataset1,train,excluded,train,4,4,5,아직 final 아님 (review),data/yolo/images/train/250410_155009160971.jpg,data/yolo/labels/train/250410_155009160971.txt,other_review,,kimchi_v1
+250410_155526034625.jpg,dataset1,train,excluded,train,4,4,5,아직 final 아님 (review),data/yolo/images/train/250410_155526034625.jpg,data/yolo/labels/train/250410_155526034625.txt,other_review,,kimchi_v1
+250410_155601084144.jpg,dataset1,train,excluded,train,4,4,5,아직 final 아님 (review),data/yolo/images/train/250410_155601084144.jpg,data/yolo/labels/train/250410_155601084144.txt,other_review,,kimchi_v1
+250410_155641957140.jpg,dataset1,train,excluded,train,4,4,5,아직 final 아님 (review),data/yolo/images/train/250410_155641957140.jpg,data/yolo/labels/train/250410_155641957140.txt,other_review,,kimchi_v1
+250410_155734186034.jpg,dataset2,validation,excluded,val,4,4,5,아직 final 아님 (review),data/yolo/images/val/250410_155734186034.jpg,data/yolo/labels/val/250410_155734186034.txt,other_review,,kimchi_v1
+250410_155826598654.jpg,dataset1,train,excluded,train,4,4,5,아직 final 아님 (review),data/yolo/images/train/250410_155826598654.jpg,data/yolo/labels/train/250410_155826598654.txt,other_review,,kimchi_v1
+250410_155901509386.jpg,dataset1,train,excluded,train,4,4,5,아직 final 아님 (review),data/yolo/images/train/250410_155901509386.jpg,data/yolo/labels/train/250410_155901509386.txt,other_review,,kimchi_v1
+250410_155943122243.jpg,dataset2,validation,excluded,holdout,4,4,5,아직 final 아님 (review),data/bridge_holdout/images/250410_155943122243.jpg,data/bridge_holdout/labels/250410_155943122243.txt,other_review,,kimchi_v1
+250410_160021775802.jpg,dataset1,train,excluded,val,4,4,5,아직 final 아님 (review),data/yolo/images/val/250410_160021775802.jpg,data/yolo/labels/val/250410_160021775802.txt,other_review,,kimchi_v1
+250410_160112679219.jpg,dataset1,train,excluded,train,4,4,5,아직 final 아님 (review),data/yolo/images/train/250410_160112679219.jpg,data/yolo/labels/train/250410_160112679219.txt,other_review,,kimchi_v1
+250410_160155606350.jpg,dataset2,validation,excluded,train,4,4,5,아직 final 아님 (review),data/yolo/images/train/250410_160155606350.jpg,data/yolo/labels/train/250410_160155606350.txt,other_review,,kimchi_v1
+250410_165645848530.jpg,dataset1,train,excluded,test,4,4,5,아직 final 아님 (review),data/yolo/images/test/250410_165645848530.jpg,data/yolo/labels/test/250410_165645848530.txt,other_review,,kimchi_v1
+250410_165759582289.jpg,dataset1,train,excluded,train,4,4,5,아직 final 아님 (review),data/yolo/images/train/250410_165759582289.jpg,data/yolo/labels/train/250410_165759582289.txt,other_review,,kimchi_v1
+250410_165840226763.jpg,dataset1,train,excluded,train,4,4,5,아직 final 아님 (review),data/yolo/images/train/250410_165840226763.jpg,data/yolo/labels/train/250410_165840226763.txt,other_review,,kimchi_v1
+250410_165918398621.jpg,dataset1,train,excluded,train,4,4,5,아직 final 아님 (review),data/yolo/images/train/250410_165918398621.jpg,data/yolo/labels/train/250410_165918398621.txt,other_review,,kimchi_v1
+250410_170005947995.jpg,dataset2,validation,excluded,train,4,4,5,아직 final 아님 (review),data/yolo/images/train/250410_170005947995.jpg,data/yolo/labels/train/250410_170005947995.txt,other_review,,kimchi_v1
+250410_170049726315.jpg,dataset2,validation,excluded,train,4,4,5,아직 final 아님 (review),data/yolo/images/train/250410_170049726315.jpg,data/yolo/labels/train/250410_170049726315.txt,other_review,,kimchi_v1
+250410_170124048539.jpg,dataset1,train,excluded,holdout,4,4,5,아직 final 아님 (review),data/bridge_holdout/images/250410_170124048539.jpg,data/bridge_holdout/labels/250410_170124048539.txt,other_review,,kimchi_v1
+250410_170204849002.jpg,dataset1,train,excluded,val,4,4,5,아직 final 아님 (review),data/yolo/images/val/250410_170204849002.jpg,data/yolo/labels/val/250410_170204849002.txt,other_review,,kimchi_v1
+250410_170257620893.jpg,dataset1,train,excluded,train,4,4,5,아직 final 아님 (review),data/yolo/images/train/250410_170257620893.jpg,data/yolo/labels/train/250410_170257620893.txt,other_review,,kimchi_v1
+250410_170345204621.jpg,dataset1,train,excluded,holdout,4,4,5,아직 final 아님 (review),data/bridge_holdout/images/250410_170345204621.jpg,data/bridge_holdout/labels/250410_170345204621.txt,other_review,,kimchi_v1
+250410_170436151500.jpg,dataset1,train,excluded,val,4,4,5,아직 final 아님 (review),data/yolo/images/val/250410_170436151500.jpg,data/yolo/labels/val/250410_170436151500.txt,other_review,,kimchi_v1
+250410_170523246924.jpg,dataset1,train,excluded,train,4,4,5,아직 final 아님 (review),data/yolo/images/train/250410_170523246924.jpg,data/yolo/labels/train/250410_170523246924.txt,other_review,,kimchi_v1
+250410_170605462218.jpg,dataset1,train,excluded,train,4,4,5,아직 final 아님 (review),data/yolo/images/train/250410_170605462218.jpg,data/yolo/labels/train/250410_170605462218.txt,other_review,,kimchi_v1
+250410_170658904840.jpg,dataset1,train,excluded,train,4,4,5,아직 final 아님 (review),data/yolo/images/train/250410_170658904840.jpg,data/yolo/labels/train/250410_170658904840.txt,other_review,,kimchi_v1
+250410_170944512953.jpg,dataset2,validation,excluded,train,4,0 1 4,5,아직 final 아님 (review),data/yolo/images/train/250410_170944512953.jpg,data/yolo/labels/train/250410_170944512953.txt,other_review,,kimchi_v1
+250410_171043114194.jpg,dataset1,train,excluded,test,4,0 1 4,5,아직 final 아님 (review),data/yolo/images/test/250410_171043114194.jpg,data/yolo/labels/test/250410_171043114194.txt,other_review,,kimchi_v1
+250410_171242763678.jpg,dataset1,train,excluded,train,4,0 2 4,5,아직 final 아님 (review),data/yolo/images/train/250410_171242763678.jpg,data/yolo/labels/train/250410_171242763678.txt,other_review,,kimchi_v1
+250410_171329931220.jpg,dataset1,train,excluded,test,4,0 2 4,5,아직 final 아님 (review),data/yolo/images/test/250410_171329931220.jpg,data/yolo/labels/test/250410_171329931220.txt,other_review,,kimchi_v1
+250410_171526553647.jpg,dataset2,validation,excluded,test,4,1 2 4,5,아직 final 아님 (review),data/yolo/images/test/250410_171526553647.jpg,data/yolo/labels/test/250410_171526553647.txt,other_review,,kimchi_v1
+250410_171618401098.jpg,dataset1,train,excluded,train,4,1 2 4,5,아직 final 아님 (review),data/yolo/images/train/250410_171618401098.jpg,data/yolo/labels/train/250410_171618401098.txt,other_review,,kimchi_v1
+250410_171711703137.jpg,dataset1,train,excluded,val,4,1 2 4,5,아직 final 아님 (review),data/yolo/images/val/250410_171711703137.jpg,data/yolo/labels/val/250410_171711703137.txt,other_review,,kimchi_v1
+250410_171954431319.jpg,dataset1,train,excluded,train,4,0 1 2 4,5,아직 final 아님 (review),data/yolo/images/train/250410_171954431319.jpg,data/yolo/labels/train/250410_171954431319.txt,other_review,,kimchi_v1
+250410_172041141763.jpg,dataset1,train,excluded,train,4,0 1 2 4,5,아직 final 아님 (review),data/yolo/images/train/250410_172041141763.jpg,data/yolo/labels/train/250410_172041141763.txt,other_review,,kimchi_v1
+250410_172124374052.jpg,dataset1,train,excluded,train,4,1 2 4,4,아직 final 아님 (review),data/yolo/images/train/250410_172124374052.jpg,data/yolo/labels/train/250410_172124374052.txt,other_review,,kimchi_v1
+250410_172202967252.jpg,dataset1,train,excluded,test,4,0 1 2 4,5,아직 final 아님 (review),data/yolo/images/test/250410_172202967252.jpg,data/yolo/labels/test/250410_172202967252.txt,other_review,,kimchi_v1
+250410_172249187179.jpg,dataset1,train,excluded,train,4,0 1 2 4,5,아직 final 아님 (review),data/yolo/images/train/250410_172249187179.jpg,data/yolo/labels/train/250410_172249187179.txt,other_review,,kimchi_v1
+250410_172417911438.jpg,dataset2,validation,excluded,train,4,1 4,5,아직 final 아님 (review),data/yolo/images/train/250410_172417911438.jpg,data/yolo/labels/train/250410_172417911438.txt,other_review,,kimchi_v1
+250410_172509481867.jpg,dataset1,train,excluded,train,4,1 4,5,아직 final 아님 (review),data/yolo/images/train/250410_172509481867.jpg,data/yolo/labels/train/250410_172509481867.txt,other_review,,kimchi_v1
+250410_172553110670.jpg,dataset1,train,excluded,train,4,1 4,5,아직 final 아님 (review),data/yolo/images/train/250410_172553110670.jpg,data/yolo/labels/train/250410_172553110670.txt,other_review,,kimchi_v1
+250410_172731889723.jpg,dataset1,train,excluded,train,4,1 3 4,5,아직 final 아님 (review),data/yolo/images/train/250410_172731889723.jpg,data/yolo/labels/train/250410_172731889723.txt,other_review,,kimchi_v1
+250410_172828996170.jpg,dataset2,validation,excluded,train,4,1 3 4,5,아직 final 아님 (review),data/yolo/images/train/250410_172828996170.jpg,data/yolo/labels/train/250410_172828996170.txt,other_review,,kimchi_v1
+250410_172921255820.jpg,dataset1,train,excluded,train,4,1 3 4,5,아직 final 아님 (review),data/yolo/images/train/250410_172921255820.jpg,data/yolo/labels/train/250410_172921255820.txt,other_review,,kimchi_v1
+250410_173012631688.jpg,dataset1,train,excluded,train,4,1 3 4,5,아직 final 아님 (review),data/yolo/images/train/250410_173012631688.jpg,data/yolo/labels/train/250410_173012631688.txt,other_review,,kimchi_v1
+250410_173104200591.jpg,dataset1,train,excluded,train,4,1 3 4,5,아직 final 아님 (review),data/yolo/images/train/250410_173104200591.jpg,data/yolo/labels/train/250410_173104200591.txt,other_review,,kimchi_v1
+250410_173307709999.jpg,dataset1,train,excluded,holdout,4,0 2 4,5,아직 final 아님 (review),data/bridge_holdout/images/250410_173307709999.jpg,data/bridge_holdout/labels/250410_173307709999.txt,other_review,,kimchi_v1
+250410_173355965733.jpg,dataset1,train,excluded,test,4,0 1 2 4,6,아직 final 아님 (review),data/yolo/images/test/250410_173355965733.jpg,data/yolo/labels/test/250410_173355965733.txt,other_review,,kimchi_v1
+250410_173453546970.jpg,dataset1,train,excluded,train,4,0 2 4,5,아직 final 아님 (review),data/yolo/images/train/250410_173453546970.jpg,data/yolo/labels/train/250410_173453546970.txt,other_review,,kimchi_v1
+250410_173557486868.jpg,dataset2,validation,excluded,holdout,4,0 2 4,5,아직 final 아님 (review),data/bridge_holdout/images/250410_173557486868.jpg,data/bridge_holdout/labels/250410_173557486868.txt,other_review,,kimchi_v1
+250410_173647327410.jpg,dataset1,train,excluded,train,4,0 2 4,5,아직 final 아님 (review),data/yolo/images/train/250410_173647327410.jpg,data/yolo/labels/train/250410_173647327410.txt,other_review,,kimchi_v1
+250410_174241672560.jpg,dataset1,train,pool,test,2,2,5,,data/yolo/images/test/250410_174241672560.jpg,data/yolo/labels/test/250410_174241672560.txt,kimchi_with_target,,kimchi_v1
+250410_174322665070.jpg,dataset1,train,pool,train,2,2,5,,data/yolo/images/train/250410_174322665070.jpg,data/yolo/labels/train/250410_174322665070.txt,kimchi_with_target,,kimchi_v1
+250410_174414309990.jpg,dataset1,train,pool,train,2,2,5,,data/yolo/images/train/250410_174414309990.jpg,data/yolo/labels/train/250410_174414309990.txt,kimchi_with_target,,kimchi_v1
+250410_174507760057.jpg,dataset1,train,pool,train,2,2,5,,data/yolo/images/train/250410_174507760057.jpg,data/yolo/labels/train/250410_174507760057.txt,kimchi_with_target,,kimchi_v1
+250410_174607125731.jpg,dataset1,train,pool,train,2,2,5,,data/yolo/images/train/250410_174607125731.jpg,data/yolo/labels/train/250410_174607125731.txt,kimchi_with_target,,kimchi_v1
+250410_174656591360.jpg,dataset1,train,pool,train,2,2,5,,data/yolo/images/train/250410_174656591360.jpg,data/yolo/labels/train/250410_174656591360.txt,kimchi_with_target,,kimchi_v1
+250410_174748966576.jpg,dataset1,train,pool,train,2,2,5,,data/yolo/images/train/250410_174748966576.jpg,data/yolo/labels/train/250410_174748966576.txt,kimchi_with_target,,kimchi_v1
+250410_174844662623.jpg,dataset1,train,pool,holdout,2,2,5,,data/bridge_holdout/images/250410_174844662623.jpg,data/bridge_holdout/labels/250410_174844662623.txt,kimchi_with_target,,kimchi_v1
+250410_174950640074.jpg,dataset2,validation,pool,holdout,2,2,5,,data/bridge_holdout/images/250410_174950640074.jpg,data/bridge_holdout/labels/250410_174950640074.txt,kimchi_with_target,,kimchi_v1
+250410_175036549862.jpg,dataset1,train,pool,val,2,2,5,,data/yolo/images/val/250410_175036549862.jpg,data/yolo/labels/val/250410_175036549862.txt,kimchi_with_target,,kimchi_v1
+250410_175133040999.jpg,dataset2,validation,pool,train,0,0 2,5,,data/yolo/images/train/250410_175133040999.jpg,data/yolo/labels/train/250410_175133040999.txt,kimchi_with_target,,kimchi_v1
+250410_175222116316.jpg,dataset1,train,pool,train,2,2,5,,data/yolo/images/train/250410_175222116316.jpg,data/yolo/labels/train/250410_175222116316.txt,kimchi_with_target,,kimchi_v1
+250410_175310273550.jpg,dataset2,validation,pool,holdout,0,0 2,5,,data/bridge_holdout/images/250410_175310273550.jpg,data/bridge_holdout/labels/250410_175310273550.txt,kimchi_with_target,,kimchi_v1
+250410_175401330493.jpg,dataset1,train,pool,train,2,2,5,,data/yolo/images/train/250410_175401330493.jpg,data/yolo/labels/train/250410_175401330493.txt,kimchi_with_target,,kimchi_v1
+250410_175444219123.jpg,dataset1,train,pool,train,2,2,5,,data/yolo/images/train/250410_175444219123.jpg,data/yolo/labels/train/250410_175444219123.txt,kimchi_with_target,,kimchi_v1
+250410_175613332662.jpg,dataset2,validation,pool,train,0,0 2,5,,data/yolo/images/train/250410_175613332662.jpg,data/yolo/labels/train/250410_175613332662.txt,kimchi_with_target,,kimchi_v1
+250410_175705326258.jpg,dataset1,train,pool,train,2,2,5,,data/yolo/images/train/250410_175705326258.jpg,data/yolo/labels/train/250410_175705326258.txt,kimchi_with_target,,kimchi_v1
+250410_175800961256.jpg,dataset1,train,pool,train,2,2,5,,data/yolo/images/train/250410_175800961256.jpg,data/yolo/labels/train/250410_175800961256.txt,kimchi_with_target,,kimchi_v1
+250410_175933697183.jpg,dataset1,train,pool,val,2,2,5,,data/yolo/images/val/250410_175933697183.jpg,data/yolo/labels/val/250410_175933697183.txt,kimchi_with_target,,kimchi_v1
+250410_180033976404.jpg,dataset2,validation,pool,train,0,0 2,5,,data/yolo/images/train/250410_180033976404.jpg,data/yolo/labels/train/250410_180033976404.txt,kimchi_with_target,,kimchi_v1
+250410_180117079374.jpg,dataset2,validation,pool,train,0,0 2,5,,data/yolo/images/train/250410_180117079374.jpg,data/yolo/labels/train/250410_180117079374.txt,kimchi_with_target,,kimchi_v1
+250410_180203619316.jpg,dataset1,train,pool,holdout,2,2,5,,data/bridge_holdout/images/250410_180203619316.jpg,data/bridge_holdout/labels/250410_180203619316.txt,kimchi_with_target,,kimchi_v1
+250410_180317754189.jpg,dataset2,validation,pool,train,0,0 2,5,,data/yolo/images/train/250410_180317754189.jpg,data/yolo/labels/train/250410_180317754189.txt,kimchi_with_target,,kimchi_v1
+250410_180417359391.jpg,dataset1,train,pool,train,2,2,5,,data/yolo/images/train/250410_180417359391.jpg,data/yolo/labels/train/250410_180417359391.txt,kimchi_with_target,,kimchi_v1
+250410_180500624542.jpg,dataset1,train,pool,train,2,2,5,,data/yolo/images/train/250410_180500624542.jpg,data/yolo/labels/train/250410_180500624542.txt,kimchi_with_target,,kimchi_v1
+250410_180642000478.jpg,dataset1,train,excluded,holdout,4,0 1 2 4,5,아직 final 아님 (review),data/bridge_holdout/images/250410_180642000478.jpg,data/bridge_holdout/labels/250410_180642000478.txt,other_review,,kimchi_v1
+250410_180721146468.jpg,dataset1,train,excluded,holdout,4,0 1 2 4,5,아직 final 아님 (review),data/bridge_holdout/images/250410_180721146468.jpg,data/bridge_holdout/labels/250410_180721146468.txt,other_review,,kimchi_v1
+250410_180800068444.jpg,dataset1,train,excluded,train,4,0 1 2 4,5,아직 final 아님 (review),data/yolo/images/train/250410_180800068444.jpg,data/yolo/labels/train/250410_180800068444.txt,other_review,,kimchi_v1
+250410_180838247546.jpg,dataset1,train,excluded,train,4,0 1 2 4,5,아직 final 아님 (review),data/yolo/images/train/250410_180838247546.jpg,data/yolo/labels/train/250410_180838247546.txt,other_review,,kimchi_v1
+250410_180910324799.jpg,dataset1,train,excluded,train,0,0 1 2,5,아직 final 아님 (review),data/yolo/images/train/250410_180910324799.jpg,data/yolo/labels/train/250410_180910324799.txt,other_review,,kimchi_v1
+250410_181045535509.jpg,dataset1,train,pool,train,2,1 2,5,,data/yolo/images/train/250410_181045535509.jpg,data/yolo/labels/train/250410_181045535509.txt,kimchi_with_target,,kimchi_v1
+250410_181140480178.jpg,dataset1,train,pool,train,2,1 2,5,,data/yolo/images/train/250410_181140480178.jpg,data/yolo/labels/train/250410_181140480178.txt,kimchi_with_target,,kimchi_v1
+250410_181223026123.jpg,dataset1,train,pool,test,2,1 2,5,,data/yolo/images/test/250410_181223026123.jpg,data/yolo/labels/test/250410_181223026123.txt,kimchi_with_target,,kimchi_v1
+250410_181313625145.jpg,dataset2,validation,pool,train,2,1 2,6,,data/yolo/images/train/250410_181313625145.jpg,data/yolo/labels/train/250410_181313625145.txt,kimchi_with_target,,kimchi_v1
+250410_181352268335.jpg,dataset1,train,pool,train,2,1 2,5,,data/yolo/images/train/250410_181352268335.jpg,data/yolo/labels/train/250410_181352268335.txt,kimchi_with_target,,kimchi_v1
+250410_181519426889.jpg,dataset2,validation,pool,test,3,1 2 3,5,,data/yolo/images/test/250410_181519426889.jpg,data/yolo/labels/test/250410_181519426889.txt,kimchi_with_target,,kimchi_v1
+250410_181608031071.jpg,dataset2,validation,pool,train,3,1 2 3,6,,data/yolo/images/train/250410_181608031071.jpg,data/yolo/labels/train/250410_181608031071.txt,kimchi_with_target,,kimchi_v1
+250410_181650625647.jpg,dataset1,train,excluded,train,3,1 2 3,5,아직 final 아님 (review),data/yolo/images/train/250410_181650625647.jpg,data/yolo/labels/train/250410_181650625647.txt,other_review,,kimchi_v1
+250410_181811462137.jpg,dataset1,train,excluded,test,3,1 2 3,5,아직 final 아님 (review),data/yolo/images/test/250410_181811462137.jpg,data/yolo/labels/test/250410_181811462137.txt,other_review,,kimchi_v1
+250410_181914413029.jpg,dataset2,validation,pool,train,3,1 2 3,5,,data/yolo/images/train/250410_181914413029.jpg,data/yolo/labels/train/250410_181914413029.txt,kimchi_with_target,,kimchi_v1
+250410_182048797815.jpg,dataset2,validation,pool,train,2,1 2,5,,data/yolo/images/train/250410_182048797815.jpg,data/yolo/labels/train/250410_182048797815.txt,kimchi_with_target,,kimchi_v1
+250410_182143992189.jpg,dataset2,validation,pool,holdout,2,1 2,5,,data/bridge_holdout/images/250410_182143992189.jpg,data/bridge_holdout/labels/250410_182143992189.txt,kimchi_with_target,,kimchi_v1
+250410_182251586507.jpg,dataset1,train,pool,train,2,1 2,5,,data/yolo/images/train/250410_182251586507.jpg,data/yolo/labels/train/250410_182251586507.txt,kimchi_with_target,,kimchi_v1
+250410_182340189473.jpg,dataset1,train,pool,train,2,1 2,5,,data/yolo/images/train/250410_182340189473.jpg,data/yolo/labels/train/250410_182340189473.txt,kimchi_with_target,,kimchi_v1
+250410_182427975624.jpg,dataset1,train,pool,holdout,2,1 2,5,,data/bridge_holdout/images/250410_182427975624.jpg,data/bridge_holdout/labels/250410_182427975624.txt,kimchi_with_target,,kimchi_v1
+250410_182623838600.jpg,dataset1,train,pool,train,0,0 2,5,,data/yolo/images/train/250410_182623838600.jpg,data/yolo/labels/train/250410_182623838600.txt,kimchi_with_target,,kimchi_v1
+250410_182706284064.jpg,dataset1,train,pool,holdout,0,0 2,5,,data/bridge_holdout/images/250410_182706284064.jpg,data/bridge_holdout/labels/250410_182706284064.txt,kimchi_with_target,,kimchi_v1
+250410_182749738751.jpg,dataset1,train,pool,train,0,0 2,5,,data/yolo/images/train/250410_182749738751.jpg,data/yolo/labels/train/250410_182749738751.txt,kimchi_with_target,,kimchi_v1
+250410_182834693275.jpg,dataset2,validation,pool,val,0,0 2,5,,data/yolo/images/val/250410_182834693275.jpg,data/yolo/labels/val/250410_182834693275.txt,kimchi_with_target,,kimchi_v1
+250410_182921481743.jpg,dataset2,validation,pool,train,0,0 2,5,,data/yolo/images/train/250410_182921481743.jpg,data/yolo/labels/train/250410_182921481743.txt,kimchi_with_target,,kimchi_v1
+250411_092158458691.jpg,dataset2,validation,pool,holdout,1,1,5,,data/bridge_holdout/images/250411_092158458691.jpg,data/bridge_holdout/labels/250411_092158458691.txt,kimchi_with_target,,kimchi_v1
+250411_092352338943.jpg,dataset2,validation,pool,train,1,1,5,,data/yolo/images/train/250411_092352338943.jpg,data/yolo/labels/train/250411_092352338943.txt,kimchi_with_target,,kimchi_v1
+250411_092511506342.jpg,dataset1,train,pool,holdout,1,1,5,,data/bridge_holdout/images/250411_092511506342.jpg,data/bridge_holdout/labels/250411_092511506342.txt,kimchi_with_target,,kimchi_v1
+250411_092851295826.jpg,dataset1,train,pool,train,1,1,5,,data/yolo/images/train/250411_092851295826.jpg,data/yolo/labels/train/250411_092851295826.txt,kimchi_with_target,,kimchi_v1
+250411_092955630580.jpg,dataset1,train,pool,train,1,1,5,,data/yolo/images/train/250411_092955630580.jpg,data/yolo/labels/train/250411_092955630580.txt,kimchi_with_target,,kimchi_v1
+250411_093234406905.jpg,dataset2,validation,pool,train,1,1,5,,data/yolo/images/train/250411_093234406905.jpg,data/yolo/labels/train/250411_093234406905.txt,kimchi_with_target,,kimchi_v1
+250411_093324099646.jpg,dataset2,validation,pool,train,1,1,5,,data/yolo/images/train/250411_093324099646.jpg,data/yolo/labels/train/250411_093324099646.txt,kimchi_with_target,,kimchi_v1
+250411_093403074817.jpg,dataset1,train,pool,val,1,1,5,,data/yolo/images/val/250411_093403074817.jpg,data/yolo/labels/val/250411_093403074817.txt,kimchi_with_target,,kimchi_v1
+250411_093439164001.jpg,dataset1,train,pool,train,1,1,5,,data/yolo/images/train/250411_093439164001.jpg,data/yolo/labels/train/250411_093439164001.txt,kimchi_with_target,,kimchi_v1
+250411_093519741399.jpg,dataset2,validation,pool,test,1,1,5,,data/yolo/images/test/250411_093519741399.jpg,data/yolo/labels/test/250411_093519741399.txt,kimchi_with_target,,kimchi_v1
+250411_093616913584.jpg,dataset1,train,pool,val,1,1,5,,data/yolo/images/val/250411_093616913584.jpg,data/yolo/labels/val/250411_093616913584.txt,kimchi_with_target,,kimchi_v1
+250411_093700427956.jpg,dataset1,train,pool,train,1,1,5,,data/yolo/images/train/250411_093700427956.jpg,data/yolo/labels/train/250411_093700427956.txt,kimchi_with_target,,kimchi_v1
+250411_093743680890.jpg,dataset2,validation,pool,train,1,1,5,,data/yolo/images/train/250411_093743680890.jpg,data/yolo/labels/train/250411_093743680890.txt,kimchi_with_target,,kimchi_v1
+250411_093822949037.jpg,dataset1,train,pool,train,1,1,5,,data/yolo/images/train/250411_093822949037.jpg,data/yolo/labels/train/250411_093822949037.txt,kimchi_with_target,,kimchi_v1
+250411_093901909722.jpg,dataset1,train,pool,train,1,1,5,,data/yolo/images/train/250411_093901909722.jpg,data/yolo/labels/train/250411_093901909722.txt,kimchi_with_target,,kimchi_v1
+250411_093947029472.jpg,dataset1,train,pool,train,1,1,5,,data/yolo/images/train/250411_093947029472.jpg,data/yolo/labels/train/250411_093947029472.txt,kimchi_with_target,,kimchi_v1
+250411_094027390387.jpg,dataset1,train,pool,train,1,1,5,,data/yolo/images/train/250411_094027390387.jpg,data/yolo/labels/train/250411_094027390387.txt,kimchi_with_target,,kimchi_v1
+250411_094117478009.jpg,dataset1,train,pool,train,1,1,5,,data/yolo/images/train/250411_094117478009.jpg,data/yolo/labels/train/250411_094117478009.txt,kimchi_with_target,,kimchi_v1
+250411_094214912155.jpg,dataset1,train,pool,train,1,1,5,,data/yolo/images/train/250411_094214912155.jpg,data/yolo/labels/train/250411_094214912155.txt,kimchi_with_target,,kimchi_v1
+250411_094259430445.jpg,dataset2,validation,pool,holdout,1,1,5,,data/bridge_holdout/images/250411_094259430445.jpg,data/bridge_holdout/labels/250411_094259430445.txt,kimchi_with_target,,kimchi_v1
+250411_094354631616.jpg,dataset1,train,pool,train,1,1,5,,data/yolo/images/train/250411_094354631616.jpg,data/yolo/labels/train/250411_094354631616.txt,kimchi_with_target,,kimchi_v1
+250411_094447587115.jpg,dataset1,train,pool,train,1,1,5,,data/yolo/images/train/250411_094447587115.jpg,data/yolo/labels/train/250411_094447587115.txt,kimchi_with_target,,kimchi_v1
+250411_094548003041.jpg,dataset1,train,pool,train,1,1,5,,data/yolo/images/train/250411_094548003041.jpg,data/yolo/labels/train/250411_094548003041.txt,kimchi_with_target,,kimchi_v1
+250411_094651666580.jpg,dataset2,validation,pool,train,1,1,5,,data/yolo/images/train/250411_094651666580.jpg,data/yolo/labels/train/250411_094651666580.txt,kimchi_with_target,,kimchi_v1
+250411_095020396284.jpg,dataset1,train,excluded,train,4,1 2 4,5,아직 final 아님 (review),data/yolo/images/train/250411_095020396284.jpg,data/yolo/labels/train/250411_095020396284.txt,other_review,,kimchi_v1
+250411_095114999624.jpg,dataset1,train,pool,train,1,1,5,,data/yolo/images/train/250411_095114999624.jpg,data/yolo/labels/train/250411_095114999624.txt,kimchi_with_target,,kimchi_v1
+250411_095211804856.jpg,dataset1,train,excluded,train,4,1 2 4,5,아직 final 아님 (review),data/yolo/images/train/250411_095211804856.jpg,data/yolo/labels/train/250411_095211804856.txt,other_review,,kimchi_v1
+250411_095307375377.jpg,dataset1,train,excluded,train,4,0 1 4,5,아직 final 아님 (review),data/yolo/images/train/250411_095307375377.jpg,data/yolo/labels/train/250411_095307375377.txt,other_review,,kimchi_v1
+250411_095401865132.jpg,dataset2,validation,excluded,train,4,1 2 4,5,아직 final 아님 (review),data/yolo/images/train/250411_095401865132.jpg,data/yolo/labels/train/250411_095401865132.txt,other_review,,kimchi_v1
+250411_095447313719.jpg,dataset1,train,excluded,val,4,1 4,5,아직 final 아님 (review),data/yolo/images/val/250411_095447313719.jpg,data/yolo/labels/val/250411_095447313719.txt,other_review,,kimchi_v1
+250411_095542189491.jpg,dataset1,train,excluded,test,4,1 4,5,아직 final 아님 (review),data/yolo/images/test/250411_095542189491.jpg,data/yolo/labels/test/250411_095542189491.txt,other_review,,kimchi_v1
+250411_095626998091.jpg,dataset1,train,excluded,train,4,1 4,5,아직 final 아님 (review),data/yolo/images/train/250411_095626998091.jpg,data/yolo/labels/train/250411_095626998091.txt,other_review,,kimchi_v1
+250411_095715404683.jpg,dataset1,train,pool,train,0,0 1,5,,data/yolo/images/train/250411_095715404683.jpg,data/yolo/labels/train/250411_095715404683.txt,kimchi_with_target,,kimchi_v1
+250411_095802178687.jpg,dataset1,train,pool,train,3,1 3,5,,data/yolo/images/train/250411_095802178687.jpg,data/yolo/labels/train/250411_095802178687.txt,kimchi_with_target,,kimchi_v1
+250411_095845387065.jpg,dataset1,train,pool,holdout,3,1 3,5,,data/bridge_holdout/images/250411_095845387065.jpg,data/bridge_holdout/labels/250411_095845387065.txt,kimchi_with_target,,kimchi_v1
+250411_095929903223.jpg,dataset2,validation,excluded,train,4,1 3 4,5,아직 final 아님 (review),data/yolo/images/train/250411_095929903223.jpg,data/yolo/labels/train/250411_095929903223.txt,other_review,,kimchi_v1
+250411_100024779062.jpg,dataset1,train,excluded,train,4,1 2 3 4,5,아직 final 아님 (review),data/yolo/images/train/250411_100024779062.jpg,data/yolo/labels/train/250411_100024779062.txt,other_review,,kimchi_v1
+250411_100114230398.jpg,dataset1,train,excluded,train,4,1 3 4,5,아직 final 아님 (review),data/yolo/images/train/250411_100114230398.jpg,data/yolo/labels/train/250411_100114230398.txt,other_review,,kimchi_v1
+250411_100158094554.jpg,dataset2,validation,excluded,train,4,1 3 4,5,아직 final 아님 (review),data/yolo/images/train/250411_100158094554.jpg,data/yolo/labels/train/250411_100158094554.txt,other_review,,kimchi_v1
+250411_100243218238.jpg,dataset1,train,excluded,train,4,0 1 2 4,5,아직 final 아님 (review),data/yolo/images/train/250411_100243218238.jpg,data/yolo/labels/train/250411_100243218238.txt,other_review,,kimchi_v1
+250411_100327766278.jpg,dataset1,train,review,train,3,0 1 3,5,manifest(other),data/yolo/images/train/250411_100327766278.jpg,data/yolo/labels/train/250411_100327766278.txt,other_review,,kimchi_v1
+250411_100413893857.jpg,dataset1,train,excluded,train,4,1 4,5,아직 final 아님 (review),data/yolo/images/train/250411_100413893857.jpg,data/yolo/labels/train/250411_100413893857.txt,other_review,,kimchi_v1
+250411_100456783421.jpg,dataset1,train,pool,val,3,1 2 3,5,,data/yolo/images/val/250411_100456783421.jpg,data/yolo/labels/val/250411_100456783421.txt,kimchi_with_target,,kimchi_v1
+250411_100540938085.jpg,dataset1,train,excluded,train,4,1 4,5,아직 final 아님 (review),data/yolo/images/train/250411_100540938085.jpg,data/yolo/labels/train/250411_100540938085.txt,other_review,,kimchi_v1
+250411_100623192554.jpg,dataset1,train,excluded,train,4,1 4,5,아직 final 아님 (review),data/yolo/images/train/250411_100623192554.jpg,data/yolo/labels/train/250411_100623192554.txt,other_review,,kimchi_v1
+250411_100709985238.jpg,dataset1,train,pool,train,3,1 2 3,5,,data/yolo/images/train/250411_100709985238.jpg,data/yolo/labels/train/250411_100709985238.txt,kimchi_with_target,,kimchi_v1
+250411_100751575116.jpg,dataset1,train,pool,train,0,0 1,5,,data/yolo/images/train/250411_100751575116.jpg,data/yolo/labels/train/250411_100751575116.txt,kimchi_with_target,,kimchi_v1
+250411_100841614300.jpg,dataset1,train,pool,test,0,0 1 2,5,,data/yolo/images/test/250411_100841614300.jpg,data/yolo/labels/test/250411_100841614300.txt,kimchi_with_target,,kimchi_v1
+250411_104332904696.jpg,dataset1,train,pool,train,1,1,5,,data/yolo/images/train/250411_104332904696.jpg,data/yolo/labels/train/250411_104332904696.txt,kimchi_with_target,,kimchi_v1
+250411_104451670998.jpg,dataset1,train,pool,train,1,1,4,,data/yolo/images/train/250411_104451670998.jpg,data/yolo/labels/train/250411_104451670998.txt,kimchi_with_target,,kimchi_v1
+250411_104529041399.jpg,dataset1,train,pool,val,1,1,5,,data/yolo/images/val/250411_104529041399.jpg,data/yolo/labels/val/250411_104529041399.txt,kimchi_with_target,,kimchi_v1
+250411_104605859828.jpg,dataset1,train,pool,holdout,1,1,5,,data/bridge_holdout/images/250411_104605859828.jpg,data/bridge_holdout/labels/250411_104605859828.txt,kimchi_with_target,,kimchi_v1
+250411_104639578731.jpg,dataset1,train,pool,test,1,1,5,,data/yolo/images/test/250411_104639578731.jpg,data/yolo/labels/test/250411_104639578731.txt,kimchi_with_target,,kimchi_v1
+250411_104718061502.jpg,dataset2,validation,pool,holdout,1,1,5,,data/bridge_holdout/images/250411_104718061502.jpg,data/bridge_holdout/labels/250411_104718061502.txt,kimchi_with_target,,kimchi_v1
+250411_104754825896.jpg,dataset1,train,pool,train,1,1,5,,data/yolo/images/train/250411_104754825896.jpg,data/yolo/labels/train/250411_104754825896.txt,kimchi_with_target,,kimchi_v1
+250411_104839535885.jpg,dataset1,train,pool,train,1,1,5,,data/yolo/images/train/250411_104839535885.jpg,data/yolo/labels/train/250411_104839535885.txt,kimchi_with_target,,kimchi_v1
+250411_104919108350.jpg,dataset1,train,pool,train,1,1,5,,data/yolo/images/train/250411_104919108350.jpg,data/yolo/labels/train/250411_104919108350.txt,kimchi_with_target,,kimchi_v1
+250411_104956612339.jpg,dataset2,validation,pool,test,1,1,5,,data/yolo/images/test/250411_104956612339.jpg,data/yolo/labels/test/250411_104956612339.txt,kimchi_with_target,,kimchi_v1
+250411_105029820007.jpg,dataset1,train,pool,train,1,1,5,,data/yolo/images/train/250411_105029820007.jpg,data/yolo/labels/train/250411_105029820007.txt,kimchi_with_target,,kimchi_v1
+250411_105105168397.jpg,dataset1,train,pool,train,1,1,5,,data/yolo/images/train/250411_105105168397.jpg,data/yolo/labels/train/250411_105105168397.txt,kimchi_with_target,,kimchi_v1
+250411_105141558000.jpg,dataset1,train,pool,train,1,1,5,,data/yolo/images/train/250411_105141558000.jpg,data/yolo/labels/train/250411_105141558000.txt,kimchi_with_target,,kimchi_v1
+250411_105218591549.jpg,dataset1,train,pool,val,1,1,5,,data/yolo/images/val/250411_105218591549.jpg,data/yolo/labels/val/250411_105218591549.txt,kimchi_with_target,,kimchi_v1
+250411_105254272584.jpg,dataset1,train,pool,train,1,1,5,,data/yolo/images/train/250411_105254272584.jpg,data/yolo/labels/train/250411_105254272584.txt,kimchi_with_target,,kimchi_v1
+250411_105330424099.jpg,dataset1,train,pool,train,1,1,5,,data/yolo/images/train/250411_105330424099.jpg,data/yolo/labels/train/250411_105330424099.txt,kimchi_with_target,,kimchi_v1
+250411_105411000658.jpg,dataset1,train,pool,train,1,1,5,,data/yolo/images/train/250411_105411000658.jpg,data/yolo/labels/train/250411_105411000658.txt,kimchi_with_target,,kimchi_v1
+250411_105453593325.jpg,dataset1,train,pool,val,1,1,5,,data/yolo/images/val/250411_105453593325.jpg,data/yolo/labels/val/250411_105453593325.txt,kimchi_with_target,,kimchi_v1
+250411_105617386414.jpg,dataset1,train,pool,train,1,1,5,,data/yolo/images/train/250411_105617386414.jpg,data/yolo/labels/train/250411_105617386414.txt,kimchi_with_target,,kimchi_v1
+250411_105659553370.jpg,dataset1,train,pool,train,1,1,5,,data/yolo/images/train/250411_105659553370.jpg,data/yolo/labels/train/250411_105659553370.txt,kimchi_with_target,,kimchi_v1
+250411_105736419426.jpg,dataset1,train,pool,test,1,1,5,,data/yolo/images/test/250411_105736419426.jpg,data/yolo/labels/test/250411_105736419426.txt,kimchi_with_target,,kimchi_v1
+250411_105818677104.jpg,dataset1,train,pool,train,1,1,5,,data/yolo/images/train/250411_105818677104.jpg,data/yolo/labels/train/250411_105818677104.txt,kimchi_with_target,,kimchi_v1
+250411_105859449687.jpg,dataset1,train,pool,train,1,1,5,,data/yolo/images/train/250411_105859449687.jpg,data/yolo/labels/train/250411_105859449687.txt,kimchi_with_target,,kimchi_v1
+250411_105944783561.jpg,dataset1,train,pool,val,1,1,5,,data/yolo/images/val/250411_105944783561.jpg,data/yolo/labels/val/250411_105944783561.txt,kimchi_with_target,,kimchi_v1
+250411_110038287967.jpg,dataset2,validation,pool,val,1,1,5,,data/yolo/images/val/250411_110038287967.jpg,data/yolo/labels/val/250411_110038287967.txt,kimchi_with_target,,kimchi_v1
+250411_110128241504.jpg,dataset1,train,pool,train,1,1,5,,data/yolo/images/train/250411_110128241504.jpg,data/yolo/labels/train/250411_110128241504.txt,kimchi_with_target,,kimchi_v1
+250411_110216046156.jpg,dataset1,train,pool,train,3,0 1 2 3,5,,data/yolo/images/train/250411_110216046156.jpg,data/yolo/labels/train/250411_110216046156.txt,kimchi_with_target,,kimchi_v1
+250411_110315830870.jpg,dataset1,train,pool,val,2,1 2,5,,data/yolo/images/val/250411_110315830870.jpg,data/yolo/labels/val/250411_110315830870.txt,kimchi_with_target,,kimchi_v1
+250411_110403647899.jpg,dataset1,train,pool,train,3,0 1 2 3,5,,data/yolo/images/train/250411_110403647899.jpg,data/yolo/labels/train/250411_110403647899.txt,kimchi_with_target,,kimchi_v1
+250411_110445062074.jpg,dataset1,train,pool,train,2,1 2,5,,data/yolo/images/train/250411_110445062074.jpg,data/yolo/labels/train/250411_110445062074.txt,kimchi_with_target,,kimchi_v1
+250411_110528408973.jpg,dataset1,train,review,train,3,1 3,4,manifest(other),data/yolo/images/train/250411_110528408973.jpg,data/yolo/labels/train/250411_110528408973.txt,other_review,,kimchi_v1
+250411_110621247330.jpg,dataset1,train,excluded,train,4,1 2 4,5,아직 final 아님 (review),data/yolo/images/train/250411_110621247330.jpg,data/yolo/labels/train/250411_110621247330.txt,other_review,,kimchi_v1
+250411_110708889349.jpg,dataset1,train,pool,holdout,0,0 1 2,5,,data/bridge_holdout/images/250411_110708889349.jpg,data/bridge_holdout/labels/250411_110708889349.txt,kimchi_with_target,,kimchi_v1
+250411_110752793773.jpg,dataset1,train,pool,holdout,3,0 1 2 3,5,,data/bridge_holdout/images/250411_110752793773.jpg,data/bridge_holdout/labels/250411_110752793773.txt,kimchi_with_target,,kimchi_v1
+250411_110912420662.jpg,dataset1,train,pool,train,2,1 2,5,,data/yolo/images/train/250411_110912420662.jpg,data/yolo/labels/train/250411_110912420662.txt,kimchi_with_target,,kimchi_v1
+250411_111004245983.jpg,dataset2,validation,pool,val,3,0 1 2 3,5,,data/yolo/images/val/250411_111004245983.jpg,data/yolo/labels/val/250411_111004245983.txt,kimchi_with_target,,kimchi_v1
+250411_111048457647.jpg,dataset1,train,pool,holdout,0,0 1 2,5,,data/bridge_holdout/images/250411_111048457647.jpg,data/bridge_holdout/labels/250411_111048457647.txt,kimchi_with_target,,kimchi_v1
+250411_111136595839.jpg,dataset2,validation,excluded,train,4,1 3 4,5,아직 final 아님 (review),data/yolo/images/train/250411_111136595839.jpg,data/yolo/labels/train/250411_111136595839.txt,other_review,,kimchi_v1
+250411_111224174351.jpg,dataset1,train,pool,holdout,3,0 1 3,5,,data/bridge_holdout/images/250411_111224174351.jpg,data/bridge_holdout/labels/250411_111224174351.txt,kimchi_with_target,,kimchi_v1
+250411_111313130597.jpg,dataset2,validation,pool,holdout,0,0 1 2,5,,data/bridge_holdout/images/250411_111313130597.jpg,data/bridge_holdout/labels/250411_111313130597.txt,kimchi_with_target,,kimchi_v1
+250411_111358192719.jpg,dataset1,train,pool,train,3,1 2 3,5,,data/yolo/images/train/250411_111358192719.jpg,data/yolo/labels/train/250411_111358192719.txt,kimchi_with_target,,kimchi_v1
+250411_111440055274.jpg,dataset2,validation,excluded,holdout,4,1 2 4,5,아직 final 아님 (review),data/bridge_holdout/images/250411_111440055274.jpg,data/bridge_holdout/labels/250411_111440055274.txt,other_review,,kimchi_v1
+250411_111523441250.jpg,dataset1,train,pool,train,0,0 1,5,,data/yolo/images/train/250411_111523441250.jpg,data/yolo/labels/train/250411_111523441250.txt,kimchi_with_target,,kimchi_v1
+250411_111607753620.jpg,dataset1,train,pool,train,3,1 3,5,,data/yolo/images/train/250411_111607753620.jpg,data/yolo/labels/train/250411_111607753620.txt,kimchi_with_target,,kimchi_v1
+250411_111721406014.jpg,dataset2,validation,pool,train,0,0 1 2,5,,data/yolo/images/train/250411_111721406014.jpg,data/yolo/labels/train/250411_111721406014.txt,kimchi_with_target,,kimchi_v1
+250411_111804424043.jpg,dataset1,train,pool,train,2,1 2,5,,data/yolo/images/train/250411_111804424043.jpg,data/yolo/labels/train/250411_111804424043.txt,kimchi_with_target,,kimchi_v1
+250411_111841310699.jpg,dataset1,train,excluded,holdout,4,0 1 2 4,5,아직 final 아님 (review),data/bridge_holdout/images/250411_111841310699.jpg,data/bridge_holdout/labels/250411_111841310699.txt,other_review,,kimchi_v1
+250411_111931684327.jpg,dataset1,train,pool,val,2,1 2,5,,data/yolo/images/val/250411_111931684327.jpg,data/yolo/labels/val/250411_111931684327.txt,kimchi_with_target,,kimchi_v1
+250411_112016533939.jpg,dataset1,train,pool,val,0,0 1 2,6,,data/yolo/images/val/250411_112016533939.jpg,data/yolo/labels/val/250411_112016533939.txt,kimchi_with_target,,kimchi_v1
+250411_112108693050.jpg,dataset1,train,pool,train,3,1 2 3,5,,data/yolo/images/train/250411_112108693050.jpg,data/yolo/labels/train/250411_112108693050.txt,kimchi_with_target,,kimchi_v1
+250411_112205486359.jpg,dataset2,validation,pool,train,0,0 1 2,5,,data/yolo/images/train/250411_112205486359.jpg,data/yolo/labels/train/250411_112205486359.txt,kimchi_with_target,,kimchi_v1
+250411_112446720529.jpg,dataset2,validation,pool,train,1,1,5,,data/yolo/images/train/250411_112446720529.jpg,data/yolo/labels/train/250411_112446720529.txt,kimchi_with_target,,kimchi_v1
+250411_112539453476.jpg,dataset1,train,pool,test,1,1,6,,data/yolo/images/test/250411_112539453476.jpg,data/yolo/labels/test/250411_112539453476.txt,kimchi_with_target,,kimchi_v1
+250411_112619535807.jpg,dataset1,train,pool,holdout,1,1,5,,data/bridge_holdout/images/250411_112619535807.jpg,data/bridge_holdout/labels/250411_112619535807.txt,kimchi_with_target,,kimchi_v1
+250411_112702519484.jpg,dataset2,validation,pool,train,1,1,5,,data/yolo/images/train/250411_112702519484.jpg,data/yolo/labels/train/250411_112702519484.txt,kimchi_with_target,,kimchi_v1
+250411_112741745606.jpg,dataset2,validation,pool,train,1,1,5,,data/yolo/images/train/250411_112741745606.jpg,data/yolo/labels/train/250411_112741745606.txt,kimchi_with_target,,kimchi_v1
+250411_112949853261.jpg,dataset1,train,pool,train,1,1,5,,data/yolo/images/train/250411_112949853261.jpg,data/yolo/labels/train/250411_112949853261.txt,kimchi_with_target,,kimchi_v1
+250411_113033634859.jpg,dataset1,train,pool,train,1,1,5,,data/yolo/images/train/250411_113033634859.jpg,data/yolo/labels/train/250411_113033634859.txt,kimchi_with_target,,kimchi_v1
+250411_113112105032.jpg,dataset1,train,pool,train,1,1,6,,data/yolo/images/train/250411_113112105032.jpg,data/yolo/labels/train/250411_113112105032.txt,kimchi_with_target,,kimchi_v1
+250411_113153017884.jpg,dataset1,train,pool,holdout,1,1,7,,data/bridge_holdout/images/250411_113153017884.jpg,data/bridge_holdout/labels/250411_113153017884.txt,kimchi_with_target,,kimchi_v1
+250411_113241070555.jpg,dataset1,train,pool,train,1,1,5,,data/yolo/images/train/250411_113241070555.jpg,data/yolo/labels/train/250411_113241070555.txt,kimchi_with_target,,kimchi_v1
+250411_113335977212.jpg,dataset1,train,pool,val,1,1,5,,data/yolo/images/val/250411_113335977212.jpg,data/yolo/labels/val/250411_113335977212.txt,kimchi_with_target,,kimchi_v1
+250411_113422187938.jpg,dataset1,train,pool,test,1,1,7,,data/yolo/images/test/250411_113422187938.jpg,data/yolo/labels/test/250411_113422187938.txt,kimchi_with_target,,kimchi_v1
+250411_113506054354.jpg,dataset2,validation,pool,train,1,1,5,,data/yolo/images/train/250411_113506054354.jpg,data/yolo/labels/train/250411_113506054354.txt,kimchi_with_target,,kimchi_v1
+250411_113548636483.jpg,dataset1,train,pool,train,1,1,6,,data/yolo/images/train/250411_113548636483.jpg,data/yolo/labels/train/250411_113548636483.txt,kimchi_with_target,,kimchi_v1
+250411_113626826177.jpg,dataset1,train,pool,train,1,1,6,,data/yolo/images/train/250411_113626826177.jpg,data/yolo/labels/train/250411_113626826177.txt,kimchi_with_target,,kimchi_v1
+250411_113710947633.jpg,dataset1,train,pool,val,1,1,7,,data/yolo/images/val/250411_113710947633.jpg,data/yolo/labels/val/250411_113710947633.txt,kimchi_with_target,,kimchi_v1
+250411_113808387570.jpg,dataset1,train,pool,train,1,1,6,,data/yolo/images/train/250411_113808387570.jpg,data/yolo/labels/train/250411_113808387570.txt,kimchi_with_target,,kimchi_v1
+250411_113904005033.jpg,dataset2,validation,pool,test,1,1,5,,data/yolo/images/test/250411_113904005033.jpg,data/yolo/labels/test/250411_113904005033.txt,kimchi_with_target,,kimchi_v1
+250411_113959391025.jpg,dataset1,train,pool,test,1,1,7,,data/yolo/images/test/250411_113959391025.jpg,data/yolo/labels/test/250411_113959391025.txt,kimchi_with_target,,kimchi_v1
+250411_114051394051.jpg,dataset1,train,pool,holdout,1,1,5,,data/bridge_holdout/images/250411_114051394051.jpg,data/bridge_holdout/labels/250411_114051394051.txt,kimchi_with_target,,kimchi_v1
+250411_114148498012.jpg,dataset1,train,pool,train,1,1,6,,data/yolo/images/train/250411_114148498012.jpg,data/yolo/labels/train/250411_114148498012.txt,kimchi_with_target,,kimchi_v1
+250411_114252525628.jpg,dataset1,train,pool,train,1,1,6,,data/yolo/images/train/250411_114252525628.jpg,data/yolo/labels/train/250411_114252525628.txt,kimchi_with_target,,kimchi_v1
+250411_114345771169.jpg,dataset1,train,pool,test,1,1,6,,data/yolo/images/test/250411_114345771169.jpg,data/yolo/labels/test/250411_114345771169.txt,kimchi_with_target,,kimchi_v1
+250411_114451800273.jpg,dataset1,train,pool,val,1,1,7,,data/yolo/images/val/250411_114451800273.jpg,data/yolo/labels/val/250411_114451800273.txt,kimchi_with_target,,kimchi_v1
+250411_114554364192.jpg,dataset1,train,pool,train,1,1,7,,data/yolo/images/train/250411_114554364192.jpg,data/yolo/labels/train/250411_114554364192.txt,kimchi_with_target,,kimchi_v1
+250411_133000176335.jpg,dataset1,train,pool,train,1,1,5,,data/yolo/images/train/250411_133000176335.jpg,data/yolo/labels/train/250411_133000176335.txt,kimchi_with_target,,kimchi_v1
+250411_133144794149.jpg,dataset1,train,pool,train,3,1 3,5,,data/yolo/images/train/250411_133144794149.jpg,data/yolo/labels/train/250411_133144794149.txt,kimchi_with_target,,kimchi_v1
+250411_133236119624.jpg,dataset1,train,pool,train,2,1 2,5,,data/yolo/images/train/250411_133236119624.jpg,data/yolo/labels/train/250411_133236119624.txt,kimchi_with_target,,kimchi_v1
+250411_133329581087.jpg,dataset1,train,excluded,train,4,1 2 3 4,5,아직 final 아님 (review),data/yolo/images/train/250411_133329581087.jpg,data/yolo/labels/train/250411_133329581087.txt,other_review,,kimchi_v1
+250411_133415890554.jpg,dataset1,train,pool,train,0,0 1,6,,data/yolo/images/train/250411_133415890554.jpg,data/yolo/labels/train/250411_133415890554.txt,kimchi_with_target,,kimchi_v1
+250411_133502277094.jpg,dataset1,train,pool,train,3,1 2 3,5,,data/yolo/images/train/250411_133502277094.jpg,data/yolo/labels/train/250411_133502277094.txt,kimchi_with_target,,kimchi_v1
+250411_133550188212.jpg,dataset1,train,pool,train,3,1 3,6,,data/yolo/images/train/250411_133550188212.jpg,data/yolo/labels/train/250411_133550188212.txt,kimchi_with_target,,kimchi_v1
+250411_133634777214.jpg,dataset1,train,pool,train,1,1,6,,data/yolo/images/train/250411_133634777214.jpg,data/yolo/labels/train/250411_133634777214.txt,kimchi_with_target,,kimchi_v1
+250411_133724174349.jpg,dataset1,train,pool,holdout,2,1 2,5,,data/bridge_holdout/images/250411_133724174349.jpg,data/bridge_holdout/labels/250411_133724174349.txt,kimchi_with_target,,kimchi_v1
+250411_133907433178.jpg,dataset2,validation,pool,train,0,0 1,5,,data/yolo/images/train/250411_133907433178.jpg,data/yolo/labels/train/250411_133907433178.txt,kimchi_with_target,,kimchi_v1
+250411_133957480847.jpg,dataset1,train,pool,train,2,1 2,5,,data/yolo/images/train/250411_133957480847.jpg,data/yolo/labels/train/250411_133957480847.txt,kimchi_with_target,,kimchi_v1
+250411_134059250467.jpg,dataset1,train,pool,holdout,3,1 2 3,6,,data/bridge_holdout/images/250411_134059250467.jpg,data/bridge_holdout/labels/250411_134059250467.txt,kimchi_with_target,,kimchi_v1
+250411_134156935624.jpg,dataset2,validation,pool,train,5,0 1 5,6,,data/yolo/images/train/250411_134156935624.jpg,data/yolo/labels/train/250411_134156935624.txt,kimchi_with_target,,kimchi_v1
+250411_134246962589.jpg,dataset1,train,pool,train,3,1 3,5,,data/yolo/images/train/250411_134246962589.jpg,data/yolo/labels/train/250411_134246962589.txt,kimchi_with_target,,kimchi_v1
+250411_134338103210.jpg,dataset2,validation,excluded,train,4,0 1 4,5,아직 final 아님 (review),data/yolo/images/train/250411_134338103210.jpg,data/yolo/labels/train/250411_134338103210.txt,other_review,,kimchi_v1
+250411_134422867708.jpg,dataset1,train,pool,train,2,1 2,5,,data/yolo/images/train/250411_134422867708.jpg,data/yolo/labels/train/250411_134422867708.txt,kimchi_with_target,,kimchi_v1
+250411_134515221630.jpg,dataset1,train,pool,test,3,0 1 2 3,6,,data/yolo/images/test/250411_134515221630.jpg,data/yolo/labels/test/250411_134515221630.txt,kimchi_with_target,,kimchi_v1
+250411_134605181933.jpg,dataset1,train,pool,test,3,1 2 3,5,,data/yolo/images/test/250411_134605181933.jpg,data/yolo/labels/test/250411_134605181933.txt,kimchi_with_target,,kimchi_v1
+250411_134654281384.jpg,dataset1,train,pool,train,3,0 1 3,6,,data/yolo/images/train/250411_134654281384.jpg,data/yolo/labels/train/250411_134654281384.txt,kimchi_with_target,,kimchi_v1
+250411_134741200055.jpg,dataset1,train,excluded,test,4,1 2 4,5,아직 final 아님 (review),data/yolo/images/test/250411_134741200055.jpg,data/yolo/labels/test/250411_134741200055.txt,other_review,,kimchi_v1
+250411_134833730976.jpg,dataset1,train,pool,train,2,1 2,5,,data/yolo/images/train/250411_134833730976.jpg,data/yolo/labels/train/250411_134833730976.txt,kimchi_with_target,,kimchi_v1
+250411_135120060204.jpg,dataset1,train,pool,train,3,1 2 3,6,,data/yolo/images/train/250411_135120060204.jpg,data/yolo/labels/train/250411_135120060204.txt,kimchi_with_target,,kimchi_v1
+250411_135211530132.jpg,dataset1,train,pool,val,2,1 2,5,,data/yolo/images/val/250411_135211530132.jpg,data/yolo/labels/val/250411_135211530132.txt,kimchi_with_target,,kimchi_v1
+250411_135253570383.jpg,dataset1,train,excluded,train,4,1 2 4,5,아직 final 아님 (review),data/yolo/images/train/250411_135253570383.jpg,data/yolo/labels/train/250411_135253570383.txt,other_review,,kimchi_v1
+250411_135341531808.jpg,dataset1,train,excluded,holdout,4,0 1 4,5,아직 final 아님 (review),data/bridge_holdout/images/250411_135341531808.jpg,data/bridge_holdout/labels/250411_135341531808.txt,other_review,,kimchi_v1
+250411_135428632799.jpg,dataset2,validation,pool,train,3,0 1 3,5,,data/yolo/images/train/250411_135428632799.jpg,data/yolo/labels/train/250411_135428632799.txt,kimchi_with_target,,kimchi_v1
+250411_140005265446.jpg,dataset1,train,review,train,1,1,6,manifest(class_ambiguous),data/yolo/images/train/250411_140005265446.jpg,data/yolo/labels/train/250411_140005265446.txt,other_review,,kimchi_v1
+250411_140059718969.jpg,dataset1,train,review,train,1,1,5,manifest(class_ambiguous),data/yolo/images/train/250411_140059718969.jpg,data/yolo/labels/train/250411_140059718969.txt,kimchi_with_target,,kimchi_v1
+250411_140154662081.jpg,dataset1,train,review,train,1,1,5,manifest(class_ambiguous),data/yolo/images/train/250411_140154662081.jpg,data/yolo/labels/train/250411_140154662081.txt,kimchi_with_target,,kimchi_v1
+250411_140314154941.jpg,dataset1,train,review,val,1,1,5,manifest(class_ambiguous),data/yolo/images/val/250411_140314154941.jpg,data/yolo/labels/val/250411_140314154941.txt,kimchi_with_target,,kimchi_v1
+250411_140406550160.jpg,dataset2,validation,pool,train,1,1,5,,data/yolo/images/train/250411_140406550160.jpg,data/yolo/labels/train/250411_140406550160.txt,kimchi_with_target,,kimchi_v1
+250411_140452731605.jpg,dataset1,train,review,val,1,1,5,manifest(other),data/yolo/images/val/250411_140452731605.jpg,data/yolo/labels/val/250411_140452731605.txt,other_review,,kimchi_v1
+250411_140553670865.jpg,dataset1,train,review,train,1,1,5,manifest(class_ambiguous),data/yolo/images/train/250411_140553670865.jpg,data/yolo/labels/train/250411_140553670865.txt,kimchi_with_target,,kimchi_v1
+250411_140647006979.jpg,dataset1,train,review,train,1,1,5,manifest(class_ambiguous),data/yolo/images/train/250411_140647006979.jpg,data/yolo/labels/train/250411_140647006979.txt,kimchi_with_target,,kimchi_v1
+250411_140734845588.jpg,dataset1,train,review,train,1,1,5,manifest(class_ambiguous),data/yolo/images/train/250411_140734845588.jpg,data/yolo/labels/train/250411_140734845588.txt,kimchi_with_target,,kimchi_v1
+250411_140826997754.jpg,dataset1,train,review,train,1,1,5,manifest(class_ambiguous),data/yolo/images/train/250411_140826997754.jpg,data/yolo/labels/train/250411_140826997754.txt,kimchi_with_target,,kimchi_v1
+250411_140908232349.jpg,dataset1,train,review,train,1,1,5,manifest(class_ambiguous),data/yolo/images/train/250411_140908232349.jpg,data/yolo/labels/train/250411_140908232349.txt,kimchi_with_target,,kimchi_v1
+250411_140956814957.jpg,dataset1,train,review,train,1,1,5,manifest(class_ambiguous),data/yolo/images/train/250411_140956814957.jpg,data/yolo/labels/train/250411_140956814957.txt,kimchi_with_target,,kimchi_v1
+250411_141042153876.jpg,dataset1,train,review,test,1,1,5,manifest(class_ambiguous),data/yolo/images/test/250411_141042153876.jpg,data/yolo/labels/test/250411_141042153876.txt,kimchi_with_target,,kimchi_v1
+250411_141127764893.jpg,dataset2,validation,pool,val,1,1,5,,data/yolo/images/val/250411_141127764893.jpg,data/yolo/labels/val/250411_141127764893.txt,kimchi_with_target,,kimchi_v1
+250411_141549265009.jpg,dataset2,validation,pool,train,1,1,5,,data/yolo/images/train/250411_141549265009.jpg,data/yolo/labels/train/250411_141549265009.txt,kimchi_with_target,,kimchi_v1
+250411_141637675543.jpg,dataset2,validation,pool,train,1,1,5,,data/yolo/images/train/250411_141637675543.jpg,data/yolo/labels/train/250411_141637675543.txt,kimchi_with_target,,kimchi_v1
+250411_141717372582.jpg,dataset1,train,review,train,1,1,5,manifest(class_ambiguous),data/yolo/images/train/250411_141717372582.jpg,data/yolo/labels/train/250411_141717372582.txt,kimchi_with_target,,kimchi_v1
+250411_141809689183.jpg,dataset1,train,review,train,1,1,5,manifest(other),data/yolo/images/train/250411_141809689183.jpg,data/yolo/labels/train/250411_141809689183.txt,kimchi_with_target,,kimchi_v1
+250411_141859877677.jpg,dataset1,train,review,train,1,1,5,manifest(other),data/yolo/images/train/250411_141859877677.jpg,data/yolo/labels/train/250411_141859877677.txt,kimchi_with_target,,kimchi_v1
+250411_141947463304.jpg,dataset1,train,review,train,1,1,6,manifest(other),data/yolo/images/train/250411_141947463304.jpg,data/yolo/labels/train/250411_141947463304.txt,kimchi_with_target,,kimchi_v1
+250411_142033408182.jpg,dataset1,train,review,train,1,1,5,manifest(other),data/yolo/images/train/250411_142033408182.jpg,data/yolo/labels/train/250411_142033408182.txt,kimchi_with_target,,kimchi_v1
+250411_142123259727.jpg,dataset1,train,review,holdout,1,1,5,manifest(other),data/bridge_holdout/images/250411_142123259727.jpg,data/bridge_holdout/labels/250411_142123259727.txt,kimchi_with_target,,kimchi_v1
+250411_142216814830.jpg,dataset1,train,review,train,1,1,5,manifest(other),data/yolo/images/train/250411_142216814830.jpg,data/yolo/labels/train/250411_142216814830.txt,kimchi_with_target,,kimchi_v1
+250411_142304725518.jpg,dataset1,train,review,train,1,1,5,manifest(other),data/yolo/images/train/250411_142304725518.jpg,data/yolo/labels/train/250411_142304725518.txt,kimchi_with_target,,kimchi_v1
+250411_142354319596.jpg,dataset1,train,review,holdout,1,1,5,manifest(other),data/bridge_holdout/images/250411_142354319596.jpg,data/bridge_holdout/labels/250411_142354319596.txt,kimchi_with_target,,kimchi_v1
+250411_151707909443.jpg,dataset1,train,excluded,train,4,1 4,5,아직 final 아님 (review),data/yolo/images/train/250411_151707909443.jpg,data/yolo/labels/train/250411_151707909443.txt,other_review,,kimchi_v1
+250411_151803199511.jpg,dataset1,train,excluded,train,5,1 4 5,5,아직 final 아님 (review),data/yolo/images/train/250411_151803199511.jpg,data/yolo/labels/train/250411_151803199511.txt,other_review,,kimchi_v1
+250411_151903234059.jpg,dataset1,train,excluded,train,5,1 2 4 5,5,아직 final 아님 (review),data/yolo/images/train/250411_151903234059.jpg,data/yolo/labels/train/250411_151903234059.txt,other_review,,kimchi_v1
+250411_152011813992.jpg,dataset1,train,excluded,test,5,1 2 4 5,5,아직 final 아님 (review),data/yolo/images/test/250411_152011813992.jpg,data/yolo/labels/test/250411_152011813992.txt,other_review,,kimchi_v1
+250411_152117347333.jpg,dataset1,train,review,train,5,0 1 3 5,5,manifest(other),data/yolo/images/train/250411_152117347333.jpg,data/yolo/labels/train/250411_152117347333.txt,kimchi_with_target,,kimchi_v1
+250411_152216764651.jpg,dataset1,train,review,train,3,1 2 3,5,manifest(other),data/yolo/images/train/250411_152216764651.jpg,data/yolo/labels/train/250411_152216764651.txt,kimchi_with_target,,kimchi_v1
+250411_152317457996.jpg,dataset1,train,review,train,5,1 2 5,5,manifest(other),data/yolo/images/train/250411_152317457996.jpg,data/yolo/labels/train/250411_152317457996.txt,kimchi_with_target,,kimchi_v1
+250411_152410462673.jpg,dataset1,train,pool,train,0,0 1,5,,data/yolo/images/train/250411_152410462673.jpg,data/yolo/labels/train/250411_152410462673.txt,kimchi_with_target,,kimchi_v1
+250411_152459280077.jpg,dataset1,train,review,train,1,1,5,manifest(other),data/yolo/images/train/250411_152459280077.jpg,data/yolo/labels/train/250411_152459280077.txt,kimchi_with_target,,kimchi_v1
+250411_152549760336.jpg,dataset1,train,excluded,train,4,1 2 3 4,5,아직 final 아님 (review),data/yolo/images/train/250411_152549760336.jpg,data/yolo/labels/train/250411_152549760336.txt,other_review,,kimchi_v1
+250411_152640864385.jpg,dataset1,train,pool,train,3,1 2 3,5,,data/yolo/images/train/250411_152640864385.jpg,data/yolo/labels/train/250411_152640864385.txt,kimchi_with_target,,kimchi_v1
+250411_152729639809.jpg,dataset1,train,excluded,train,4,1 3 4,5,아직 final 아님 (review),data/yolo/images/train/250411_152729639809.jpg,data/yolo/labels/train/250411_152729639809.txt,other_review,,kimchi_v1
+250411_152820604579.jpg,dataset2,validation,excluded,train,3,1 2 3,5,아직 final 아님 (review),data/yolo/images/train/250411_152820604579.jpg,data/yolo/labels/train/250411_152820604579.txt,other_review,,kimchi_v1
+250411_152918560135.jpg,dataset1,train,pool,train,2,1 2,5,,data/yolo/images/train/250411_152918560135.jpg,data/yolo/labels/train/250411_152918560135.txt,kimchi_with_target,,kimchi_v1
+250411_153008984132.jpg,dataset1,train,pool,val,3,0 1 3,5,,data/yolo/images/val/250411_153008984132.jpg,data/yolo/labels/val/250411_153008984132.txt,kimchi_with_target,,kimchi_v1
+250411_153105900410.jpg,dataset1,train,excluded,train,4,1 4,5,아직 final 아님 (review),data/yolo/images/train/250411_153105900410.jpg,data/yolo/labels/train/250411_153105900410.txt,other_review,,kimchi_v1
+250411_153202843304.jpg,dataset1,train,pool,train,5,1 2 5,5,,data/yolo/images/train/250411_153202843304.jpg,data/yolo/labels/train/250411_153202843304.txt,kimchi_with_target,,kimchi_v1
+250411_153254824777.jpg,dataset2,validation,pool,train,0,0 1,5,,data/yolo/images/train/250411_153254824777.jpg,data/yolo/labels/train/250411_153254824777.txt,kimchi_with_target,,kimchi_v1
+250411_153351252246.jpg,dataset1,train,review,train,3,1 2 3,5,manifest(other),data/yolo/images/train/250411_153351252246.jpg,data/yolo/labels/train/250411_153351252246.txt,kimchi_with_target,,kimchi_v1
+250411_153708642128.jpg,dataset1,train,excluded,val,4,0 1 2 4,5,아직 final 아님 (review),data/yolo/images/val/250411_153708642128.jpg,data/yolo/labels/val/250411_153708642128.txt,other_review,,kimchi_v1
+250411_153808979651.jpg,dataset1,train,pool,train,3,1 3,5,,data/yolo/images/train/250411_153808979651.jpg,data/yolo/labels/train/250411_153808979651.txt,kimchi_with_target,,kimchi_v1
+250411_153856079886.jpg,dataset2,validation,excluded,train,4,0 1 3 4,5,아직 final 아님 (review),data/yolo/images/train/250411_153856079886.jpg,data/yolo/labels/train/250411_153856079886.txt,other_review,,kimchi_v1
+250411_153940519769.jpg,dataset1,train,pool,train,2,1 2,5,,data/yolo/images/train/250411_153940519769.jpg,data/yolo/labels/train/250411_153940519769.txt,kimchi_with_target,,kimchi_v1
+250411_154031477357.jpg,dataset1,train,pool,train,0,0 1 2,5,,data/yolo/images/train/250411_154031477357.jpg,data/yolo/labels/train/250411_154031477357.txt,kimchi_with_target,,kimchi_v1
+250411_154123030062.jpg,dataset1,train,review,holdout,3,1 3,5,manifest(other),data/bridge_holdout/images/250411_154123030062.jpg,data/bridge_holdout/labels/250411_154123030062.txt,other_review,,kimchi_v1
+250411_154545289934.jpg,dataset1,train,pool,train,5,5,5,,data/yolo/images/train/250411_154545289934.jpg,data/yolo/labels/train/250411_154545289934.txt,kimchi_with_target,,kimchi_v1
+250411_154632400103.jpg,dataset1,train,pool,train,5,5,5,,data/yolo/images/train/250411_154632400103.jpg,data/yolo/labels/train/250411_154632400103.txt,kimchi_with_target,,kimchi_v1
+250411_154812203890.jpg,dataset1,train,pool,train,5,5,5,,data/yolo/images/train/250411_154812203890.jpg,data/yolo/labels/train/250411_154812203890.txt,kimchi_with_target,,kimchi_v1
+250411_154859817171.jpg,dataset2,validation,pool,test,5,5,5,,data/yolo/images/test/250411_154859817171.jpg,data/yolo/labels/test/250411_154859817171.txt,kimchi_with_target,,kimchi_v1
+250411_154949761626.jpg,dataset1,train,pool,train,5,1 5,6,,data/yolo/images/train/250411_154949761626.jpg,data/yolo/labels/train/250411_154949761626.txt,kimchi_with_target,,kimchi_v1
+250411_155040808617.jpg,dataset1,train,pool,train,5,1 5,6,,data/yolo/images/train/250411_155040808617.jpg,data/yolo/labels/train/250411_155040808617.txt,kimchi_with_target,,kimchi_v1
+250411_155128186558.jpg,dataset1,train,pool,train,5,5,5,,data/yolo/images/train/250411_155128186558.jpg,data/yolo/labels/train/250411_155128186558.txt,kimchi_with_target,,kimchi_v1
+250411_155213979703.jpg,dataset2,validation,pool,train,5,5,5,,data/yolo/images/train/250411_155213979703.jpg,data/yolo/labels/train/250411_155213979703.txt,kimchi_with_target,,kimchi_v1
+250411_155257817932.jpg,dataset1,train,pool,train,5,5,5,,data/yolo/images/train/250411_155257817932.jpg,data/yolo/labels/train/250411_155257817932.txt,kimchi_with_target,,kimchi_v1
+250411_155343382262.jpg,dataset1,train,pool,train,5,5,6,,data/yolo/images/train/250411_155343382262.jpg,data/yolo/labels/train/250411_155343382262.txt,kimchi_with_target,,kimchi_v1
+250411_155428154120.jpg,dataset1,train,pool,val,5,5,6,,data/yolo/images/val/250411_155428154120.jpg,data/yolo/labels/val/250411_155428154120.txt,kimchi_with_target,,kimchi_v1
+250411_155518151067.jpg,dataset1,train,pool,train,5,1 5,6,,data/yolo/images/train/250411_155518151067.jpg,data/yolo/labels/train/250411_155518151067.txt,kimchi_with_target,,kimchi_v1
+250411_155607936718.jpg,dataset1,train,pool,train,5,5,5,,data/yolo/images/train/250411_155607936718.jpg,data/yolo/labels/train/250411_155607936718.txt,kimchi_with_target,,kimchi_v1
+250411_155701963331.jpg,dataset1,train,pool,train,5,1 5,6,,data/yolo/images/train/250411_155701963331.jpg,data/yolo/labels/train/250411_155701963331.txt,kimchi_with_target,,kimchi_v1
+250411_155751552207.jpg,dataset1,train,pool,train,5,5,5,,data/yolo/images/train/250411_155751552207.jpg,data/yolo/labels/train/250411_155751552207.txt,kimchi_with_target,,kimchi_v1
+250411_155836164875.jpg,dataset1,train,pool,val,5,5,5,,data/yolo/images/val/250411_155836164875.jpg,data/yolo/labels/val/250411_155836164875.txt,kimchi_with_target,,kimchi_v1
+250411_155922338003.jpg,dataset1,train,pool,test,5,5,5,,data/yolo/images/test/250411_155922338003.jpg,data/yolo/labels/test/250411_155922338003.txt,kimchi_with_target,,kimchi_v1
+250411_160015579183.jpg,dataset1,train,pool,train,5,5,5,,data/yolo/images/train/250411_160015579183.jpg,data/yolo/labels/train/250411_160015579183.txt,kimchi_with_target,,kimchi_v1
+250411_160102367806.jpg,dataset1,train,pool,train,5,5,5,,data/yolo/images/train/250411_160102367806.jpg,data/yolo/labels/train/250411_160102367806.txt,kimchi_with_target,,kimchi_v1
+250411_160154461519.jpg,dataset1,train,pool,train,5,5,5,,data/yolo/images/train/250411_160154461519.jpg,data/yolo/labels/train/250411_160154461519.txt,kimchi_with_target,,kimchi_v1
+250411_160242359691.jpg,dataset1,train,pool,holdout,5,5,5,,data/bridge_holdout/images/250411_160242359691.jpg,data/bridge_holdout/labels/250411_160242359691.txt,kimchi_with_target,,kimchi_v1
+250411_160333681517.jpg,dataset2,validation,pool,train,5,5,5,,data/yolo/images/train/250411_160333681517.jpg,data/yolo/labels/train/250411_160333681517.txt,kimchi_with_target,,kimchi_v1
+250411_160457010505.jpg,dataset1,train,pool,train,5,5,5,,data/yolo/images/train/250411_160457010505.jpg,data/yolo/labels/train/250411_160457010505.txt,kimchi_with_target,,kimchi_v1
+250411_160552248555.jpg,dataset1,train,pool,train,5,5,5,,data/yolo/images/train/250411_160552248555.jpg,data/yolo/labels/train/250411_160552248555.txt,kimchi_with_target,,kimchi_v1
+250411_160638581161.jpg,dataset1,train,pool,test,5,5,5,,data/yolo/images/test/250411_160638581161.jpg,data/yolo/labels/test/250411_160638581161.txt,kimchi_with_target,,kimchi_v1
+250411_160736641056.jpg,dataset1,train,excluded,train,5,1 2 4 5,5,아직 final 아님 (review),data/yolo/images/train/250411_160736641056.jpg,data/yolo/labels/train/250411_160736641056.txt,other_review,,kimchi_v1
+250411_160845945710.jpg,dataset2,validation,pool,test,5,0 1 5,5,,data/yolo/images/test/250411_160845945710.jpg,data/yolo/labels/test/250411_160845945710.txt,kimchi_with_target,,kimchi_v1
+250411_160944442902.jpg,dataset1,train,pool,train,5,1 2 5,5,,data/yolo/images/train/250411_160944442902.jpg,data/yolo/labels/train/250411_160944442902.txt,kimchi_with_target,,kimchi_v1
+250411_161041048519.jpg,dataset1,train,pool,holdout,5,1 2 5,5,,data/bridge_holdout/images/250411_161041048519.jpg,data/bridge_holdout/labels/250411_161041048519.txt,kimchi_with_target,,kimchi_v1
+250411_161125175112.jpg,dataset2,validation,pool,train,5,1 5,5,,data/yolo/images/train/250411_161125175112.jpg,data/yolo/labels/train/250411_161125175112.txt,kimchi_with_target,,kimchi_v1
+250411_161204714653.jpg,dataset2,validation,pool,train,5,0 1 5,5,,data/yolo/images/train/250411_161204714653.jpg,data/yolo/labels/train/250411_161204714653.txt,kimchi_with_target,,kimchi_v1
+250411_161335497942.jpg,dataset1,train,pool,train,5,1 2 5,5,,data/yolo/images/train/250411_161335497942.jpg,data/yolo/labels/train/250411_161335497942.txt,kimchi_with_target,,kimchi_v1
+250411_161459121635.jpg,dataset1,train,excluded,holdout,5,1 2 4 5,5,아직 final 아님 (review),data/bridge_holdout/images/250411_161459121635.jpg,data/bridge_holdout/labels/250411_161459121635.txt,other_review,,kimchi_v1
+250411_161601751564.jpg,dataset1,train,pool,train,5,2 3 5,5,,data/yolo/images/train/250411_161601751564.jpg,data/yolo/labels/train/250411_161601751564.txt,kimchi_with_target,,kimchi_v1
+250411_161718524589.jpg,dataset1,train,excluded,holdout,5,1 2 4 5,5,아직 final 아님 (review),data/bridge_holdout/images/250411_161718524589.jpg,data/bridge_holdout/labels/250411_161718524589.txt,other_review,,kimchi_v1
+250411_161815507507.jpg,dataset1,train,pool,train,5,1 2 5,5,,data/yolo/images/train/250411_161815507507.jpg,data/yolo/labels/train/250411_161815507507.txt,kimchi_with_target,,kimchi_v1
+250411_161918392744.jpg,dataset1,train,pool,test,5,1 5,5,,data/yolo/images/test/250411_161918392744.jpg,data/yolo/labels/test/250411_161918392744.txt,kimchi_with_target,,kimchi_v1
+250411_162102317297.jpg,dataset2,validation,pool,train,5,1 3 5,5,,data/yolo/images/train/250411_162102317297.jpg,data/yolo/labels/train/250411_162102317297.txt,kimchi_with_target,,kimchi_v1
+250411_162212242373.jpg,dataset1,train,review,holdout,5,1 5,5,manifest(class_ambiguous),data/bridge_holdout/images/250411_162212242373.jpg,data/bridge_holdout/labels/250411_162212242373.txt,kimchi_with_target,,kimchi_v1
+250411_162312139510.jpg,dataset1,train,pool,train,5,1 2 3 5,6,,data/yolo/images/train/250411_162312139510.jpg,data/yolo/labels/train/250411_162312139510.txt,kimchi_with_target,,kimchi_v1
+250411_162400775089.jpg,dataset2,validation,pool,train,5,1 3 5,5,,data/yolo/images/train/250411_162400775089.jpg,data/yolo/labels/train/250411_162400775089.txt,kimchi_with_target,,kimchi_v1
+250411_162447162532.jpg,dataset1,train,excluded,holdout,5,1 2 4 5,5,아직 final 아님 (review),data/bridge_holdout/images/250411_162447162532.jpg,data/bridge_holdout/labels/250411_162447162532.txt,other_review,,kimchi_v1
+250411_162535290470.jpg,dataset2,validation,pool,train,5,1 2 5,5,,data/yolo/images/train/250411_162535290470.jpg,data/yolo/labels/train/250411_162535290470.txt,kimchi_with_target,,kimchi_v1
+250411_162756223396.jpg,dataset1,train,pool,train,5,3 5,5,,data/yolo/images/train/250411_162756223396.jpg,data/yolo/labels/train/250411_162756223396.txt,kimchi_with_target,,kimchi_v1
+250411_162846129980.jpg,dataset2,validation,pool,train,5,1 5,5,,data/yolo/images/train/250411_162846129980.jpg,data/yolo/labels/train/250411_162846129980.txt,kimchi_with_target,,kimchi_v1
+250411_162929801419.jpg,dataset1,train,pool,train,5,1 5,5,,data/yolo/images/train/250411_162929801419.jpg,data/yolo/labels/train/250411_162929801419.txt,kimchi_with_target,,kimchi_v1
+250411_163007238647.jpg,dataset1,train,pool,train,5,1 5,5,,data/yolo/images/train/250411_163007238647.jpg,data/yolo/labels/train/250411_163007238647.txt,kimchi_with_target,,kimchi_v1
+250411_163054857361.jpg,dataset1,train,pool,train,5,1 2 5,6,,data/yolo/images/train/250411_163054857361.jpg,data/yolo/labels/train/250411_163054857361.txt,kimchi_with_target,,kimchi_v1
+250411_163141810871.jpg,dataset1,train,pool,train,5,3 5,5,,data/yolo/images/train/250411_163141810871.jpg,data/yolo/labels/train/250411_163141810871.txt,kimchi_with_target,,kimchi_v1
+250411_163231309394.jpg,dataset2,validation,pool,train,5,1 5,5,,data/yolo/images/train/250411_163231309394.jpg,data/yolo/labels/train/250411_163231309394.txt,kimchi_with_target,,kimchi_v1
+250424_105826238840.jpg,dataset2,validation,pool,train,0,0 2,5,,data/yolo/images/train/250424_105826238840.jpg,data/yolo/labels/train/250424_105826238840.txt,kimchi_with_target,,kimchi_v1
+250424_105909724238.jpg,dataset1,train,pool,holdout,2,2,5,,data/bridge_holdout/images/250424_105909724238.jpg,data/bridge_holdout/labels/250424_105909724238.txt,kimchi_with_target,,kimchi_v1
+250424_110118712995.jpg,dataset1,train,pool,val,2,2,5,,data/yolo/images/val/250424_110118712995.jpg,data/yolo/labels/val/250424_110118712995.txt,kimchi_with_target,,kimchi_v1
+250424_110200584818.jpg,dataset1,train,pool,train,2,2,6,,data/yolo/images/train/250424_110200584818.jpg,data/yolo/labels/train/250424_110200584818.txt,kimchi_with_target,,kimchi_v1
+250424_110233789711.jpg,dataset1,train,pool,train,2,2,5,,data/yolo/images/train/250424_110233789711.jpg,data/yolo/labels/train/250424_110233789711.txt,kimchi_with_target,,kimchi_v1
+250424_110320866054.jpg,dataset2,validation,pool,train,0,0 2,8,,data/yolo/images/train/250424_110320866054.jpg,data/yolo/labels/train/250424_110320866054.txt,kimchi_with_target,,kimchi_v1
+250424_110344645163.jpg,dataset2,validation,pool,train,0,0 2,8,,data/yolo/images/train/250424_110344645163.jpg,data/yolo/labels/train/250424_110344645163.txt,kimchi_with_target,,kimchi_v1
+250424_110422490499.jpg,dataset2,validation,pool,holdout,0,0 2,9,,data/bridge_holdout/images/250424_110422490499.jpg,data/bridge_holdout/labels/250424_110422490499.txt,kimchi_with_target,,kimchi_v1
+250424_110456428256.jpg,dataset1,train,pool,train,2,2,5,,data/yolo/images/train/250424_110456428256.jpg,data/yolo/labels/train/250424_110456428256.txt,kimchi_with_target,,kimchi_v1
+250424_110523358494.jpg,dataset1,train,pool,val,2,2,5,,data/yolo/images/val/250424_110523358494.jpg,data/yolo/labels/val/250424_110523358494.txt,kimchi_with_target,,kimchi_v1
+250424_110555963740.jpg,dataset1,train,pool,train,2,2,5,,data/yolo/images/train/250424_110555963740.jpg,data/yolo/labels/train/250424_110555963740.txt,kimchi_with_target,,kimchi_v1
+250424_110621146818.jpg,dataset1,train,pool,train,2,2,5,,data/yolo/images/train/250424_110621146818.jpg,data/yolo/labels/train/250424_110621146818.txt,kimchi_with_target,,kimchi_v1
+250424_110645745568.jpg,dataset1,train,pool,train,2,2,5,,data/yolo/images/train/250424_110645745568.jpg,data/yolo/labels/train/250424_110645745568.txt,kimchi_with_target,,kimchi_v1
+250424_110716273731.jpg,dataset1,train,pool,train,2,2,7,,data/yolo/images/train/250424_110716273731.jpg,data/yolo/labels/train/250424_110716273731.txt,kimchi_with_target,,kimchi_v1
+250424_110748018790.jpg,dataset1,train,pool,train,2,2,8,,data/yolo/images/train/250424_110748018790.jpg,data/yolo/labels/train/250424_110748018790.txt,kimchi_with_target,,kimchi_v1
+250424_110825373075.jpg,dataset1,train,pool,train,2,2,6,,data/yolo/images/train/250424_110825373075.jpg,data/yolo/labels/train/250424_110825373075.txt,kimchi_with_target,,kimchi_v1
+250424_110907410038.jpg,dataset1,train,pool,test,5,2 5,6,,data/yolo/images/test/250424_110907410038.jpg,data/yolo/labels/test/250424_110907410038.txt,kimchi_with_target,,kimchi_v1
+250424_110954320748.jpg,dataset1,train,pool,val,2,2,5,,data/yolo/images/val/250424_110954320748.jpg,data/yolo/labels/val/250424_110954320748.txt,kimchi_with_target,,kimchi_v1
+250424_111020116028.jpg,dataset1,train,pool,train,2,2,7,,data/yolo/images/train/250424_111020116028.jpg,data/yolo/labels/train/250424_111020116028.txt,kimchi_with_target,,kimchi_v1
+250424_111106537338.jpg,dataset2,validation,pool,test,0,0 2,5,,data/yolo/images/test/250424_111106537338.jpg,data/yolo/labels/test/250424_111106537338.txt,kimchi_with_target,,kimchi_v1
+250424_111201206403.jpg,dataset1,train,pool,train,2,2,6,,data/yolo/images/train/250424_111201206403.jpg,data/yolo/labels/train/250424_111201206403.txt,kimchi_with_target,,kimchi_v1
+250424_111226617441.jpg,dataset1,train,pool,test,2,2,6,,data/yolo/images/test/250424_111226617441.jpg,data/yolo/labels/test/250424_111226617441.txt,kimchi_with_target,,kimchi_v1
+250424_111302561521.jpg,dataset1,train,pool,train,2,2,6,,data/yolo/images/train/250424_111302561521.jpg,data/yolo/labels/train/250424_111302561521.txt,kimchi_with_target,,kimchi_v1
+250424_111341945533.jpg,dataset2,validation,pool,train,2,2,6,,data/yolo/images/train/250424_111341945533.jpg,data/yolo/labels/train/250424_111341945533.txt,kimchi_with_target,,kimchi_v1
+250424_111415135407.jpg,dataset1,train,pool,train,2,2,5,,data/yolo/images/train/250424_111415135407.jpg,data/yolo/labels/train/250424_111415135407.txt,kimchi_with_target,,kimchi_v1
+250424_111454886462.jpg,dataset1,train,excluded,train,4,1 2 4,7,아직 final 아님 (review),data/yolo/images/train/250424_111454886462.jpg,data/yolo/labels/train/250424_111454886462.txt,other_review,,kimchi_v1
+250424_111525566429.jpg,dataset1,train,excluded,val,4,1 2 4,5,아직 final 아님 (review),data/yolo/images/val/250424_111525566429.jpg,data/yolo/labels/val/250424_111525566429.txt,other_review,,kimchi_v1
+250424_111555047880.jpg,dataset1,train,excluded,train,4,1 2 4,5,아직 final 아님 (review),data/yolo/images/train/250424_111555047880.jpg,data/yolo/labels/train/250424_111555047880.txt,other_review,,kimchi_v1
+250424_111632364928.jpg,dataset1,train,excluded,test,4,1 2 4,6,아직 final 아님 (review),data/yolo/images/test/250424_111632364928.jpg,data/yolo/labels/test/250424_111632364928.txt,other_review,,kimchi_v1
+250424_111713850672.jpg,dataset1,train,excluded,train,4,1 2 4,5,아직 final 아님 (review),data/yolo/images/train/250424_111713850672.jpg,data/yolo/labels/train/250424_111713850672.txt,other_review,,kimchi_v1
+250424_111810266612.jpg,dataset1,train,excluded,holdout,4,1 2 4,6,아직 final 아님 (review),data/bridge_holdout/images/250424_111810266612.jpg,data/bridge_holdout/labels/250424_111810266612.txt,other_review,,kimchi_v1
+250424_111900294585.jpg,dataset1,train,pool,train,2,1 2,5,,data/yolo/images/train/250424_111900294585.jpg,data/yolo/labels/train/250424_111900294585.txt,kimchi_with_target,,kimchi_v1
+250424_111931005322.jpg,dataset1,train,pool,test,2,1 2,5,,data/yolo/images/test/250424_111931005322.jpg,data/yolo/labels/test/250424_111931005322.txt,kimchi_with_target,,kimchi_v1
+250424_112004831679.jpg,dataset1,train,pool,train,2,1 2,7,,data/yolo/images/train/250424_112004831679.jpg,data/yolo/labels/train/250424_112004831679.txt,kimchi_with_target,,kimchi_v1
+250424_112034421928.jpg,dataset1,train,pool,train,2,1 2,8,,data/yolo/images/train/250424_112034421928.jpg,data/yolo/labels/train/250424_112034421928.txt,kimchi_with_target,,kimchi_v1
+250424_112106131252.jpg,dataset1,train,pool,val,2,1 2,7,,data/yolo/images/val/250424_112106131252.jpg,data/yolo/labels/val/250424_112106131252.txt,kimchi_with_target,,kimchi_v1
+250424_112139655659.jpg,dataset1,train,pool,holdout,2,1 2,7,,data/bridge_holdout/images/250424_112139655659.jpg,data/bridge_holdout/labels/250424_112139655659.txt,kimchi_with_target,,kimchi_v1
+250424_112224118014.jpg,dataset1,train,pool,train,2,1 2,5,,data/yolo/images/train/250424_112224118014.jpg,data/yolo/labels/train/250424_112224118014.txt,kimchi_with_target,,kimchi_v1
+250424_112256216378.jpg,dataset2,validation,pool,train,5,0 1 2 5,10,,data/yolo/images/train/250424_112256216378.jpg,data/yolo/labels/train/250424_112256216378.txt,kimchi_with_target,,kimchi_v1
+250424_112343085390.jpg,dataset1,train,pool,val,5,0 1 2 5,7,,data/yolo/images/val/250424_112343085390.jpg,data/yolo/labels/val/250424_112343085390.txt,kimchi_with_target,,kimchi_v1
+250424_112408452967.jpg,dataset1,train,pool,train,5,0 1 2 5,6,,data/yolo/images/train/250424_112408452967.jpg,data/yolo/labels/train/250424_112408452967.txt,kimchi_with_target,,kimchi_v1
+250424_112445358653.jpg,dataset1,train,pool,train,0,0 1 2,6,,data/yolo/images/train/250424_112445358653.jpg,data/yolo/labels/train/250424_112445358653.txt,kimchi_with_target,,kimchi_v1
+250424_112520861551.jpg,dataset2,validation,pool,test,5,0 1 2 5,6,,data/yolo/images/test/250424_112520861551.jpg,data/yolo/labels/test/250424_112520861551.txt,kimchi_with_target,,kimchi_v1
+250424_112553658191.jpg,dataset2,validation,pool,val,0,0 1 2,5,,data/yolo/images/val/250424_112553658191.jpg,data/yolo/labels/val/250424_112553658191.txt,kimchi_with_target,,kimchi_v1
+250424_112626180721.jpg,dataset1,train,pool,train,0,0 1 2,5,,data/yolo/images/train/250424_112626180721.jpg,data/yolo/labels/train/250424_112626180721.txt,kimchi_with_target,,kimchi_v1
+250424_112714928952.jpg,dataset2,validation,excluded,train,4,2 3 4,5,아직 final 아님 (review),data/yolo/images/train/250424_112714928952.jpg,data/yolo/labels/train/250424_112714928952.txt,other_review,,kimchi_v1
+250424_112818764337.jpg,dataset1,train,excluded,train,4,2 3 4,5,아직 final 아님 (review),data/yolo/images/train/250424_112818764337.jpg,data/yolo/labels/train/250424_112818764337.txt,other_review,,kimchi_v1
+250424_112841184247.jpg,dataset1,train,excluded,val,4,2 3 4,5,아직 final 아님 (review),data/yolo/images/val/250424_112841184247.jpg,data/yolo/labels/val/250424_112841184247.txt,other_review,,kimchi_v1
+250424_112924042782.jpg,dataset1,train,excluded,holdout,4,2 3 4,7,아직 final 아님 (review),data/bridge_holdout/images/250424_112924042782.jpg,data/bridge_holdout/labels/250424_112924042782.txt,other_review,,kimchi_v1
+250424_113017660157.jpg,dataset2,validation,excluded,train,4,2 3 4,5,아직 final 아님 (review),data/yolo/images/train/250424_113017660157.jpg,data/yolo/labels/train/250424_113017660157.txt,other_review,,kimchi_v1
+250424_114354919791.jpg,dataset2,validation,pool,val,5,1 5,7,,data/yolo/images/val/250424_114354919791.jpg,data/yolo/labels/val/250424_114354919791.txt,kimchi_with_target,,kimchi_v1
+250424_114427299303.jpg,dataset2,validation,pool,val,1,1,5,,data/yolo/images/val/250424_114427299303.jpg,data/yolo/labels/val/250424_114427299303.txt,kimchi_with_target,,kimchi_v1
+250424_114506760277.jpg,dataset1,train,pool,train,5,1 5,6,,data/yolo/images/train/250424_114506760277.jpg,data/yolo/labels/train/250424_114506760277.txt,kimchi_with_target,,kimchi_v1
+250424_114541448139.jpg,dataset2,validation,pool,train,5,1 5,6,,data/yolo/images/train/250424_114541448139.jpg,data/yolo/labels/train/250424_114541448139.txt,kimchi_with_target,,kimchi_v1
+250424_114610718081.jpg,dataset1,train,pool,train,1,1,5,,data/yolo/images/train/250424_114610718081.jpg,data/yolo/labels/train/250424_114610718081.txt,kimchi_with_target,,kimchi_v1
+250424_114647549614.jpg,dataset1,train,pool,train,1,1,5,,data/yolo/images/train/250424_114647549614.jpg,data/yolo/labels/train/250424_114647549614.txt,kimchi_with_target,,kimchi_v1
+250424_114709957499.jpg,dataset1,train,pool,test,1,1,5,,data/yolo/images/test/250424_114709957499.jpg,data/yolo/labels/test/250424_114709957499.txt,kimchi_with_target,,kimchi_v1
+250424_114731998378.jpg,dataset1,train,pool,train,1,1,5,,data/yolo/images/train/250424_114731998378.jpg,data/yolo/labels/train/250424_114731998378.txt,kimchi_with_target,,kimchi_v1
+250424_114752056861.jpg,dataset2,validation,pool,test,1,1,5,,data/yolo/images/test/250424_114752056861.jpg,data/yolo/labels/test/250424_114752056861.txt,kimchi_with_target,,kimchi_v1
+250424_114834243086.jpg,dataset1,train,pool,train,1,1,5,,data/yolo/images/train/250424_114834243086.jpg,data/yolo/labels/train/250424_114834243086.txt,kimchi_with_target,,kimchi_v1
+250424_114911512397.jpg,dataset1,train,pool,train,5,1 5,6,,data/yolo/images/train/250424_114911512397.jpg,data/yolo/labels/train/250424_114911512397.txt,kimchi_with_target,,kimchi_v1
+250424_114929077449.jpg,dataset1,train,pool,train,1,1,5,,data/yolo/images/train/250424_114929077449.jpg,data/yolo/labels/train/250424_114929077449.txt,kimchi_with_target,,kimchi_v1
+250424_114951512715.jpg,dataset1,train,pool,holdout,5,1 5,6,,data/bridge_holdout/images/250424_114951512715.jpg,data/bridge_holdout/labels/250424_114951512715.txt,kimchi_with_target,,kimchi_v1
+250424_115021023301.jpg,dataset1,train,pool,holdout,1,1,5,,data/bridge_holdout/images/250424_115021023301.jpg,data/bridge_holdout/labels/250424_115021023301.txt,kimchi_with_target,,kimchi_v1
+250424_115042694119.jpg,dataset1,train,pool,train,1,1,5,,data/yolo/images/train/250424_115042694119.jpg,data/yolo/labels/train/250424_115042694119.txt,kimchi_with_target,,kimchi_v1
+250424_115104493302.jpg,dataset1,train,pool,train,5,1 5,6,,data/yolo/images/train/250424_115104493302.jpg,data/yolo/labels/train/250424_115104493302.txt,kimchi_with_target,,kimchi_v1
+250424_115126242024.jpg,dataset1,train,pool,val,1,1,5,,data/yolo/images/val/250424_115126242024.jpg,data/yolo/labels/val/250424_115126242024.txt,kimchi_with_target,,kimchi_v1
+250424_115154083033.jpg,dataset1,train,pool,test,1,1,5,,data/yolo/images/test/250424_115154083033.jpg,data/yolo/labels/test/250424_115154083033.txt,kimchi_with_target,,kimchi_v1
+250424_115215894054.jpg,dataset1,train,pool,train,1,1,5,,data/yolo/images/train/250424_115215894054.jpg,data/yolo/labels/train/250424_115215894054.txt,kimchi_with_target,,kimchi_v1
+250424_115252382931.jpg,dataset1,train,pool,train,5,1 5,6,,data/yolo/images/train/250424_115252382931.jpg,data/yolo/labels/train/250424_115252382931.txt,kimchi_with_target,,kimchi_v1
+250424_115322964196.jpg,dataset1,train,pool,train,5,1 5,7,,data/yolo/images/train/250424_115322964196.jpg,data/yolo/labels/train/250424_115322964196.txt,kimchi_with_target,,kimchi_v1
+250424_115344852900.jpg,dataset1,train,pool,train,5,1 5,7,,data/yolo/images/train/250424_115344852900.jpg,data/yolo/labels/train/250424_115344852900.txt,kimchi_with_target,,kimchi_v1
+250424_115411440722.jpg,dataset1,train,pool,train,1,1,5,,data/yolo/images/train/250424_115411440722.jpg,data/yolo/labels/train/250424_115411440722.txt,kimchi_with_target,,kimchi_v1
+250424_115429203755.jpg,dataset1,train,pool,holdout,1,1,5,,data/bridge_holdout/images/250424_115429203755.jpg,data/bridge_holdout/labels/250424_115429203755.txt,kimchi_with_target,,kimchi_v1
+250424_115451303584.jpg,dataset1,train,pool,train,1,1,5,,data/yolo/images/train/250424_115451303584.jpg,data/yolo/labels/train/250424_115451303584.txt,kimchi_with_target,,kimchi_v1
+250424_131214458981.jpg,dataset1,train,pool,train,0,0 1,5,,data/yolo/images/train/250424_131214458981.jpg,data/yolo/labels/train/250424_131214458981.txt,kimchi_with_target,,kimchi_v1
+250424_131237407672.jpg,dataset1,train,pool,train,0,0 1,5,,data/yolo/images/train/250424_131237407672.jpg,data/yolo/labels/train/250424_131237407672.txt,kimchi_with_target,,kimchi_v1
+250424_131300572776.jpg,dataset2,validation,review,train,0,0 1,5,manifest(other),data/yolo/images/train/250424_131300572776.jpg,data/yolo/labels/train/250424_131300572776.txt,kimchi_with_target,,kimchi_v1
+250424_131333355993.jpg,dataset1,train,pool,val,5,0 1 5,7,,data/yolo/images/val/250424_131333355993.jpg,data/yolo/labels/val/250424_131333355993.txt,kimchi_with_target,,kimchi_v1
+250424_131408934842.jpg,dataset1,train,pool,train,0,0 1,5,,data/yolo/images/train/250424_131408934842.jpg,data/yolo/labels/train/250424_131408934842.txt,kimchi_with_target,,kimchi_v1
+250424_131447980205.jpg,dataset2,validation,pool,test,5,0 1 5,6,,data/yolo/images/test/250424_131447980205.jpg,data/yolo/labels/test/250424_131447980205.txt,kimchi_with_target,,kimchi_v1
+250424_131537176736.jpg,dataset2,validation,pool,train,1,1,5,,data/yolo/images/train/250424_131537176736.jpg,data/yolo/labels/train/250424_131537176736.txt,kimchi_with_target,,kimchi_v1
+250424_131605365916.jpg,dataset2,validation,pool,train,5,1 5,6,,data/yolo/images/train/250424_131605365916.jpg,data/yolo/labels/train/250424_131605365916.txt,kimchi_with_target,,kimchi_v1
+250424_131628719461.jpg,dataset1,train,pool,holdout,1,1,5,,data/bridge_holdout/images/250424_131628719461.jpg,data/bridge_holdout/labels/250424_131628719461.txt,kimchi_with_target,,kimchi_v1
+250424_131652631597.jpg,dataset1,train,pool,train,5,1 5,6,,data/yolo/images/train/250424_131652631597.jpg,data/yolo/labels/train/250424_131652631597.txt,kimchi_with_target,,kimchi_v1
+250424_131717240598.jpg,dataset1,train,review,val,5,1 2 5,7,manifest(other),data/yolo/images/val/250424_131717240598.jpg,data/yolo/labels/val/250424_131717240598.txt,kimchi_with_target,,kimchi_v1
+250424_131740237196.jpg,dataset2,validation,pool,holdout,5,0 1 5,6,,data/bridge_holdout/images/250424_131740237196.jpg,data/bridge_holdout/labels/250424_131740237196.txt,kimchi_with_target,,kimchi_v1
+250424_131814741865.jpg,dataset1,train,review,train,5,1 2 5,6,manifest(other),data/yolo/images/train/250424_131814741865.jpg,data/yolo/labels/train/250424_131814741865.txt,kimchi_with_target,,kimchi_v1
+250424_131847882251.jpg,dataset1,train,review,train,1,1,5,manifest(other),data/yolo/images/train/250424_131847882251.jpg,data/yolo/labels/train/250424_131847882251.txt,kimchi_with_target,,kimchi_v1
+250424_131927234268.jpg,dataset1,train,excluded,val,2,1 2,5,아직 final 아님 (review),data/yolo/images/val/250424_131927234268.jpg,data/yolo/labels/val/250424_131927234268.txt,other_review,,kimchi_v1
+250424_132230751822.jpg,dataset1,train,excluded,train,4,0 1 3 4,5,아직 final 아님 (review),data/yolo/images/train/250424_132230751822.jpg,data/yolo/labels/train/250424_132230751822.txt,other_review,,kimchi_v1
+250424_132300685668.jpg,dataset1,train,excluded,train,4,0 1 3 4,5,아직 final 아님 (review),data/yolo/images/train/250424_132300685668.jpg,data/yolo/labels/train/250424_132300685668.txt,other_review,,kimchi_v1
+250424_132322938300.jpg,dataset1,train,excluded,holdout,5,0 1 3 4 5,6,아직 final 아님 (review),data/bridge_holdout/images/250424_132322938300.jpg,data/bridge_holdout/labels/250424_132322938300.txt,other_review,,kimchi_v1
+250424_132349669195.jpg,dataset1,train,excluded,train,5,0 1 3 4 5,6,아직 final 아님 (review),data/yolo/images/train/250424_132349669195.jpg,data/yolo/labels/train/250424_132349669195.txt,other_review,,kimchi_v1
+250424_132417140373.jpg,dataset2,validation,excluded,train,4,0 1 3 4,5,아직 final 아님 (review),data/yolo/images/train/250424_132417140373.jpg,data/yolo/labels/train/250424_132417140373.txt,other_review,,kimchi_v1
+250424_132551814312.jpg,dataset1,train,pool,holdout,2,1 2,5,,data/bridge_holdout/images/250424_132551814312.jpg,data/bridge_holdout/labels/250424_132551814312.txt,kimchi_with_target,,kimchi_v1
+250424_132624325595.jpg,dataset1,train,pool,train,5,1 2 5,7,,data/yolo/images/train/250424_132624325595.jpg,data/yolo/labels/train/250424_132624325595.txt,kimchi_with_target,,kimchi_v1
+250424_132651301309.jpg,dataset1,train,pool,train,5,1 2 5,6,,data/yolo/images/train/250424_132651301309.jpg,data/yolo/labels/train/250424_132651301309.txt,kimchi_with_target,,kimchi_v1
+250424_132732143495.jpg,dataset1,train,pool,holdout,2,1 2,5,,data/bridge_holdout/images/250424_132732143495.jpg,data/bridge_holdout/labels/250424_132732143495.txt,kimchi_with_target,,kimchi_v1
+250424_132758494169.jpg,dataset1,train,pool,train,5,1 2 5,6,,data/yolo/images/train/250424_132758494169.jpg,data/yolo/labels/train/250424_132758494169.txt,kimchi_with_target,,kimchi_v1
+250424_133043450183.jpg,dataset1,train,pool,holdout,0,0,5,,data/bridge_holdout/images/250424_133043450183.jpg,data/bridge_holdout/labels/250424_133043450183.txt,kimchi_with_target,,kimchi_v1
+250424_133117662886.jpg,dataset1,train,pool,train,0,0,5,,data/yolo/images/train/250424_133117662886.jpg,data/yolo/labels/train/250424_133117662886.txt,kimchi_with_target,,kimchi_v1
+250424_133202379766.jpg,dataset1,train,pool,train,0,0,6,,data/yolo/images/train/250424_133202379766.jpg,data/yolo/labels/train/250424_133202379766.txt,kimchi_with_target,,kimchi_v1
+250424_133236037318.jpg,dataset1,train,pool,train,0,0,5,,data/yolo/images/train/250424_133236037318.jpg,data/yolo/labels/train/250424_133236037318.txt,kimchi_with_target,,kimchi_v1
+250424_133306190678.jpg,dataset1,train,pool,train,0,0,5,,data/yolo/images/train/250424_133306190678.jpg,data/yolo/labels/train/250424_133306190678.txt,kimchi_with_target,,kimchi_v1
+250424_133336623350.jpg,dataset1,train,pool,val,5,0 5,6,,data/yolo/images/val/250424_133336623350.jpg,data/yolo/labels/val/250424_133336623350.txt,kimchi_with_target,,kimchi_v1
+250424_133357022002.jpg,dataset1,train,pool,train,0,0,5,,data/yolo/images/train/250424_133357022002.jpg,data/yolo/labels/train/250424_133357022002.txt,kimchi_with_target,,kimchi_v1
+250424_133425417139.jpg,dataset2,validation,pool,train,5,0 5,6,,data/yolo/images/train/250424_133425417139.jpg,data/yolo/labels/train/250424_133425417139.txt,kimchi_with_target,,kimchi_v1
+250424_133503096161.jpg,dataset2,validation,pool,train,5,0 5,6,,data/yolo/images/train/250424_133503096161.jpg,data/yolo/labels/train/250424_133503096161.txt,kimchi_with_target,,kimchi_v1
+250424_133529972703.jpg,dataset1,train,pool,train,5,0 5,7,,data/yolo/images/train/250424_133529972703.jpg,data/yolo/labels/train/250424_133529972703.txt,kimchi_with_target,,kimchi_v1
+250424_133601135830.jpg,dataset2,validation,pool,train,0,0,5,,data/yolo/images/train/250424_133601135830.jpg,data/yolo/labels/train/250424_133601135830.txt,kimchi_with_target,,kimchi_v1
+250424_133629807292.jpg,dataset1,train,pool,train,0,0 2,6,,data/yolo/images/train/250424_133629807292.jpg,data/yolo/labels/train/250424_133629807292.txt,kimchi_with_target,,kimchi_v1
+250424_133656915044.jpg,dataset1,train,pool,holdout,5,0 5,6,,data/bridge_holdout/images/250424_133656915044.jpg,data/bridge_holdout/labels/250424_133656915044.txt,kimchi_with_target,,kimchi_v1
+250424_133722168136.jpg,dataset1,train,pool,train,0,0,5,,data/yolo/images/train/250424_133722168136.jpg,data/yolo/labels/train/250424_133722168136.txt,kimchi_with_target,,kimchi_v1
+250424_133746717037.jpg,dataset1,train,pool,val,5,0 5,7,,data/yolo/images/val/250424_133746717037.jpg,data/yolo/labels/val/250424_133746717037.txt,kimchi_with_target,,kimchi_v1
+250424_133822721787.jpg,dataset2,validation,pool,train,5,0 5,7,,data/yolo/images/train/250424_133822721787.jpg,data/yolo/labels/train/250424_133822721787.txt,kimchi_with_target,,kimchi_v1
+250424_133848190733.jpg,dataset1,train,pool,holdout,0,0,5,,data/bridge_holdout/images/250424_133848190733.jpg,data/bridge_holdout/labels/250424_133848190733.txt,kimchi_with_target,,kimchi_v1
+250424_133917633597.jpg,dataset1,train,pool,train,5,0 5,6,,data/yolo/images/train/250424_133917633597.jpg,data/yolo/labels/train/250424_133917633597.txt,kimchi_with_target,,kimchi_v1
+250424_133952219104.jpg,dataset1,train,pool,train,0,0,5,,data/yolo/images/train/250424_133952219104.jpg,data/yolo/labels/train/250424_133952219104.txt,kimchi_with_target,,kimchi_v1
+250424_134022709122.jpg,dataset1,train,pool,train,5,0 5,6,,data/yolo/images/train/250424_134022709122.jpg,data/yolo/labels/train/250424_134022709122.txt,kimchi_with_target,,kimchi_v1
+250424_134045604000.jpg,dataset1,train,pool,train,0,0,6,,data/yolo/images/train/250424_134045604000.jpg,data/yolo/labels/train/250424_134045604000.txt,kimchi_with_target,,kimchi_v1
+250424_134108731645.jpg,dataset1,train,pool,train,0,0,5,,data/yolo/images/train/250424_134108731645.jpg,data/yolo/labels/train/250424_134108731645.txt,kimchi_with_target,,kimchi_v1
+250424_134126674217.jpg,dataset1,train,pool,train,0,0,5,,data/yolo/images/train/250424_134126674217.jpg,data/yolo/labels/train/250424_134126674217.txt,kimchi_with_target,,kimchi_v1
+250424_134151883902.jpg,dataset1,train,pool,train,0,0,5,,data/yolo/images/train/250424_134151883902.jpg,data/yolo/labels/train/250424_134151883902.txt,kimchi_with_target,,kimchi_v1
+250424_134225907817.jpg,dataset1,train,pool,train,0,0,5,,data/yolo/images/train/250424_134225907817.jpg,data/yolo/labels/train/250424_134225907817.txt,kimchi_with_target,,kimchi_v1
+250424_134312393649.jpg,dataset1,train,pool,train,3,0 1 3,5,,data/yolo/images/train/250424_134312393649.jpg,data/yolo/labels/train/250424_134312393649.txt,kimchi_with_target,,kimchi_v1
+250424_134338803481.jpg,dataset1,train,pool,val,5,0 1 3 5,7,,data/yolo/images/val/250424_134338803481.jpg,data/yolo/labels/val/250424_134338803481.txt,kimchi_with_target,,kimchi_v1
+250424_134406959434.jpg,dataset1,train,pool,train,3,0 1 3,5,,data/yolo/images/train/250424_134406959434.jpg,data/yolo/labels/train/250424_134406959434.txt,kimchi_with_target,,kimchi_v1
+250424_134458172998.jpg,dataset1,train,pool,train,5,0 1 3 5,6,,data/yolo/images/train/250424_134458172998.jpg,data/yolo/labels/train/250424_134458172998.txt,kimchi_with_target,,kimchi_v1
+250424_134528641228.jpg,dataset2,validation,pool,test,5,0 1 3 5,6,,data/yolo/images/test/250424_134528641228.jpg,data/yolo/labels/test/250424_134528641228.txt,kimchi_with_target,,kimchi_v1
+250424_134609468397.jpg,dataset2,validation,pool,holdout,0,0 1 2,5,,data/bridge_holdout/images/250424_134609468397.jpg,data/bridge_holdout/labels/250424_134609468397.txt,kimchi_with_target,,kimchi_v1
+250424_134638430765.jpg,dataset1,train,pool,val,5,0 1 2 5,6,,data/yolo/images/val/250424_134638430765.jpg,data/yolo/labels/val/250424_134638430765.txt,kimchi_with_target,,kimchi_v1
+250424_134711838797.jpg,dataset2,validation,pool,test,0,0 1 2,5,,data/yolo/images/test/250424_134711838797.jpg,data/yolo/labels/test/250424_134711838797.txt,kimchi_with_target,,kimchi_v1
+250424_134742403318.jpg,dataset1,train,pool,train,5,0 1 2 5,6,,data/yolo/images/train/250424_134742403318.jpg,data/yolo/labels/train/250424_134742403318.txt,kimchi_with_target,,kimchi_v1
+250424_134810265899.jpg,dataset1,train,pool,test,5,0 1 2 5,7,,data/yolo/images/test/250424_134810265899.jpg,data/yolo/labels/test/250424_134810265899.txt,kimchi_with_target,,kimchi_v1
+250424_135228979866.jpg,dataset2,validation,pool,train,0,0 1,5,,data/yolo/images/train/250424_135228979866.jpg,data/yolo/labels/train/250424_135228979866.txt,kimchi_with_target,,kimchi_v1
+250424_135259190207.jpg,dataset1,train,pool,train,5,0 1 5,6,,data/yolo/images/train/250424_135259190207.jpg,data/yolo/labels/train/250424_135259190207.txt,kimchi_with_target,,kimchi_v1
+250424_135403978558.jpg,dataset1,train,pool,holdout,0,0 1,6,,data/bridge_holdout/images/250424_135403978558.jpg,data/bridge_holdout/labels/250424_135403978558.txt,kimchi_with_target,,kimchi_v1
+250424_135437428949.jpg,dataset2,validation,pool,train,0,0 1,5,,data/yolo/images/train/250424_135437428949.jpg,data/yolo/labels/train/250424_135437428949.txt,kimchi_with_target,,kimchi_v1
+250424_135501509505.jpg,dataset1,train,pool,val,0,0 1,5,,data/yolo/images/val/250424_135501509505.jpg,data/yolo/labels/val/250424_135501509505.txt,kimchi_with_target,,kimchi_v1
+250424_135531230106.jpg,dataset1,train,pool,train,0,0 1,5,,data/yolo/images/train/250424_135531230106.jpg,data/yolo/labels/train/250424_135531230106.txt,kimchi_with_target,,kimchi_v1
+250424_135619213899.jpg,dataset1,train,pool,holdout,5,0 1 3 5,6,,data/bridge_holdout/images/250424_135619213899.jpg,data/bridge_holdout/labels/250424_135619213899.txt,kimchi_with_target,,kimchi_v1
+250424_135655980687.jpg,dataset1,train,pool,train,5,0 1 3 5,6,,data/yolo/images/train/250424_135655980687.jpg,data/yolo/labels/train/250424_135655980687.txt,kimchi_with_target,,kimchi_v1
+250424_135732439823.jpg,dataset1,train,pool,test,3,0 1 2 3,6,,data/yolo/images/test/250424_135732439823.jpg,data/yolo/labels/test/250424_135732439823.txt,kimchi_with_target,,kimchi_v1
+250424_135756404426.jpg,dataset1,train,pool,train,5,0 1 3 5,6,,data/yolo/images/train/250424_135756404426.jpg,data/yolo/labels/train/250424_135756404426.txt,kimchi_with_target,,kimchi_v1
+250424_135855115910.jpg,dataset1,train,excluded,train,4,0 1 2 4,6,아직 final 아님 (review),data/yolo/images/train/250424_135855115910.jpg,data/yolo/labels/train/250424_135855115910.txt,other_review,,kimchi_v1
+250424_135944045455.jpg,dataset1,train,excluded,train,5,0 1 3 4 5,6,아직 final 아님 (review),data/yolo/images/train/250424_135944045455.jpg,data/yolo/labels/train/250424_135944045455.txt,other_review,,kimchi_v1
+250424_140037360411.jpg,dataset1,train,excluded,test,4,0 1 3 4,6,아직 final 아님 (review),data/yolo/images/test/250424_140037360411.jpg,data/yolo/labels/test/250424_140037360411.txt,other_review,,kimchi_v1
+250424_140115786154.jpg,dataset1,train,excluded,train,4,0 1 2 3 4,8,아직 final 아님 (review),data/yolo/images/train/250424_140115786154.jpg,data/yolo/labels/train/250424_140115786154.txt,other_review,,kimchi_v1
+250424_140147957962.jpg,dataset2,validation,review,test,5,0 1 2 3 5,8,이력 csv + manifest(other),data/yolo/images/test/250424_140147957962.jpg,data/yolo/labels/test/250424_140147957962.txt,other_review,,kimchi_v1
+250424_140721608012.jpg,dataset1,train,pool,train,0,0,5,,data/yolo/images/train/250424_140721608012.jpg,data/yolo/labels/train/250424_140721608012.txt,kimchi_with_target,,kimchi_v1
+250424_140751922758.jpg,dataset1,train,pool,train,5,0 5,6,,data/yolo/images/train/250424_140751922758.jpg,data/yolo/labels/train/250424_140751922758.txt,kimchi_with_target,,kimchi_v1
+250424_140827554248.jpg,dataset1,train,pool,test,0,0,5,,data/yolo/images/test/250424_140827554248.jpg,data/yolo/labels/test/250424_140827554248.txt,kimchi_with_target,,kimchi_v1
+250424_140927386469.jpg,dataset2,validation,pool,holdout,0,0,5,,data/bridge_holdout/images/250424_140927386469.jpg,data/bridge_holdout/labels/250424_140927386469.txt,kimchi_with_target,,kimchi_v1
+250424_141008289141.jpg,dataset2,validation,pool,train,0,0,5,,data/yolo/images/train/250424_141008289141.jpg,data/yolo/labels/train/250424_141008289141.txt,kimchi_with_target,,kimchi_v1
+250424_141046132793.jpg,dataset2,validation,pool,holdout,5,0 5,7,,data/bridge_holdout/images/250424_141046132793.jpg,data/bridge_holdout/labels/250424_141046132793.txt,kimchi_with_target,,kimchi_v1
+250424_141117326057.jpg,dataset2,validation,pool,val,0,0,5,,data/yolo/images/val/250424_141117326057.jpg,data/yolo/labels/val/250424_141117326057.txt,kimchi_with_target,,kimchi_v1
+250424_141205147850.jpg,dataset1,train,pool,train,0,0,5,,data/yolo/images/train/250424_141205147850.jpg,data/yolo/labels/train/250424_141205147850.txt,kimchi_with_target,,kimchi_v1
+250424_141236657334.jpg,dataset1,train,pool,val,5,0 5,7,,data/yolo/images/val/250424_141236657334.jpg,data/yolo/labels/val/250424_141236657334.txt,kimchi_with_target,,kimchi_v1
+250424_141311988574.jpg,dataset1,train,pool,val,0,0,4,,data/yolo/images/val/250424_141311988574.jpg,data/yolo/labels/val/250424_141311988574.txt,kimchi_with_target,,kimchi_v1
+250424_141347737368.jpg,dataset1,train,pool,val,5,0 5,6,,data/yolo/images/val/250424_141347737368.jpg,data/yolo/labels/val/250424_141347737368.txt,kimchi_with_target,,kimchi_v1
+250424_141414962071.jpg,dataset1,train,pool,holdout,5,0 5,6,,data/bridge_holdout/images/250424_141414962071.jpg,data/bridge_holdout/labels/250424_141414962071.txt,kimchi_with_target,,kimchi_v1
+250424_141451512347.jpg,dataset1,train,pool,val,0,0,5,,data/yolo/images/val/250424_141451512347.jpg,data/yolo/labels/val/250424_141451512347.txt,kimchi_with_target,,kimchi_v1
+250424_141518822839.jpg,dataset1,train,pool,val,0,0,5,,data/yolo/images/val/250424_141518822839.jpg,data/yolo/labels/val/250424_141518822839.txt,kimchi_with_target,,kimchi_v1
+250424_141556763818.jpg,dataset1,train,pool,holdout,5,0 5,6,,data/bridge_holdout/images/250424_141556763818.jpg,data/bridge_holdout/labels/250424_141556763818.txt,kimchi_with_target,,kimchi_v1
+250424_141625234055.jpg,dataset1,train,pool,train,0,0,5,,data/yolo/images/train/250424_141625234055.jpg,data/yolo/labels/train/250424_141625234055.txt,kimchi_with_target,,kimchi_v1
+250424_141652963394.jpg,dataset1,train,pool,test,5,0 5,6,,data/yolo/images/test/250424_141652963394.jpg,data/yolo/labels/test/250424_141652963394.txt,kimchi_with_target,,kimchi_v1
+250424_141749469834.jpg,dataset1,train,pool,train,0,0,5,,data/yolo/images/train/250424_141749469834.jpg,data/yolo/labels/train/250424_141749469834.txt,kimchi_with_target,,kimchi_v1
+250424_141831775241.jpg,dataset1,train,pool,train,0,0,5,,data/yolo/images/train/250424_141831775241.jpg,data/yolo/labels/train/250424_141831775241.txt,kimchi_with_target,,kimchi_v1
+250424_141906362111.jpg,dataset2,validation,pool,train,0,0,5,,data/yolo/images/train/250424_141906362111.jpg,data/yolo/labels/train/250424_141906362111.txt,kimchi_with_target,,kimchi_v1
+250424_141936963734.jpg,dataset1,train,pool,train,0,0,5,,data/yolo/images/train/250424_141936963734.jpg,data/yolo/labels/train/250424_141936963734.txt,kimchi_with_target,,kimchi_v1
+250424_142024804916.jpg,dataset1,train,pool,train,0,0,5,,data/yolo/images/train/250424_142024804916.jpg,data/yolo/labels/train/250424_142024804916.txt,kimchi_with_target,,kimchi_v1
+250424_142046745378.jpg,dataset1,train,pool,train,0,0,5,,data/yolo/images/train/250424_142046745378.jpg,data/yolo/labels/train/250424_142046745378.txt,kimchi_with_target,,kimchi_v1
+250424_142109515979.jpg,dataset1,train,pool,test,0,0,5,,data/yolo/images/test/250424_142109515979.jpg,data/yolo/labels/test/250424_142109515979.txt,kimchi_with_target,,kimchi_v1
+250424_142134495262.jpg,dataset1,train,pool,val,0,0,5,,data/yolo/images/val/250424_142134495262.jpg,data/yolo/labels/val/250424_142134495262.txt,kimchi_with_target,,kimchi_v1
+250424_142211379999.jpg,dataset1,train,pool,test,5,0 1 2 5,7,,data/yolo/images/test/250424_142211379999.jpg,data/yolo/labels/test/250424_142211379999.txt,kimchi_with_target,,kimchi_v1
+250424_142245033292.jpg,dataset1,train,pool,train,5,0 1 2 5,7,,data/yolo/images/train/250424_142245033292.jpg,data/yolo/labels/train/250424_142245033292.txt,kimchi_with_target,,kimchi_v1
+250424_142310994229.jpg,dataset1,train,pool,train,5,0 1 2 5,7,,data/yolo/images/train/250424_142310994229.jpg,data/yolo/labels/train/250424_142310994229.txt,kimchi_with_target,,kimchi_v1
+250424_142338011529.jpg,dataset1,train,pool,test,0,0 1 2,5,,data/yolo/images/test/250424_142338011529.jpg,data/yolo/labels/test/250424_142338011529.txt,kimchi_with_target,,kimchi_v1
+250424_142408511885.jpg,dataset1,train,pool,train,0,0 1 2,5,,data/yolo/images/train/250424_142408511885.jpg,data/yolo/labels/train/250424_142408511885.txt,kimchi_with_target,,kimchi_v1
+250424_142451194734.jpg,dataset1,train,excluded,holdout,5,0 1 5,10,아직 final 아님 (review),data/bridge_holdout/images/250424_142451194734.jpg,data/bridge_holdout/labels/250424_142451194734.txt,other_review,,kimchi_v1
+250424_142525298132.jpg,dataset1,train,excluded,train,5,0 1 5,6,아직 final 아님 (review),data/yolo/images/train/250424_142525298132.jpg,data/yolo/labels/train/250424_142525298132.txt,other_review,,kimchi_v1
+250424_142552771765.jpg,dataset1,train,excluded,train,5,0 1 5,7,아직 final 아님 (review),data/yolo/images/train/250424_142552771765.jpg,data/yolo/labels/train/250424_142552771765.txt,other_review,,kimchi_v1
+250424_142625989941.jpg,dataset1,train,excluded,train,5,0 1 5,6,아직 final 아님 (review),data/yolo/images/train/250424_142625989941.jpg,data/yolo/labels/train/250424_142625989941.txt,other_review,,kimchi_v1
+250424_142652562190.jpg,dataset1,train,excluded,train,5,0 1 5,6,아직 final 아님 (review),data/yolo/images/train/250424_142652562190.jpg,data/yolo/labels/train/250424_142652562190.txt,other_review,,kimchi_v1
+250424_142728989367.jpg,dataset1,train,excluded,train,5,0 1 5,6,아직 final 아님 (review),data/yolo/images/train/250424_142728989367.jpg,data/yolo/labels/train/250424_142728989367.txt,other_review,,kimchi_v1
+250424_142806480763.jpg,dataset1,train,excluded,val,5,0 1 5,7,아직 final 아님 (review),data/yolo/images/val/250424_142806480763.jpg,data/yolo/labels/val/250424_142806480763.txt,other_review,,kimchi_v1
+250424_142834656188.jpg,dataset1,train,excluded,train,5,0 1 5,6,아직 final 아님 (review),data/yolo/images/train/250424_142834656188.jpg,data/yolo/labels/train/250424_142834656188.txt,other_review,,kimchi_v1
+250424_142911137938.jpg,dataset1,train,excluded,train,5,0 1 5,7,아직 final 아님 (review),data/yolo/images/train/250424_142911137938.jpg,data/yolo/labels/train/250424_142911137938.txt,other_review,,kimchi_v1
+250424_142938362989.jpg,dataset1,train,excluded,test,5,0 1 5,6,아직 final 아님 (review),data/yolo/images/test/250424_142938362989.jpg,data/yolo/labels/test/250424_142938362989.txt,other_review,,kimchi_v1
+250424_143017228317.jpg,dataset1,train,excluded,train,5,0 2 4 5,7,아직 final 아님 (review),data/yolo/images/train/250424_143017228317.jpg,data/yolo/labels/train/250424_143017228317.txt,other_review,,kimchi_v1
+250424_143044127420.jpg,dataset1,train,excluded,train,4,0 2 4,5,아직 final 아님 (review),data/yolo/images/train/250424_143044127420.jpg,data/yolo/labels/train/250424_143044127420.txt,other_review,,kimchi_v1
+250424_143107609014.jpg,dataset1,train,excluded,train,4,0 2 4,6,아직 final 아님 (review),data/yolo/images/train/250424_143107609014.jpg,data/yolo/labels/train/250424_143107609014.txt,other_review,,kimchi_v1
+250424_143141044687.jpg,dataset1,train,excluded,train,4,0 2 4,5,아직 final 아님 (review),data/yolo/images/train/250424_143141044687.jpg,data/yolo/labels/train/250424_143141044687.txt,other_review,,kimchi_v1
+250424_143219410463.jpg,dataset1,train,excluded,train,5,0 2 4 5,7,아직 final 아님 (review),data/yolo/images/train/250424_143219410463.jpg,data/yolo/labels/train/250424_143219410463.txt,other_review,,kimchi_v1
+250424_143312128093.jpg,dataset2,validation,pool,train,5,0 1 2 3 5,6,,data/yolo/images/train/250424_143312128093.jpg,data/yolo/labels/train/250424_143312128093.txt,kimchi_with_target,,kimchi_v1
+250424_143340574867.jpg,dataset1,train,pool,train,3,0 1 2 3,5,,data/yolo/images/train/250424_143340574867.jpg,data/yolo/labels/train/250424_143340574867.txt,kimchi_with_target,,kimchi_v1
+250424_143423334547.jpg,dataset1,train,pool,val,3,0 1 2 3,5,,data/yolo/images/val/250424_143423334547.jpg,data/yolo/labels/val/250424_143423334547.txt,kimchi_with_target,,kimchi_v1
+250424_143454496733.jpg,dataset2,validation,pool,train,3,0 1 2 3,5,,data/yolo/images/train/250424_143454496733.jpg,data/yolo/labels/train/250424_143454496733.txt,kimchi_with_target,,kimchi_v1
+250424_143523864568.jpg,dataset1,train,pool,train,3,0 1 2 3,6,,data/yolo/images/train/250424_143523864568.jpg,data/yolo/labels/train/250424_143523864568.txt,kimchi_with_target,,kimchi_v1
+250424_150320374794.jpg,dataset1,train,pool,train,5,2 5,7,,data/yolo/images/train/250424_150320374794.jpg,data/yolo/labels/train/250424_150320374794.txt,kimchi_with_target,,kimchi_v1
+250424_150358295363.jpg,dataset2,validation,pool,train,2,2,5,,data/yolo/images/train/250424_150358295363.jpg,data/yolo/labels/train/250424_150358295363.txt,kimchi_with_target,,kimchi_v1
+250424_150428766903.jpg,dataset2,validation,pool,train,5,0 2 5,7,,data/yolo/images/train/250424_150428766903.jpg,data/yolo/labels/train/250424_150428766903.txt,kimchi_with_target,,kimchi_v1
+250424_150530068599.jpg,dataset1,train,pool,train,5,2 5,6,,data/yolo/images/train/250424_150530068599.jpg,data/yolo/labels/train/250424_150530068599.txt,kimchi_with_target,,kimchi_v1
+250424_150601578171.jpg,dataset1,train,pool,train,5,2 5,6,,data/yolo/images/train/250424_150601578171.jpg,data/yolo/labels/train/250424_150601578171.txt,kimchi_with_target,,kimchi_v1
+250424_150626550405.jpg,dataset1,train,pool,train,5,2 5,6,,data/yolo/images/train/250424_150626550405.jpg,data/yolo/labels/train/250424_150626550405.txt,kimchi_with_target,,kimchi_v1
+250424_150657426032.jpg,dataset2,validation,pool,train,5,2 5,6,,data/yolo/images/train/250424_150657426032.jpg,data/yolo/labels/train/250424_150657426032.txt,kimchi_with_target,,kimchi_v1
+250424_150726922844.jpg,dataset1,train,pool,test,5,2 5,6,,data/yolo/images/test/250424_150726922844.jpg,data/yolo/labels/test/250424_150726922844.txt,kimchi_with_target,,kimchi_v1
+250424_150751737200.jpg,dataset1,train,pool,val,5,2 5,7,,data/yolo/images/val/250424_150751737200.jpg,data/yolo/labels/val/250424_150751737200.txt,kimchi_with_target,,kimchi_v1
+250424_150822430768.jpg,dataset2,validation,pool,val,5,0 2 5,7,,data/yolo/images/val/250424_150822430768.jpg,data/yolo/labels/val/250424_150822430768.txt,kimchi_with_target,,kimchi_v1
+250424_150908898857.jpg,dataset1,train,pool,train,2,2,5,,data/yolo/images/train/250424_150908898857.jpg,data/yolo/labels/train/250424_150908898857.txt,kimchi_with_target,,kimchi_v1
+250424_150932563138.jpg,dataset1,train,pool,train,5,2 5,8,,data/yolo/images/train/250424_150932563138.jpg,data/yolo/labels/train/250424_150932563138.txt,kimchi_with_target,,kimchi_v1
+250424_151011160174.jpg,dataset2,validation,pool,val,5,2 5,6,,data/yolo/images/val/250424_151011160174.jpg,data/yolo/labels/val/250424_151011160174.txt,kimchi_with_target,,kimchi_v1
+250424_151045537032.jpg,dataset1,train,pool,train,2,2,6,,data/yolo/images/train/250424_151045537032.jpg,data/yolo/labels/train/250424_151045537032.txt,kimchi_with_target,,kimchi_v1
+250424_151110625683.jpg,dataset1,train,pool,train,5,2 5,6,,data/yolo/images/train/250424_151110625683.jpg,data/yolo/labels/train/250424_151110625683.txt,kimchi_with_target,,kimchi_v1
+250424_151144785207.jpg,dataset1,train,pool,train,2,2,5,,data/yolo/images/train/250424_151144785207.jpg,data/yolo/labels/train/250424_151144785207.txt,kimchi_with_target,,kimchi_v1
+250424_151209385709.jpg,dataset1,train,pool,holdout,2,2,5,,data/bridge_holdout/images/250424_151209385709.jpg,data/bridge_holdout/labels/250424_151209385709.txt,kimchi_with_target,,kimchi_v1
+250424_151249899389.jpg,dataset1,train,pool,train,5,2 5,9,,data/yolo/images/train/250424_151249899389.jpg,data/yolo/labels/train/250424_151249899389.txt,kimchi_with_target,,kimchi_v1
+250424_151328835745.jpg,dataset1,train,pool,train,5,2 5,6,,data/yolo/images/train/250424_151328835745.jpg,data/yolo/labels/train/250424_151328835745.txt,kimchi_with_target,,kimchi_v1
+250424_151403291574.jpg,dataset2,validation,pool,train,2,2,4,,data/yolo/images/train/250424_151403291574.jpg,data/yolo/labels/train/250424_151403291574.txt,kimchi_with_target,,kimchi_v1
+250424_151431421246.jpg,dataset1,train,pool,train,5,2 5,6,,data/yolo/images/train/250424_151431421246.jpg,data/yolo/labels/train/250424_151431421246.txt,kimchi_with_target,,kimchi_v1
+250424_151459859261.jpg,dataset1,train,pool,train,5,2 5,6,,data/yolo/images/train/250424_151459859261.jpg,data/yolo/labels/train/250424_151459859261.txt,kimchi_with_target,,kimchi_v1
+250424_151540089453.jpg,dataset2,validation,pool,test,2,2,5,,data/yolo/images/test/250424_151540089453.jpg,data/yolo/labels/test/250424_151540089453.txt,kimchi_with_target,,kimchi_v1
+250424_151612445088.jpg,dataset1,train,pool,train,2,2,5,,data/yolo/images/train/250424_151612445088.jpg,data/yolo/labels/train/250424_151612445088.txt,kimchi_with_target,,kimchi_v1
+250424_151649731424.jpg,dataset1,train,pool,train,5,2 5,6,,data/yolo/images/train/250424_151649731424.jpg,data/yolo/labels/train/250424_151649731424.txt,kimchi_with_target,,kimchi_v1
+250424_151740506562.jpg,dataset1,train,pool,train,2,1 2,5,,data/yolo/images/train/250424_151740506562.jpg,data/yolo/labels/train/250424_151740506562.txt,kimchi_with_target,,kimchi_v1
+250424_152218486902.jpg,dataset1,train,pool,holdout,5,1 2 5,6,,data/bridge_holdout/images/250424_152218486902.jpg,data/bridge_holdout/labels/250424_152218486902.txt,kimchi_with_target,,kimchi_v1
+250424_152301409922.jpg,dataset2,train,review,train,5,1 2 5,7,이력 csv + manifest(other),data/yolo/images/train/250424_152301409922.jpg,data/yolo/labels/train/250424_152301409922.txt,kimchi_with_target,,kimchi_v1
+250424_152336292034.jpg,dataset2,train,pool,train,2,1 2,5,,data/yolo/images/train/250424_152336292034.jpg,data/yolo/labels/train/250424_152336292034.txt,kimchi_with_target,,kimchi_v1
+250424_152358815799.jpg,dataset2,train,pool,train,2,1 2,5,,data/yolo/images/train/250424_152358815799.jpg,data/yolo/labels/train/250424_152358815799.txt,kimchi_with_target,,kimchi_v1
+250424_152433490577.jpg,dataset2,train,pool,train,2,1 2,5,,data/yolo/images/train/250424_152433490577.jpg,data/yolo/labels/train/250424_152433490577.txt,kimchi_with_target,,kimchi_v1
+250424_152501766895.jpg,dataset2,validation,pool,test,2,1 2,5,,data/yolo/images/test/250424_152501766895.jpg,data/yolo/labels/test/250424_152501766895.txt,kimchi_with_target,,kimchi_v1
+250424_152545483072.jpg,dataset2,train,pool,val,2,1 2,4,,data/yolo/images/val/250424_152545483072.jpg,data/yolo/labels/val/250424_152545483072.txt,kimchi_with_target,,kimchi_v1
+250424_152633071901.jpg,dataset2,train,pool,holdout,2,1 2,5,,data/bridge_holdout/images/250424_152633071901.jpg,data/bridge_holdout/labels/250424_152633071901.txt,kimchi_with_target,,kimchi_v1
+250424_152713073232.jpg,dataset2,train,pool,val,0,0 1 2,5,,data/yolo/images/val/250424_152713073232.jpg,data/yolo/labels/val/250424_152713073232.txt,kimchi_with_target,,kimchi_v1
+250424_152817392808.jpg,dataset2,train,excluded,train,4,0 1 2 4,5,아직 final 아님 (review),data/yolo/images/train/250424_152817392808.jpg,data/yolo/labels/train/250424_152817392808.txt,other_review,,kimchi_v1
+250424_152845371656.jpg,dataset2,validation,excluded,train,4,0 1 2 4,5,아직 final 아님 (review),data/yolo/images/train/250424_152845371656.jpg,data/yolo/labels/train/250424_152845371656.txt,other_review,,kimchi_v1
+250424_152915766700.jpg,dataset2,validation,review,val,0,0 1 2,5,이력 csv + manifest(other),data/yolo/images/val/250424_152915766700.jpg,data/yolo/labels/val/250424_152915766700.txt,other_review,,kimchi_v1
+250424_152946197348.jpg,dataset2,train,excluded,holdout,4,0 1 2 4,5,아직 final 아님 (review),data/bridge_holdout/images/250424_152946197348.jpg,data/bridge_holdout/labels/250424_152946197348.txt,other_review,,kimchi_v1
+250424_153015693567.jpg,dataset2,train,excluded,val,4,0 1 2 4,5,아직 final 아님 (review),data/yolo/images/val/250424_153015693567.jpg,data/yolo/labels/val/250424_153015693567.txt,other_review,,kimchi_v1
+250424_153120277271.jpg,dataset2,train,pool,train,3,1 2 3,5,,data/yolo/images/train/250424_153120277271.jpg,data/yolo/labels/train/250424_153120277271.txt,kimchi_with_target,,kimchi_v1
+250424_153155248673.jpg,dataset2,train,review,test,3,1 2 3,5,manifest(other),data/yolo/images/test/250424_153155248673.jpg,data/yolo/labels/test/250424_153155248673.txt,kimchi_with_target,,kimchi_v1
+250424_153231474040.jpg,dataset2,validation,pool,train,3,1 2 3,5,,data/yolo/images/train/250424_153231474040.jpg,data/yolo/labels/train/250424_153231474040.txt,kimchi_with_target,,kimchi_v1
+250424_153311253394.jpg,dataset2,validation,pool,val,3,1 2 3,5,,data/yolo/images/val/250424_153311253394.jpg,data/yolo/labels/val/250424_153311253394.txt,kimchi_with_target,,kimchi_v1
+250424_153338308367.jpg,dataset2,train,pool,train,3,1 2 3,5,,data/yolo/images/train/250424_153338308367.jpg,data/yolo/labels/train/250424_153338308367.txt,kimchi_with_target,,kimchi_v1
+250424_153421707254.jpg,dataset2,train,excluded,train,4,1 2 3 4,5,아직 final 아님 (review),data/yolo/images/train/250424_153421707254.jpg,data/yolo/labels/train/250424_153421707254.txt,other_review,,kimchi_v1
+250424_153453270568.jpg,dataset2,train,excluded,train,4,1 2 3 4,5,아직 final 아님 (review),data/yolo/images/train/250424_153453270568.jpg,data/yolo/labels/train/250424_153453270568.txt,other_review,,kimchi_v1
+250424_153520639358.jpg,dataset2,train,excluded,val,4,1 2 3 4,5,아직 final 아님 (review),data/yolo/images/val/250424_153520639358.jpg,data/yolo/labels/val/250424_153520639358.txt,other_review,,kimchi_v1
+250424_153545918427.jpg,dataset2,train,excluded,val,4,1 2 3 4,5,아직 final 아님 (review),data/yolo/images/val/250424_153545918427.jpg,data/yolo/labels/val/250424_153545918427.txt,other_review,,kimchi_v1
+250424_153617318943.jpg,dataset2,validation,excluded,test,4,1 2 3 4,5,아직 final 아님 (review),data/yolo/images/test/250424_153617318943.jpg,data/yolo/labels/test/250424_153617318943.txt,other_review,,kimchi_v1
+250424_154322097228.jpg,dataset2,train,pool,train,3,3,5,,data/yolo/images/train/250424_154322097228.jpg,data/yolo/labels/train/250424_154322097228.txt,kimchi_with_target,,kimchi_v1
+250424_154345201732.jpg,dataset2,validation,pool,test,3,3,5,,data/yolo/images/test/250424_154345201732.jpg,data/yolo/labels/test/250424_154345201732.txt,kimchi_with_target,,kimchi_v1
+250424_154424370442.jpg,dataset2,train,pool,train,3,3,5,,data/yolo/images/train/250424_154424370442.jpg,data/yolo/labels/train/250424_154424370442.txt,kimchi_with_target,,kimchi_v1
+250424_154449695884.jpg,dataset2,train,pool,holdout,3,3,5,,data/bridge_holdout/images/250424_154449695884.jpg,data/bridge_holdout/labels/250424_154449695884.txt,kimchi_with_target,,kimchi_v1
+250424_154522785740.jpg,dataset2,train,pool,train,3,3,5,,data/yolo/images/train/250424_154522785740.jpg,data/yolo/labels/train/250424_154522785740.txt,kimchi_with_target,,kimchi_v1
+250424_154554019457.jpg,dataset2,train,pool,train,3,3,5,,data/yolo/images/train/250424_154554019457.jpg,data/yolo/labels/train/250424_154554019457.txt,kimchi_with_target,,kimchi_v1
+250424_154617146128.jpg,dataset2,validation,pool,train,3,3,5,,data/yolo/images/train/250424_154617146128.jpg,data/yolo/labels/train/250424_154617146128.txt,kimchi_with_target,,kimchi_v1
+250424_154635713023.jpg,dataset2,train,pool,val,3,3,5,,data/yolo/images/val/250424_154635713023.jpg,data/yolo/labels/val/250424_154635713023.txt,kimchi_with_target,,kimchi_v1
+250424_154704448893.jpg,dataset2,train,pool,train,3,3,5,,data/yolo/images/train/250424_154704448893.jpg,data/yolo/labels/train/250424_154704448893.txt,kimchi_with_target,,kimchi_v1
+250424_154741377185.jpg,dataset2,train,pool,train,3,3,5,,data/yolo/images/train/250424_154741377185.jpg,data/yolo/labels/train/250424_154741377185.txt,kimchi_with_target,,kimchi_v1
+250424_154812782976.jpg,dataset2,validation,pool,val,3,3,5,,data/yolo/images/val/250424_154812782976.jpg,data/yolo/labels/val/250424_154812782976.txt,kimchi_with_target,,kimchi_v1
+250424_154843279325.jpg,dataset2,train,pool,train,3,3,5,,data/yolo/images/train/250424_154843279325.jpg,data/yolo/labels/train/250424_154843279325.txt,kimchi_with_target,,kimchi_v1
+250424_154917407586.jpg,dataset2,train,pool,train,3,3,5,,data/yolo/images/train/250424_154917407586.jpg,data/yolo/labels/train/250424_154917407586.txt,kimchi_with_target,,kimchi_v1
+250424_154950467801.jpg,dataset2,train,pool,train,3,3,5,,data/yolo/images/train/250424_154950467801.jpg,data/yolo/labels/train/250424_154950467801.txt,kimchi_with_target,,kimchi_v1
+250424_155020308984.jpg,dataset2,train,pool,train,3,3,5,,data/yolo/images/train/250424_155020308984.jpg,data/yolo/labels/train/250424_155020308984.txt,kimchi_with_target,,kimchi_v1
+250424_155038372746.jpg,dataset2,train,pool,train,3,3,5,,data/yolo/images/train/250424_155038372746.jpg,data/yolo/labels/train/250424_155038372746.txt,kimchi_with_target,,kimchi_v1
+250424_155103672911.jpg,dataset2,validation,pool,val,3,3,4,,data/yolo/images/val/250424_155103672911.jpg,data/yolo/labels/val/250424_155103672911.txt,kimchi_with_target,,kimchi_v1
+250424_155129094693.jpg,dataset2,train,pool,train,3,3,5,,data/yolo/images/train/250424_155129094693.jpg,data/yolo/labels/train/250424_155129094693.txt,kimchi_with_target,,kimchi_v1
+250424_155157438614.jpg,dataset2,train,pool,val,3,3,5,,data/yolo/images/val/250424_155157438614.jpg,data/yolo/labels/val/250424_155157438614.txt,kimchi_with_target,,kimchi_v1
+250424_155225119676.jpg,dataset2,train,pool,train,3,3,5,,data/yolo/images/train/250424_155225119676.jpg,data/yolo/labels/train/250424_155225119676.txt,kimchi_with_target,,kimchi_v1
+250424_155250067367.jpg,dataset2,train,pool,train,3,3,5,,data/yolo/images/train/250424_155250067367.jpg,data/yolo/labels/train/250424_155250067367.txt,kimchi_with_target,,kimchi_v1
+250424_155322980630.jpg,dataset2,train,pool,train,3,3,5,,data/yolo/images/train/250424_155322980630.jpg,data/yolo/labels/train/250424_155322980630.txt,kimchi_with_target,,kimchi_v1
+250424_155351657201.jpg,dataset2,train,pool,train,3,3,5,,data/yolo/images/train/250424_155351657201.jpg,data/yolo/labels/train/250424_155351657201.txt,kimchi_with_target,,kimchi_v1
+250424_155415756891.jpg,dataset2,train,pool,train,3,3,5,,data/yolo/images/train/250424_155415756891.jpg,data/yolo/labels/train/250424_155415756891.txt,kimchi_with_target,,kimchi_v1
+250424_155439226083.jpg,dataset2,train,pool,train,3,3,5,,data/yolo/images/train/250424_155439226083.jpg,data/yolo/labels/train/250424_155439226083.txt,kimchi_with_target,,kimchi_v1
+250424_155512166104.jpg,dataset2,train,pool,holdout,3,0 1 3,5,,data/bridge_holdout/images/250424_155512166104.jpg,data/bridge_holdout/labels/250424_155512166104.txt,kimchi_with_target,,kimchi_v1
+250424_155536501884.jpg,dataset2,train,pool,test,3,0 1 3,5,,data/yolo/images/test/250424_155536501884.jpg,data/yolo/labels/test/250424_155536501884.txt,kimchi_with_target,,kimchi_v1
+250424_155603348923.jpg,dataset2,train,pool,train,3,0 1 3,5,,data/yolo/images/train/250424_155603348923.jpg,data/yolo/labels/train/250424_155603348923.txt,kimchi_with_target,,kimchi_v1
+250424_155623994647.jpg,dataset2,validation,pool,test,3,0 1 3,5,,data/yolo/images/test/250424_155623994647.jpg,data/yolo/labels/test/250424_155623994647.txt,kimchi_with_target,,kimchi_v1
+250424_155647704752.jpg,dataset2,validation,pool,holdout,3,0 1 3,5,,data/bridge_holdout/images/250424_155647704752.jpg,data/bridge_holdout/labels/250424_155647704752.txt,kimchi_with_target,,kimchi_v1
+250424_155719300374.jpg,dataset2,train,pool,test,3,1 3,5,,data/yolo/images/test/250424_155719300374.jpg,data/yolo/labels/test/250424_155719300374.txt,kimchi_with_target,,kimchi_v1
+250424_155753466380.jpg,dataset2,train,pool,val,3,1 3,5,,data/yolo/images/val/250424_155753466380.jpg,data/yolo/labels/val/250424_155753466380.txt,kimchi_with_target,,kimchi_v1
+250424_155824864441.jpg,dataset2,train,pool,train,3,1 3,5,,data/yolo/images/train/250424_155824864441.jpg,data/yolo/labels/train/250424_155824864441.txt,kimchi_with_target,,kimchi_v1
+250424_155903753937.jpg,dataset2,validation,pool,train,3,1 3,5,,data/yolo/images/train/250424_155903753937.jpg,data/yolo/labels/train/250424_155903753937.txt,kimchi_with_target,,kimchi_v1
+250424_155925517432.jpg,dataset2,train,pool,val,3,1 3,5,,data/yolo/images/val/250424_155925517432.jpg,data/yolo/labels/val/250424_155925517432.txt,kimchi_with_target,,kimchi_v1
+250424_160002175452.jpg,dataset2,train,excluded,test,4,2 3 4,5,아직 final 아님 (review),data/yolo/images/test/250424_160002175452.jpg,data/yolo/labels/test/250424_160002175452.txt,other_review,,kimchi_v1
+250424_160024860603.jpg,dataset2,validation,excluded,val,4,2 3 4,5,아직 final 아님 (review),data/yolo/images/val/250424_160024860603.jpg,data/yolo/labels/val/250424_160024860603.txt,other_review,,kimchi_v1
+250424_160059103717.jpg,dataset2,train,excluded,train,4,2 3 4,5,아직 final 아님 (review),data/yolo/images/train/250424_160059103717.jpg,data/yolo/labels/train/250424_160059103717.txt,other_review,,kimchi_v1
+250424_160124271601.jpg,dataset2,train,excluded,train,4,2 3 4,5,아직 final 아님 (review),data/yolo/images/train/250424_160124271601.jpg,data/yolo/labels/train/250424_160124271601.txt,other_review,,kimchi_v1
+250424_160154484717.jpg,dataset2,train,excluded,train,4,2 3 4,5,아직 final 아님 (review),data/yolo/images/train/250424_160154484717.jpg,data/yolo/labels/train/250424_160154484717.txt,other_review,,kimchi_v1
+250424_160247658866.jpg,dataset2,train,pool,train,3,0 2 3,5,,data/yolo/images/train/250424_160247658866.jpg,data/yolo/labels/train/250424_160247658866.txt,kimchi_with_target,,kimchi_v1
+250424_160303658850.jpg,dataset2,train,pool,train,3,0 2 3,5,,data/yolo/images/train/250424_160303658850.jpg,data/yolo/labels/train/250424_160303658850.txt,kimchi_with_target,,kimchi_v1
+250424_160324182339.jpg,dataset2,train,pool,holdout,3,0 2 3,5,,data/bridge_holdout/images/250424_160324182339.jpg,data/bridge_holdout/labels/250424_160324182339.txt,kimchi_with_target,,kimchi_v1
+250424_160343037975.jpg,dataset2,train,pool,test,3,0 2 3,5,,data/yolo/images/test/250424_160343037975.jpg,data/yolo/labels/test/250424_160343037975.txt,kimchi_with_target,,kimchi_v1
+250424_160408720170.jpg,dataset2,train,pool,train,3,0 2 3,5,,data/yolo/images/train/250424_160408720170.jpg,data/yolo/labels/train/250424_160408720170.txt,kimchi_with_target,,kimchi_v1
+250424_160438120135.jpg,dataset2,train,excluded,val,4,1 2 3 4,5,아직 final 아님 (review),data/yolo/images/val/250424_160438120135.jpg,data/yolo/labels/val/250424_160438120135.txt,other_review,,kimchi_v1
+250424_160456860690.jpg,dataset2,train,excluded,train,4,1 2 3 4,5,아직 final 아님 (review),data/yolo/images/train/250424_160456860690.jpg,data/yolo/labels/train/250424_160456860690.txt,other_review,,kimchi_v1
+250424_160514972268.jpg,dataset2,validation,excluded,train,4,1 2 3 4,5,아직 final 아님 (review),data/yolo/images/train/250424_160514972268.jpg,data/yolo/labels/train/250424_160514972268.txt,other_review,,kimchi_v1
+250424_160532201123.jpg,dataset2,train,excluded,test,4,1 2 3 4,5,아직 final 아님 (review),data/yolo/images/test/250424_160532201123.jpg,data/yolo/labels/test/250424_160532201123.txt,other_review,,kimchi_v1
+250424_160546850518.jpg,dataset2,train,excluded,test,4,1 2 3 4,5,아직 final 아님 (review),data/yolo/images/test/250424_160546850518.jpg,data/yolo/labels/test/250424_160546850518.txt,other_review,,kimchi_v1
+250424_164033250654.jpg,dataset2,train,pool,train,0,0,5,,data/yolo/images/train/250424_164033250654.jpg,data/yolo/labels/train/250424_164033250654.txt,kimchi_with_target,,kimchi_v1
+250424_164108548301.jpg,dataset2,validation,pool,test,0,0,5,,data/yolo/images/test/250424_164108548301.jpg,data/yolo/labels/test/250424_164108548301.txt,kimchi_with_target,,kimchi_v1
+250424_164139809945.jpg,dataset2,validation,pool,train,0,0,5,,data/yolo/images/train/250424_164139809945.jpg,data/yolo/labels/train/250424_164139809945.txt,kimchi_with_target,,kimchi_v1
+250424_164205945780.jpg,dataset2,train,pool,train,0,0,5,,data/yolo/images/train/250424_164205945780.jpg,data/yolo/labels/train/250424_164205945780.txt,kimchi_with_target,,kimchi_v1
+250424_164235214851.jpg,dataset2,validation,pool,train,0,0,5,,data/yolo/images/train/250424_164235214851.jpg,data/yolo/labels/train/250424_164235214851.txt,kimchi_with_target,,kimchi_v1
+250424_164310605033.jpg,dataset2,train,pool,train,0,0,5,,data/yolo/images/train/250424_164310605033.jpg,data/yolo/labels/train/250424_164310605033.txt,kimchi_with_target,,kimchi_v1
+250424_164338285940.jpg,dataset2,train,pool,train,0,0,5,,data/yolo/images/train/250424_164338285940.jpg,data/yolo/labels/train/250424_164338285940.txt,kimchi_with_target,,kimchi_v1
+250424_164415645065.jpg,dataset2,train,pool,train,0,0,5,,data/yolo/images/train/250424_164415645065.jpg,data/yolo/labels/train/250424_164415645065.txt,kimchi_with_target,,kimchi_v1
+250424_164455938988.jpg,dataset2,train,pool,train,0,0,5,,data/yolo/images/train/250424_164455938988.jpg,data/yolo/labels/train/250424_164455938988.txt,kimchi_with_target,,kimchi_v1
+250424_164535209801.jpg,dataset2,train,pool,train,0,0,5,,data/yolo/images/train/250424_164535209801.jpg,data/yolo/labels/train/250424_164535209801.txt,kimchi_with_target,,kimchi_v1
+250424_164608823093.jpg,dataset2,validation,pool,train,0,0,5,,data/yolo/images/train/250424_164608823093.jpg,data/yolo/labels/train/250424_164608823093.txt,kimchi_with_target,,kimchi_v1
+250424_164637508527.jpg,dataset2,train,pool,train,0,0,5,,data/yolo/images/train/250424_164637508527.jpg,data/yolo/labels/train/250424_164637508527.txt,kimchi_with_target,,kimchi_v1
+250424_164708984954.jpg,dataset2,train,pool,val,0,0,5,,data/yolo/images/val/250424_164708984954.jpg,data/yolo/labels/val/250424_164708984954.txt,kimchi_with_target,,kimchi_v1
+250424_164734340835.jpg,dataset2,train,pool,train,0,0,5,,data/yolo/images/train/250424_164734340835.jpg,data/yolo/labels/train/250424_164734340835.txt,kimchi_with_target,,kimchi_v1
+250424_164801235334.jpg,dataset2,train,pool,train,0,0,5,,data/yolo/images/train/250424_164801235334.jpg,data/yolo/labels/train/250424_164801235334.txt,kimchi_with_target,,kimchi_v1
+250424_164836160471.jpg,dataset2,train,pool,train,0,0,5,,data/yolo/images/train/250424_164836160471.jpg,data/yolo/labels/train/250424_164836160471.txt,kimchi_with_target,,kimchi_v1
+250424_164910871087.jpg,dataset2,train,pool,train,0,0,5,,data/yolo/images/train/250424_164910871087.jpg,data/yolo/labels/train/250424_164910871087.txt,kimchi_with_target,,kimchi_v1
+250424_164942449664.jpg,dataset2,train,pool,train,0,0,5,,data/yolo/images/train/250424_164942449664.jpg,data/yolo/labels/train/250424_164942449664.txt,kimchi_with_target,,kimchi_v1
+250424_165010824897.jpg,dataset2,train,pool,train,0,0,5,,data/yolo/images/train/250424_165010824897.jpg,data/yolo/labels/train/250424_165010824897.txt,kimchi_with_target,,kimchi_v1
+250424_165045797026.jpg,dataset2,train,pool,train,0,0,5,,data/yolo/images/train/250424_165045797026.jpg,data/yolo/labels/train/250424_165045797026.txt,kimchi_with_target,,kimchi_v1
+250424_165115853593.jpg,dataset2,train,pool,train,0,0,5,,data/yolo/images/train/250424_165115853593.jpg,data/yolo/labels/train/250424_165115853593.txt,kimchi_with_target,,kimchi_v1
+250424_165143232306.jpg,dataset2,train,pool,train,0,0,5,,data/yolo/images/train/250424_165143232306.jpg,data/yolo/labels/train/250424_165143232306.txt,kimchi_with_target,,kimchi_v1
+250424_165211833951.jpg,dataset2,train,pool,train,0,0,5,,data/yolo/images/train/250424_165211833951.jpg,data/yolo/labels/train/250424_165211833951.txt,kimchi_with_target,,kimchi_v1
+250424_165246591612.jpg,dataset2,train,pool,holdout,0,0,5,,data/bridge_holdout/images/250424_165246591612.jpg,data/bridge_holdout/labels/250424_165246591612.txt,kimchi_with_target,,kimchi_v1
+250424_165316762592.jpg,dataset2,train,pool,train,0,0,5,,data/yolo/images/train/250424_165316762592.jpg,data/yolo/labels/train/250424_165316762592.txt,kimchi_with_target,,kimchi_v1
+250424_165356368327.jpg,dataset2,validation,review,train,0,0 1,5,이력 csv + manifest(other),data/yolo/images/train/250424_165356368327.jpg,data/yolo/labels/train/250424_165356368327.txt,other_review,,kimchi_v1
+250424_165418497986.jpg,dataset2,train,excluded,train,4,0 1 4,5,아직 final 아님 (review),data/yolo/images/train/250424_165418497986.jpg,data/yolo/labels/train/250424_165418497986.txt,other_review,,kimchi_v1
+250424_165440056716.jpg,dataset2,train,excluded,holdout,4,0 1 4,5,아직 final 아님 (review),data/bridge_holdout/images/250424_165440056716.jpg,data/bridge_holdout/labels/250424_165440056716.txt,other_review,,kimchi_v1
+250424_165505539730.jpg,dataset2,train,excluded,train,4,0 1 4,5,아직 final 아님 (review),data/yolo/images/train/250424_165505539730.jpg,data/yolo/labels/train/250424_165505539730.txt,other_review,,kimchi_v1
+250424_165529269617.jpg,dataset2,train,excluded,train,4,0 1 4,5,아직 final 아님 (review),data/yolo/images/train/250424_165529269617.jpg,data/yolo/labels/train/250424_165529269617.txt,other_review,,kimchi_v1
+250424_165553096484.jpg,dataset2,train,excluded,train,4,0 1 4,5,아직 final 아님 (review),data/yolo/images/train/250424_165553096484.jpg,data/yolo/labels/train/250424_165553096484.txt,other_review,,kimchi_v1
+250424_165639244639.jpg,dataset2,train,pool,train,0,0 1 2,5,,data/yolo/images/train/250424_165639244639.jpg,data/yolo/labels/train/250424_165639244639.txt,kimchi_with_target,,kimchi_v1
+250424_165711484642.jpg,dataset2,train,pool,train,0,0 1 2,5,,data/yolo/images/train/250424_165711484642.jpg,data/yolo/labels/train/250424_165711484642.txt,kimchi_with_target,,kimchi_v1
+250424_165737940764.jpg,dataset2,train,pool,train,0,0 1 2,5,,data/yolo/images/train/250424_165737940764.jpg,data/yolo/labels/train/250424_165737940764.txt,kimchi_with_target,,kimchi_v1
+250424_165805730646.jpg,dataset2,validation,pool,train,0,0 1 2,5,,data/yolo/images/train/250424_165805730646.jpg,data/yolo/labels/train/250424_165805730646.txt,kimchi_with_target,,kimchi_v1
+250424_165900444499.jpg,dataset2,train,pool,train,0,0 1,5,,data/yolo/images/train/250424_165900444499.jpg,data/yolo/labels/train/250424_165900444499.txt,kimchi_with_target,,kimchi_v1
+250424_165931923085.jpg,dataset2,train,pool,holdout,0,0 1,5,,data/bridge_holdout/images/250424_165931923085.jpg,data/bridge_holdout/labels/250424_165931923085.txt,kimchi_with_target,,kimchi_v1
+250424_170003430959.jpg,dataset2,train,pool,test,0,0 1,5,,data/yolo/images/test/250424_170003430959.jpg,data/yolo/labels/test/250424_170003430959.txt,kimchi_with_target,,kimchi_v1
+250424_170032248410.jpg,dataset2,train,pool,train,0,0 1,5,,data/yolo/images/train/250424_170032248410.jpg,data/yolo/labels/train/250424_170032248410.txt,kimchi_with_target,,kimchi_v1
+250424_170112241458.jpg,dataset2,train,pool,train,0,0 1,5,,data/yolo/images/train/250424_170112241458.jpg,data/yolo/labels/train/250424_170112241458.txt,kimchi_with_target,,kimchi_v1
+250424_170156569067.jpg,dataset2,train,pool,train,3,0 1 3,5,,data/yolo/images/train/250424_170156569067.jpg,data/yolo/labels/train/250424_170156569067.txt,kimchi_with_target,,kimchi_v1
+250424_170230154929.jpg,dataset2,train,pool,holdout,3,0 1 3,5,,data/bridge_holdout/images/250424_170230154929.jpg,data/bridge_holdout/labels/250424_170230154929.txt,kimchi_with_target,,kimchi_v1
+250424_170251913373.jpg,dataset2,train,pool,train,3,0 1 3,5,,data/yolo/images/train/250424_170251913373.jpg,data/yolo/labels/train/250424_170251913373.txt,kimchi_with_target,,kimchi_v1
+250424_170325776755.jpg,dataset2,train,pool,train,3,0 1 3,5,,data/yolo/images/train/250424_170325776755.jpg,data/yolo/labels/train/250424_170325776755.txt,kimchi_with_target,,kimchi_v1
+250424_170349029554.jpg,dataset2,validation,pool,train,3,0 1 3,5,,data/yolo/images/train/250424_170349029554.jpg,data/yolo/labels/train/250424_170349029554.txt,kimchi_with_target,,kimchi_v1
+250424_170457181197.jpg,dataset2,train,pool,test,0,0 1 2,6,,data/yolo/images/test/250424_170457181197.jpg,data/yolo/labels/test/250424_170457181197.txt,kimchi_with_target,,kimchi_v1
+250424_170525843567.jpg,dataset2,train,pool,holdout,0,0 1 2,5,,data/bridge_holdout/images/250424_170525843567.jpg,data/bridge_holdout/labels/250424_170525843567.txt,kimchi_with_target,,kimchi_v1
+250424_170546955381.jpg,dataset2,validation,pool,train,0,0 1 2,5,,data/yolo/images/train/250424_170546955381.jpg,data/yolo/labels/train/250424_170546955381.txt,kimchi_with_target,,kimchi_v1
+250424_170616179502.jpg,dataset2,train,pool,holdout,0,0 1 2,5,,data/bridge_holdout/images/250424_170616179502.jpg,data/bridge_holdout/labels/250424_170616179502.txt,kimchi_with_target,,kimchi_v1
+250424_170640733964.jpg,dataset2,train,pool,val,0,0 1 2,5,,data/yolo/images/val/250424_170640733964.jpg,data/yolo/labels/val/250424_170640733964.txt,kimchi_with_target,,kimchi_v1
+250513_014148760172.jpg,dataset2,train,pool,train,1,1,5,,data/yolo/images/train/250513_014148760172.jpg,data/yolo/labels/train/250513_014148760172.txt,object_only,,kimchi_v1
+250513_014212675091.jpg,dataset2,train,pool,test,1,1,1,,data/yolo/images/test/250513_014212675091.jpg,data/yolo/labels/test/250513_014212675091.txt,object_only,,kimchi_v1
+250513_014220423606.jpg,dataset2,train,pool,train,1,1,2,,data/yolo/images/train/250513_014220423606.jpg,data/yolo/labels/train/250513_014220423606.txt,object_only,,kimchi_v1
+250513_014239750324.jpg,dataset2,train,pool,train,1,1,3,,data/yolo/images/train/250513_014239750324.jpg,data/yolo/labels/train/250513_014239750324.txt,object_only,,kimchi_v1
+250513_014250690081.jpg,dataset2,train,pool,train,1,1,3,,data/yolo/images/train/250513_014250690081.jpg,data/yolo/labels/train/250513_014250690081.txt,object_only,,kimchi_v1
+250513_014619552198.jpg,dataset2,train,pool,holdout,3,2 3,4,,data/bridge_holdout/images/250513_014619552198.jpg,data/bridge_holdout/labels/250513_014619552198.txt,object_only,,kimchi_v1
+250513_014651188904.jpg,dataset2,train,pool,train,3,2 3,5,,data/yolo/images/train/250513_014651188904.jpg,data/yolo/labels/train/250513_014651188904.txt,object_only,,kimchi_v1
+250513_014716701635.jpg,dataset2,train,pool,train,3,2 3,5,,data/yolo/images/train/250513_014716701635.jpg,data/yolo/labels/train/250513_014716701635.txt,object_only,,kimchi_v1
+250513_014744740745.jpg,dataset2,train,pool,train,2,1 2,4,,data/yolo/images/train/250513_014744740745.jpg,data/yolo/labels/train/250513_014744740745.txt,object_only,,kimchi_v1
+250513_014805286637.jpg,dataset2,train,pool,test,2,1 2,3,,data/yolo/images/test/250513_014805286637.jpg,data/yolo/labels/test/250513_014805286637.txt,object_only,,kimchi_v1
+250513_014819436154.jpg,dataset2,train,pool,train,2,2,2,,data/yolo/images/train/250513_014819436154.jpg,data/yolo/labels/train/250513_014819436154.txt,object_only,,kimchi_v1
+250513_014828866941.jpg,dataset2,train,pool,train,2,1 2,3,,data/yolo/images/train/250513_014828866941.jpg,data/yolo/labels/train/250513_014828866941.txt,object_only,,kimchi_v1
+250513_014839145281.jpg,dataset2,train,pool,train,2,1 2,3,,data/yolo/images/train/250513_014839145281.jpg,data/yolo/labels/train/250513_014839145281.txt,object_only,,kimchi_v1
+250513_015237273675.jpg,dataset2,train,pool,train,0,0 1,3,,data/yolo/images/train/250513_015237273675.jpg,data/yolo/labels/train/250513_015237273675.txt,object_only,,kimchi_v1
+250513_015246673678.jpg,dataset2,train,pool,test,0,0,2,,data/yolo/images/test/250513_015246673678.jpg,data/yolo/labels/test/250513_015246673678.txt,object_only,,kimchi_v1
+250513_015331540104.jpg,dataset2,train,pool,train,3,2 3,3,,data/yolo/images/train/250513_015331540104.jpg,data/yolo/labels/train/250513_015331540104.txt,object_only,,kimchi_v1
+250513_015342343246.jpg,dataset2,train,pool,train,3,1 3,2,,data/yolo/images/train/250513_015342343246.jpg,data/yolo/labels/train/250513_015342343246.txt,object_only,,kimchi_v1
+250513_015352753427.jpg,dataset2,train,pool,train,1,1,2,,data/yolo/images/train/250513_015352753427.jpg,data/yolo/labels/train/250513_015352753427.txt,object_only,,kimchi_v1
+250513_015403580381.jpg,dataset2,train,pool,holdout,1,1,2,,data/bridge_holdout/images/250513_015403580381.jpg,data/bridge_holdout/labels/250513_015403580381.txt,object_only,,kimchi_v1
+250513_015420675871.jpg,dataset2,train,pool,train,0,0 1,3,,data/yolo/images/train/250513_015420675871.jpg,data/yolo/labels/train/250513_015420675871.txt,object_only,,kimchi_v1
+250513_015429479009.jpg,dataset2,train,pool,train,0,0 1,3,,data/yolo/images/train/250513_015429479009.jpg,data/yolo/labels/train/250513_015429479009.txt,object_only,,kimchi_v1
+250513_015442042178.jpg,dataset2,train,pool,test,0,0 1,3,,data/yolo/images/test/250513_015442042178.jpg,data/yolo/labels/test/250513_015442042178.txt,object_only,,kimchi_v1
+250513_015452233667.jpg,dataset2,train,pool,train,3,0 1 3,4,,data/yolo/images/train/250513_015452233667.jpg,data/yolo/labels/train/250513_015452233667.txt,object_only,,kimchi_v1
+250513_015514809852.jpg,dataset2,train,pool,test,2,1 2,3,,data/yolo/images/test/250513_015514809852.jpg,data/yolo/labels/test/250513_015514809852.txt,object_only,,kimchi_v1
+250513_015523209371.jpg,dataset2,train,pool,val,2,2,3,,data/yolo/images/val/250513_015523209371.jpg,data/yolo/labels/val/250513_015523209371.txt,object_only,,kimchi_v1
+250513_015532932551.jpg,dataset2,train,pool,train,3,2 3,3,,data/yolo/images/train/250513_015532932551.jpg,data/yolo/labels/train/250513_015532932551.txt,object_only,,kimchi_v1
+250513_015542447244.jpg,dataset2,train,pool,val,2,2,2,,data/yolo/images/val/250513_015542447244.jpg,data/yolo/labels/val/250513_015542447244.txt,object_only,,kimchi_v1
+250513_015550523265.jpg,dataset2,train,pool,test,3,2 3,3,,data/yolo/images/test/250513_015550523265.jpg,data/yolo/labels/test/250513_015550523265.txt,object_only,,kimchi_v1
+250513_015559001262.jpg,dataset2,train,pool,train,3,1 3,2,,data/yolo/images/train/250513_015559001262.jpg,data/yolo/labels/train/250513_015559001262.txt,object_only,,kimchi_v1
+250513_015607259390.jpg,dataset2,train,pool,val,3,1 3,3,,data/yolo/images/val/250513_015607259390.jpg,data/yolo/labels/val/250513_015607259390.txt,object_only,,kimchi_v1
+250513_015635581130.jpg,dataset2,train,pool,train,3,0 2 3,4,,data/yolo/images/train/250513_015635581130.jpg,data/yolo/labels/train/250513_015635581130.txt,object_only,,kimchi_v1
+250513_015643998868.jpg,dataset2,train,pool,train,3,0 2 3,4,,data/yolo/images/train/250513_015643998868.jpg,data/yolo/labels/train/250513_015643998868.txt,object_only,,kimchi_v1
+250513_015652352412.jpg,dataset2,train,pool,train,3,0 2 3,5,,data/yolo/images/train/250513_015652352412.jpg,data/yolo/labels/train/250513_015652352412.txt,object_only,,kimchi_v1
+250513_015705034630.jpg,dataset2,train,pool,train,2,2,1,,data/yolo/images/train/250513_015705034630.jpg,data/yolo/labels/train/250513_015705034630.txt,object_only,,kimchi_v1
+250513_015712687737.jpg,dataset2,train,pool,train,2,2,2,,data/yolo/images/train/250513_015712687737.jpg,data/yolo/labels/train/250513_015712687737.txt,object_only,,kimchi_v1
+250513_015737558428.jpg,dataset2,train,pool,test,2,1 2,3,,data/yolo/images/test/250513_015737558428.jpg,data/yolo/labels/test/250513_015737558428.txt,object_only,,kimchi_v1
+250513_015748335568.jpg,dataset2,train,pool,test,2,1 2,3,,data/yolo/images/test/250513_015748335568.jpg,data/yolo/labels/test/250513_015748335568.txt,object_only,,kimchi_v1
+250513_015757121885.jpg,dataset2,train,pool,train,2,1 2,4,,data/yolo/images/train/250513_015757121885.jpg,data/yolo/labels/train/250513_015757121885.txt,object_only,,kimchi_v1
+250513_015819340200.jpg,dataset2,train,pool,train,3,1 2 3,4,,data/yolo/images/train/250513_015819340200.jpg,data/yolo/labels/train/250513_015819340200.txt,object_only,,kimchi_v1
+250513_015835050786.jpg,dataset2,train,pool,train,0,0 1 2,3,,data/yolo/images/train/250513_015835050786.jpg,data/yolo/labels/train/250513_015835050786.txt,object_only,,kimchi_v1
+250513_015848527907.jpg,dataset2,train,pool,train,2,1 2,2,,data/yolo/images/train/250513_015848527907.jpg,data/yolo/labels/train/250513_015848527907.txt,object_only,,kimchi_v1
+250513_015923922984.jpg,dataset2,train,excluded,val,3,1 3,5,아직 final 아님 (review),data/yolo/images/val/250513_015923922984.jpg,data/yolo/labels/val/250513_015923922984.txt,object_only,,kimchi_v1
+250513_015934463160.jpg,dataset2,train,pool,train,3,3,1,,data/yolo/images/train/250513_015934463160.jpg,data/yolo/labels/train/250513_015934463160.txt,object_only,,kimchi_v1
+250513_015943430085.jpg,dataset2,train,pool,train,3,3,3,,data/yolo/images/train/250513_015943430085.jpg,data/yolo/labels/train/250513_015943430085.txt,object_only,,kimchi_v1
+250513_015956702950.jpg,dataset2,train,pool,test,3,1 3,2,,data/yolo/images/test/250513_015956702950.jpg,data/yolo/labels/test/250513_015956702950.txt,object_only,,kimchi_v1
+250513_020008155376.jpg,dataset2,train,pool,test,2,2,2,,data/yolo/images/test/250513_020008155376.jpg,data/yolo/labels/test/250513_020008155376.txt,object_only,,kimchi_v1
+250513_020017027166.jpg,dataset2,train,pool,train,2,2,2,,data/yolo/images/train/250513_020017027166.jpg,data/yolo/labels/train/250513_020017027166.txt,object_only,,kimchi_v1
+250513_020026421685.jpg,dataset2,train,pool,train,2,2,2,,data/yolo/images/train/250513_020026421685.jpg,data/yolo/labels/train/250513_020026421685.txt,object_only,,kimchi_v1
+250513_020037160142.jpg,dataset2,train,pool,val,3,2 3,2,,data/yolo/images/val/250513_020037160142.jpg,data/yolo/labels/val/250513_020037160142.txt,object_only,,kimchi_v1
+250513_020048358486.jpg,dataset2,train,excluded,val,4,3 4,2,아직 final 아님 (review),data/yolo/images/val/250513_020048358486.jpg,data/yolo/labels/val/250513_020048358486.txt,other_review,,kimchi_v1
+250513_020101011960.jpg,dataset2,train,excluded,train,4,1 4,3,아직 final 아님 (review),data/yolo/images/train/250513_020101011960.jpg,data/yolo/labels/train/250513_020101011960.txt,other_review,,kimchi_v1
+250513_020112593206.jpg,dataset2,train,pool,train,2,1 2,2,,data/yolo/images/train/250513_020112593206.jpg,data/yolo/labels/train/250513_020112593206.txt,object_only,,kimchi_v1
+250513_020126825853.jpg,dataset2,train,excluded,val,4,1 4,2,아직 final 아님 (review),data/yolo/images/val/250513_020126825853.jpg,data/yolo/labels/val/250513_020126825853.txt,other_review,,kimchi_v1
+250513_020141991605.jpg,dataset2,train,excluded,train,4,0 1 4,3,아직 final 아님 (review),data/yolo/images/train/250513_020141991605.jpg,data/yolo/labels/train/250513_020141991605.txt,other_review,,kimchi_v1
+250513_020150756977.jpg,dataset2,train,excluded,train,4,0 1 4,3,아직 final 아님 (review),data/yolo/images/train/250513_020150756977.jpg,data/yolo/labels/train/250513_020150756977.txt,other_review,,kimchi_v1
+250513_020204533684.jpg,dataset2,train,pool,test,0,0,4,,data/yolo/images/test/250513_020204533684.jpg,data/yolo/labels/test/250513_020204533684.txt,object_only,,kimchi_v1
+250513_020212490214.jpg,dataset2,train,pool,train,0,0,4,,data/yolo/images/train/250513_020212490214.jpg,data/yolo/labels/train/250513_020212490214.txt,object_only,,kimchi_v1
+250513_020225144840.jpg,dataset2,train,pool,holdout,0,0 1,4,,data/bridge_holdout/images/250513_020225144840.jpg,data/bridge_holdout/labels/250513_020225144840.txt,object_only,,kimchi_v1
+250513_020233505190.jpg,dataset2,train,pool,train,0,0 1,4,,data/yolo/images/train/250513_020233505190.jpg,data/yolo/labels/train/250513_020233505190.txt,object_only,,kimchi_v1
+250513_020250961835.jpg,dataset2,train,excluded,train,4,0 2 4,3,아직 final 아님 (review),data/yolo/images/train/250513_020250961835.jpg,data/yolo/labels/train/250513_020250961835.txt,other_review,,kimchi_v1
+250513_020304399650.jpg,dataset2,train,excluded,train,4,0 1 2 4,6,아직 final 아님 (review),data/yolo/images/train/250513_020304399650.jpg,data/yolo/labels/train/250513_020304399650.txt,other_review,,kimchi_v1
+250513_020320098243.jpg,dataset2,train,pool,train,1,1,5,,data/yolo/images/train/250513_020320098243.jpg,data/yolo/labels/train/250513_020320098243.txt,object_only,,kimchi_v1
+250513_020337379138.jpg,dataset2,train,pool,train,3,0 1 3,5,,data/yolo/images/train/250513_020337379138.jpg,data/yolo/labels/train/250513_020337379138.txt,object_only,,kimchi_v1
+250513_020402036089.jpg,dataset2,train,pool,train,0,0 1 2,4,,data/yolo/images/train/250513_020402036089.jpg,data/yolo/labels/train/250513_020402036089.txt,object_only,,kimchi_v1
+250513_020421725158.jpg,dataset2,train,pool,val,0,0 1 2,5,,data/yolo/images/val/250513_020421725158.jpg,data/yolo/labels/val/250513_020421725158.txt,object_only,,kimchi_v1
+250513_020431482923.jpg,dataset2,train,pool,train,0,0 1 2,5,,data/yolo/images/train/250513_020431482923.jpg,data/yolo/labels/train/250513_020431482923.txt,object_only,,kimchi_v1
+250513_020440264823.jpg,dataset2,train,review,train,0,0 1 2,5,manifest(other),data/yolo/images/train/250513_020440264823.jpg,data/yolo/labels/train/250513_020440264823.txt,object_only,,kimchi_v1
+250513_020502446188.jpg,dataset2,train,excluded,train,2,1 2,4,아직 final 아님 (review),data/yolo/images/train/250513_020502446188.jpg,data/yolo/labels/train/250513_020502446188.txt,object_only,,kimchi_v1
+250513_020519404101.jpg,dataset2,train,excluded,train,2,1 2,5,아직 final 아님 (review),data/yolo/images/train/250513_020519404101.jpg,data/yolo/labels/train/250513_020519404101.txt,object_only,,kimchi_v1
+250513_020538475964.jpg,dataset2,train,pool,test,3,1 2 3,5,,data/yolo/images/test/250513_020538475964.jpg,data/yolo/labels/test/250513_020538475964.txt,object_only,,kimchi_v1
+250513_020549238232.jpg,dataset2,train,pool,train,2,1 2,4,,data/yolo/images/train/250513_020549238232.jpg,data/yolo/labels/train/250513_020549238232.txt,object_only,,kimchi_v1
+250513_020558935073.jpg,dataset2,train,pool,holdout,2,1 2,4,,data/bridge_holdout/images/250513_020558935073.jpg,data/bridge_holdout/labels/250513_020558935073.txt,object_only,,kimchi_v1
+250513_020611446070.jpg,dataset2,train,pool,train,2,1 2,4,,data/yolo/images/train/250513_020611446070.jpg,data/yolo/labels/train/250513_020611446070.txt,object_only,,kimchi_v1
+250513_020621226161.jpg,dataset2,train,pool,train,3,2 3,3,,data/yolo/images/train/250513_020621226161.jpg,data/yolo/labels/train/250513_020621226161.txt,object_only,,kimchi_v1
+250513_020633185824.jpg,dataset2,train,pool,train,2,2,3,,data/yolo/images/train/250513_020633185824.jpg,data/yolo/labels/train/250513_020633185824.txt,object_only,,kimchi_v1
+250513_020644737505.jpg,dataset2,train,pool,train,0,0 1,3,,data/yolo/images/train/250513_020644737505.jpg,data/yolo/labels/train/250513_020644737505.txt,object_only,,kimchi_v1
+250513_020743814028.jpg,dataset2,train,pool,val,2,1 2,3,,data/yolo/images/val/250513_020743814028.jpg,data/yolo/labels/val/250513_020743814028.txt,object_only,,kimchi_v1
+250513_020750875797.jpg,dataset2,train,pool,holdout,2,1 2,4,,data/bridge_holdout/images/250513_020750875797.jpg,data/bridge_holdout/labels/250513_020750875797.txt,object_only,,kimchi_v1
+250513_020804589690.jpg,dataset2,train,pool,train,2,1 2,2,,data/yolo/images/train/250513_020804589690.jpg,data/yolo/labels/train/250513_020804589690.txt,object_only,,kimchi_v1
+250513_020818506439.jpg,dataset2,train,pool,test,0,0 1,3,,data/yolo/images/test/250513_020818506439.jpg,data/yolo/labels/test/250513_020818506439.txt,object_only,,kimchi_v1
+250513_020832754654.jpg,dataset2,train,pool,val,0,0 1,3,,data/yolo/images/val/250513_020832754654.jpg,data/yolo/labels/val/250513_020832754654.txt,object_only,,kimchi_v1
+250513_020846723329.jpg,dataset2,train,excluded,train,0,0 1,3,아직 final 아님 (review),data/yolo/images/train/250513_020846723329.jpg,data/yolo/labels/train/250513_020846723329.txt,object_only,,kimchi_v1
+250513_020915257020.jpg,dataset2,train,pool,holdout,0,0 1,2,,data/bridge_holdout/images/250513_020915257020.jpg,data/bridge_holdout/labels/250513_020915257020.txt,object_only,,kimchi_v1
+250513_020943104521.jpg,dataset2,train,pool,train,2,1 2,3,,data/yolo/images/train/250513_020943104521.jpg,data/yolo/labels/train/250513_020943104521.txt,object_only,,kimchi_v1
+250513_021003217917.jpg,dataset2,train,pool,train,0,0 1 2,3,,data/yolo/images/train/250513_021003217917.jpg,data/yolo/labels/train/250513_021003217917.txt,object_only,,kimchi_v1
+250513_021015212241.jpg,dataset2,train,pool,train,2,1 2,3,,data/yolo/images/train/250513_021015212241.jpg,data/yolo/labels/train/250513_021015212241.txt,object_only,,kimchi_v1
+250513_021046362799.jpg,dataset2,train,pool,test,0,0 1 2,3,,data/yolo/images/test/250513_021046362799.jpg,data/yolo/labels/test/250513_021046362799.txt,object_only,,kimchi_v1
+250513_021108612477.jpg,dataset2,train,pool,train,1,1,2,,data/yolo/images/train/250513_021108612477.jpg,data/yolo/labels/train/250513_021108612477.txt,object_only,,kimchi_v1
+250513_021119693563.jpg,dataset2,train,pool,train,2,2,1,,data/yolo/images/train/250513_021119693563.jpg,data/yolo/labels/train/250513_021119693563.txt,object_only,,kimchi_v1
+250513_021126718161.jpg,dataset2,train,pool,train,2,2,2,,data/yolo/images/train/250513_021126718161.jpg,data/yolo/labels/train/250513_021126718161.txt,object_only,,kimchi_v1
+250513_021137841395.jpg,dataset2,train,pool,train,1,1,2,,data/yolo/images/train/250513_021137841395.jpg,data/yolo/labels/train/250513_021137841395.txt,object_only,,kimchi_v1
+250513_021144766911.jpg,dataset2,train,pool,train,1,1,1,,data/yolo/images/train/250513_021144766911.jpg,data/yolo/labels/train/250513_021144766911.txt,object_only,,kimchi_v1
+250513_021150715030.jpg,dataset2,train,pool,holdout,1,1,1,,data/bridge_holdout/images/250513_021150715030.jpg,data/bridge_holdout/labels/250513_021150715030.txt,object_only,,kimchi_v1
+250513_021157703738.jpg,dataset2,train,pool,test,1,1,1,,data/yolo/images/test/250513_021157703738.jpg,data/yolo/labels/test/250513_021157703738.txt,object_only,,kimchi_v1
+250513_021204824022.jpg,dataset2,train,pool,test,0,0,1,,data/yolo/images/test/250513_021204824022.jpg,data/yolo/labels/test/250513_021204824022.txt,object_only,,kimchi_v1
+250513_021213190018.jpg,dataset2,train,pool,train,0,0 1,2,,data/yolo/images/train/250513_021213190018.jpg,data/yolo/labels/train/250513_021213190018.txt,object_only,,kimchi_v1
+250513_021224263265.jpg,dataset2,train,pool,train,1,1,2,,data/yolo/images/train/250513_021224263265.jpg,data/yolo/labels/train/250513_021224263265.txt,object_only,,kimchi_v1
+250513_021233704903.jpg,dataset2,train,pool,holdout,1,1,1,,data/bridge_holdout/images/250513_021233704903.jpg,data/bridge_holdout/labels/250513_021233704903.txt,object_only,,kimchi_v1
+250513_021240978983.jpg,dataset2,train,pool,train,1,1,1,,data/yolo/images/train/250513_021240978983.jpg,data/yolo/labels/train/250513_021240978983.txt,object_only,,kimchi_v1
+250513_021249058642.jpg,dataset2,train,pool,train,1,1,1,,data/yolo/images/train/250513_021249058642.jpg,data/yolo/labels/train/250513_021249058642.txt,object_only,,kimchi_v1
+250513_021305141318.jpg,dataset2,train,pool,test,0,0,1,,data/yolo/images/test/250513_021305141318.jpg,data/yolo/labels/test/250513_021305141318.txt,object_only,,kimchi_v1
+250513_021344514305.jpg,dataset2,train,pool,test,2,2,7,,data/yolo/images/test/250513_021344514305.jpg,data/yolo/labels/test/250513_021344514305.txt,object_only,,kimchi_v1
+250513_021357007585.jpg,dataset2,train,pool,train,2,2,3,,data/yolo/images/train/250513_021357007585.jpg,data/yolo/labels/train/250513_021357007585.txt,object_only,,kimchi_v1
+250513_021405809512.jpg,dataset2,train,pool,train,2,2,3,,data/yolo/images/train/250513_021405809512.jpg,data/yolo/labels/train/250513_021405809512.txt,object_only,,kimchi_v1
+250513_021406217768.jpg,dataset2,train,pool,train,2,2,3,,data/yolo/images/train/250513_021406217768.jpg,data/yolo/labels/train/250513_021406217768.txt,object_only,,kimchi_v1
+250513_021413998344.jpg,dataset2,train,pool,test,2,2,3,,data/yolo/images/test/250513_021413998344.jpg,data/yolo/labels/test/250513_021413998344.txt,object_only,,kimchi_v1
+250513_021424892102.jpg,dataset2,train,excluded,train,4,4,2,아직 final 아님 (review),data/yolo/images/train/250513_021424892102.jpg,data/yolo/labels/train/250513_021424892102.txt,other_review,,kimchi_v1
+250513_021435579095.jpg,dataset2,train,pool,train,2,1 2,3,,data/yolo/images/train/250513_021435579095.jpg,data/yolo/labels/train/250513_021435579095.txt,object_only,,kimchi_v1
+250513_021445620839.jpg,dataset2,train,pool,val,0,0 1,2,,data/yolo/images/val/250513_021445620839.jpg,data/yolo/labels/val/250513_021445620839.txt,object_only,,kimchi_v1
+250513_021503927470.jpg,dataset2,train,excluded,holdout,4,1 3 4,3,아직 final 아님 (review),data/bridge_holdout/images/250513_021503927470.jpg,data/bridge_holdout/labels/250513_021503927470.txt,other_review,,kimchi_v1
+250513_021522087814.jpg,dataset2,train,excluded,test,4,3 4,3,아직 final 아님 (review),data/yolo/images/test/250513_021522087814.jpg,data/yolo/labels/test/250513_021522087814.txt,other_review,,kimchi_v1
+250513_021539913227.jpg,dataset2,train,pool,train,3,1 3,5,,data/yolo/images/train/250513_021539913227.jpg,data/yolo/labels/train/250513_021539913227.txt,object_only,,kimchi_v1
+250513_021549661328.jpg,dataset2,train,pool,train,3,1 3,5,,data/yolo/images/train/250513_021549661328.jpg,data/yolo/labels/train/250513_021549661328.txt,object_only,,kimchi_v1
+250513_021558743377.jpg,dataset2,train,pool,train,3,1 3,5,,data/yolo/images/train/250513_021558743377.jpg,data/yolo/labels/train/250513_021558743377.txt,object_only,,kimchi_v1
+250513_021615909822.jpg,dataset2,train,pool,test,3,2 3,5,,data/yolo/images/test/250513_021615909822.jpg,data/yolo/labels/test/250513_021615909822.txt,object_only,,kimchi_v1
+250513_021628303797.jpg,dataset2,train,pool,train,3,3,4,,data/yolo/images/train/250513_021628303797.jpg,data/yolo/labels/train/250513_021628303797.txt,object_only,,kimchi_v1
+250513_021646222060.jpg,dataset2,train,pool,train,3,3,4,,data/yolo/images/train/250513_021646222060.jpg,data/yolo/labels/train/250513_021646222060.txt,object_only,,kimchi_v1
+250513_021653487917.jpg,dataset2,train,pool,train,3,3,4,,data/yolo/images/train/250513_021653487917.jpg,data/yolo/labels/train/250513_021653487917.txt,object_only,,kimchi_v1
+250513_021702627527.jpg,dataset2,train,pool,holdout,3,3,4,,data/bridge_holdout/images/250513_021702627527.jpg,data/bridge_holdout/labels/250513_021702627527.txt,object_only,,kimchi_v1
+250513_021711038406.jpg,dataset2,train,pool,holdout,3,3,2,,data/bridge_holdout/images/250513_021711038406.jpg,data/bridge_holdout/labels/250513_021711038406.txt,object_only,,kimchi_v1
+250513_021719424551.jpg,dataset2,validation,pool,val,3,3,4,,data/yolo/images/val/250513_021719424551.jpg,data/yolo/labels/val/250513_021719424551.txt,object_only,,kimchi_v1
+250513_021732352571.jpg,dataset2,validation,excluded,test,4,2 3 4,3,아직 final 아님 (review),data/yolo/images/test/250513_021732352571.jpg,data/yolo/labels/test/250513_021732352571.txt,other_review,,kimchi_v1
+250513_021739998611.jpg,dataset2,validation,excluded,train,4,2 3 4,3,아직 final 아님 (review),data/yolo/images/train/250513_021739998611.jpg,data/yolo/labels/train/250513_021739998611.txt,other_review,,kimchi_v1
+250513_021752644486.jpg,dataset2,validation,pool,holdout,3,0 2 3,4,,data/bridge_holdout/images/250513_021752644486.jpg,data/bridge_holdout/labels/250513_021752644486.txt,object_only,,kimchi_v1
+250513_021804963969.jpg,dataset2,validation,pool,holdout,3,0 3,3,,data/bridge_holdout/images/250513_021804963969.jpg,data/bridge_holdout/labels/250513_021804963969.txt,object_only,,kimchi_v1
+250513_021827419874.jpg,dataset2,validation,pool,train,3,2 3,4,,data/yolo/images/train/250513_021827419874.jpg,data/yolo/labels/train/250513_021827419874.txt,object_only,,kimchi_v1
+250513_021837552190.jpg,dataset2,validation,pool,train,3,1 2 3,4,,data/yolo/images/train/250513_021837552190.jpg,data/yolo/labels/train/250513_021837552190.txt,object_only,,kimchi_v1
+250513_021851164524.jpg,dataset2,validation,pool,train,3,1 3,3,,data/yolo/images/train/250513_021851164524.jpg,data/yolo/labels/train/250513_021851164524.txt,object_only,,kimchi_v1
+250513_021900840954.jpg,dataset2,validation,pool,train,3,1 2 3,3,,data/yolo/images/train/250513_021900840954.jpg,data/yolo/labels/train/250513_021900840954.txt,object_only,,kimchi_v1
+250513_021911942196.jpg,dataset2,validation,pool,train,2,1 2,3,,data/yolo/images/train/250513_021911942196.jpg,data/yolo/labels/train/250513_021911942196.txt,object_only,,kimchi_v1
+250513_021922770294.jpg,dataset2,validation,pool,holdout,0,0 1,3,,data/bridge_holdout/images/250513_021922770294.jpg,data/bridge_holdout/labels/250513_021922770294.txt,object_only,,kimchi_v1
+250513_021933338649.jpg,dataset2,validation,pool,test,0,0 1,4,,data/yolo/images/test/250513_021933338649.jpg,data/yolo/labels/test/250513_021933338649.txt,object_only,,kimchi_v1
+250513_021942681060.jpg,dataset2,validation,pool,train,0,0 1,3,,data/yolo/images/train/250513_021942681060.jpg,data/yolo/labels/train/250513_021942681060.txt,object_only,,kimchi_v1
+250513_021952888560.jpg,dataset2,validation,pool,test,1,1,2,,data/yolo/images/test/250513_021952888560.jpg,data/yolo/labels/test/250513_021952888560.txt,object_only,,kimchi_v1
+250513_022002033052.jpg,dataset2,validation,pool,train,1,1,1,,data/yolo/images/train/250513_022002033052.jpg,data/yolo/labels/train/250513_022002033052.txt,object_only,,kimchi_v1
+250513_022020042401.jpg,dataset2,validation,pool,train,0,0 1,3,,data/yolo/images/train/250513_022020042401.jpg,data/yolo/labels/train/250513_022020042401.txt,object_only,,kimchi_v1
+250513_022029312836.jpg,dataset2,validation,pool,train,2,1 2,3,,data/yolo/images/train/250513_022029312836.jpg,data/yolo/labels/train/250513_022029312836.txt,object_only,,kimchi_v1
+250513_022041431304.jpg,dataset2,validation,pool,train,3,1 2 3,4,,data/yolo/images/train/250513_022041431304.jpg,data/yolo/labels/train/250513_022041431304.txt,object_only,,kimchi_v1
+250513_022057115759.jpg,dataset2,validation,pool,holdout,0,0 1 2,3,,data/bridge_holdout/images/250513_022057115759.jpg,data/bridge_holdout/labels/250513_022057115759.txt,object_only,,kimchi_v1
+250513_022118763062.jpg,dataset2,validation,pool,train,3,1 2 3,3,,data/yolo/images/train/250513_022118763062.jpg,data/yolo/labels/train/250513_022118763062.txt,object_only,,kimchi_v1
+250513_022131908234.jpg,dataset2,validation,pool,train,3,3,2,,data/yolo/images/train/250513_022131908234.jpg,data/yolo/labels/train/250513_022131908234.txt,object_only,,kimchi_v1
+250513_022144941639.jpg,dataset2,validation,pool,test,2,1 2,2,,data/yolo/images/test/250513_022144941639.jpg,data/yolo/labels/test/250513_022144941639.txt,object_only,,kimchi_v1
+250513_022210287197.jpg,dataset2,validation,pool,val,0,0,3,,data/yolo/images/val/250513_022210287197.jpg,data/yolo/labels/val/250513_022210287197.txt,object_only,,kimchi_v1
+250513_022220095831.jpg,dataset2,validation,pool,train,0,0,3,,data/yolo/images/train/250513_022220095831.jpg,data/yolo/labels/train/250513_022220095831.txt,object_only,,kimchi_v1
+250513_022233676410.jpg,dataset2,validation,pool,train,0,0 1 2,4,,data/yolo/images/train/250513_022233676410.jpg,data/yolo/labels/train/250513_022233676410.txt,object_only,,kimchi_v1
+250513_022341564846.jpg,dataset2,validation,pool,val,1,1,3,,data/yolo/images/val/250513_022341564846.jpg,data/yolo/labels/val/250513_022341564846.txt,object_only,,kimchi_v1
+250513_022352029211.jpg,dataset2,validation,pool,train,1,1,3,,data/yolo/images/train/250513_022352029211.jpg,data/yolo/labels/train/250513_022352029211.txt,object_only,,kimchi_v1
+250513_022402086607.jpg,dataset2,validation,pool,train,2,1 2,4,,data/yolo/images/train/250513_022402086607.jpg,data/yolo/labels/train/250513_022402086607.txt,object_only,,kimchi_v1
+250513_022416739467.jpg,dataset2,validation,pool,train,0,0 1,2,,data/yolo/images/train/250513_022416739467.jpg,data/yolo/labels/train/250513_022416739467.txt,object_only,,kimchi_v1
+250513_022444165179.jpg,dataset2,validation,pool,train,0,0 1 2,7,,data/yolo/images/train/250513_022444165179.jpg,data/yolo/labels/train/250513_022444165179.txt,object_only,,kimchi_v1

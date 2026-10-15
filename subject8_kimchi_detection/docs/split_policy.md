@@ -27,6 +27,8 @@
 | Frozen Test | 100 | Final Model 선택 후 1회 평가 (21) | `data/yolo/{images,labels}/test` |
 | Bridge Holdout | 100 | 교과 14 보존 — 교과 8 학습·튜닝·선택·평가에 사용하지 않음 | `data/bridge_holdout/{images,labels}` · `dataset.yaml` 에 없음 |
 
+- `split_manifest.csv` 의 `split` 값은 `train` · `val` · `test` · `holdout` — `holdout` 은 가이드(11.3 · 16.1)의 `bridge_holdout` 과 같은 역할 (Freeze 파일이라 값 이름은 바꾸지 않음)
+
 - 방법: 이미지마다 대표 클래스(`primary_class` — 그 이미지 안에서 가장 드문 클래스)를 정하고, 대표 클래스별로 같은 비율이 되도록 층화 분할
 - seed: 42 (`tools/build_split.py --seed 42`) · 학습 seed(0)와는 별개
 - 결과 (클래스별 이미지 수 — 그 클래스 박스가 있는 이미지)
@@ -49,6 +51,20 @@
 | review | 29 | 4 | 3 | 4 |
 | excluded | 113 | 19 | 19 | 20 |
 
+
+역할별 scene_type (`split_manifest.csv` 의 `scene_type` 열, 15.2)
+
+| scene_type | train | val | test | holdout | 합계 |
+|---|---|---|---|---|---|
+| kimchi_with_target | 397 (66%) | 68 (68%) | 57 (57%) | 65 (65%) | 587 |
+| object_only | 89 (15%) | 12 (12%) | 23 (23%) | 14 (14%) | 138 |
+| other_review | 114 (19%) | 20 (20%) | 20 (20%) | 21 (21%) | 175 |
+| 합계 | 600 | 100 | 100 | 100 | 900 |
+
+- 네 역할 모두 세 장면 유형이 있음. 분할은 대표 클래스 기준이라 scene_type 비율은 맞추지 않았음
+- Frozen Test 는 object_only 가 23% 로 다른 역할(12~15%)보다 많고 kimchi_with_target 이 57% 로 적음 → Final 평가(21) 때 결과 해석에 함께 기록
+- 정상 김치만 있는 장면 유형은 없음 (정상 김치 FP 평가 불가와 같은 이유)
+
 ## 3. Split Freeze (11.5)
 
 | 항목 | 값 |
@@ -60,6 +76,9 @@
 
 - 이후 `build_split.py` 는 기존 배정을 재사용함. `--force`(새로 나누기) 는 사용하지 않음
 - 라벨을 고치고 `export_final` 을 다시 하면 배정은 유지되지만 라벨이 바뀜 → 새 Dataset Version(kimchi_v2)으로 기록하고 Baseline과 직접 비교하지 않음
+
+- 2026-10-15 16.1 최소 열 보완: `split_manifest.csv` 에 `image_path` · `label_path` · `scene_type` · `capture_group`(빈칸) · `dataset_version` 5열 추가. 기존 9열 값과 배정은 변경 없음 (sha256 `9ccefb1e5c09` → `2e04f9bb5746`). 역할별 csv는 17.1 기준 버전이라 9열 유지 (train `8b9e6b7c4644` · val `eabbaa9b8f3a` 변경 없음)
+- `tools/build_split.py --apply` 를 다시 실행하면 추가한 5열이 사라지고 `dataset.yaml` 이 절대경로로 다시 써지므로 실행하지 않음
 
 ## 4. excluded 171장
 
