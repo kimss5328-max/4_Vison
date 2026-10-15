@@ -6,7 +6,7 @@ from pathlib import Path
 
 IMG_EXTS = {".jpg", ".jpeg", ".png"}
 NUM_CLASSES = 7
-FALLBACK_EXPECTED = {1: 500, 2: 400}  # manifest에 해당 데이터셋 행이 없을 때만 사용
+FALLBACK_EXPECTED = {0: 900, 1: 500, 2: 400}  # manifest에 해당 데이터셋 행이 없을 때만 사용
 ROLE_DIRS = {  # 역할 → (이미지 폴더, 라벨 폴더) — 프로젝트 루트 기준
     "train": ("data/yolo/images/train", "data/yolo/labels/train"),
     "val": ("data/yolo/images/val", "data/yolo/labels/val"),
@@ -338,20 +338,25 @@ def main():
                            "issue_type": "MANIFEST_WARNING", "detail": warn})
 
     subject7_dir = data / "subject7_final"
-    for n in (1, 2):
-        name = f"Dataset {n}"
-        if (subject7_dir / f"dataset{n}").exists():
-            img_p = subject7_dir / f"dataset{n}" / "images"
-            txt_p = subject7_dir / f"dataset{n}" / "labels"
-        elif (subject7_dir / "images").exists():
-            img_p = subject7_dir / "images"
-            txt_p = subject7_dir / "labels"
-        else:
-            res = data / f"dataset{n}_result"
-            img_p = res / "final" / "img"
-            txt_p = res / "final" / "txt"
+    flat = not (subject7_dir / "dataset1").exists() and (subject7_dir / "images").exists()
+    if flat:
+        # 교과7 결과 사본이 데이터셋 구분 없이 한 폴더(images/labels)에 있음 → 900장을 한 번만 감사
+        merged = {**manifest.get(1, {}), **manifest.get(2, {})}
+        targets = [("subject7_final", 0, subject7_dir / "images", subject7_dir / "labels", merged)]
+    else:
+        targets = []
+        for n in (1, 2):
+            if (subject7_dir / f"dataset{n}").exists():
+                img_p = subject7_dir / f"dataset{n}" / "images"
+                txt_p = subject7_dir / f"dataset{n}" / "labels"
+            else:
+                res = data / f"dataset{n}_result"
+                img_p = res / "final" / "img"
+                txt_p = res / "final" / "txt"
+            targets.append((f"Dataset {n}", n, img_p, txt_p, manifest.get(n, {})))
 
-        r = audit_dataset(name, n, img_p, txt_p, manifest.get(n, {}))
+    for name, n, img_p, txt_p, meta in targets:
+        r = audit_dataset(name, n, img_p, txt_p, meta)
         if r is None:
             continue
         finals[name] = r["stems"]
