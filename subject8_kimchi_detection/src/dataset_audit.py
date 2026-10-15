@@ -326,7 +326,10 @@ def main():
     data, reports = root / "data", root / "reports"
     reports.mkdir(parents=True, exist_ok=True)
 
-    manifest, warn = load_manifest(root / "manifests" / "dataset_manifest.csv")
+    manifest_p = data / "subject7_final" / "dataset_manifest.csv"
+    if not manifest_p.exists():
+        manifest_p = root / "manifests" / "dataset_manifest.csv"
+    manifest, warn = load_manifest(manifest_p)
     all_summary, all_issues, all_per_image, finals = [], [], [], {}
 
     if warn:
@@ -334,10 +337,21 @@ def main():
         all_issues.append({"dataset": "ALL", "filename": "MANIFEST",
                            "issue_type": "MANIFEST_WARNING", "detail": warn})
 
+    subject7_dir = data / "subject7_final"
     for n in (1, 2):
         name = f"Dataset {n}"
-        res = data / f"dataset{n}_result"
-        r = audit_dataset(name, n, res / "final" / "img", res / "final" / "txt", manifest.get(n, {}))
+        if (subject7_dir / f"dataset{n}").exists():
+            img_p = subject7_dir / f"dataset{n}" / "images"
+            txt_p = subject7_dir / f"dataset{n}" / "labels"
+        elif (subject7_dir / "images").exists():
+            img_p = subject7_dir / "images"
+            txt_p = subject7_dir / "labels"
+        else:
+            res = data / f"dataset{n}_result"
+            img_p = res / "final" / "img"
+            txt_p = res / "final" / "txt"
+
+        r = audit_dataset(name, n, img_p, txt_p, manifest.get(n, {}))
         if r is None:
             continue
         finals[name] = r["stems"]
@@ -345,8 +359,12 @@ def main():
         all_issues += r["issues"]
         all_per_image += r["per_image"]
 
-    roots = [data / f"dataset{n}_result" / s for n in (1, 2) for s in ("work", "issues", "view")]
-    all_issues += audit_raw_vs_final(data / "raw" / "images", finals, roots)  # ← img → images
+    raw_dir = subject7_dir / "raw" / "images"
+    if not raw_dir.exists():
+        raw_dir = data / "raw" / "images"
+    roots = [data / f"dataset{n}_result" / s for n in (1, 2) for s in ("work", "issues", "view")
+             if (data / f"dataset{n}_result" / s).exists()]
+    all_issues += audit_raw_vs_final(raw_dir, finals, roots)
 
     role_summary, role_issues = audit_split_roles(root)  # ← 네 역할 수량 (16.8)
     all_summary += role_summary

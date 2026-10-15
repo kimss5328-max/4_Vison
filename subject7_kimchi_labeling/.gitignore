@@ -1,0 +1,39 @@
+# 가상환경 / 캐시
+venv/
+.venv/
+__pycache__/
+*.pyc
+**/*.pyc
+**/__pycache__/
+
+# 원본 학습 데이터 폴더
+이물검출_학습데이터*/
+
+# 라벨링 결과 (NDA)
+data/**
+!data/**/
+!data/**/.gitkeep
+!data/*.md
+
+reviews/**
+!reviews/**/
+!reviews/**/.gitkeep
+
+# 자동 검사 리포트 (개인 로컬 기록)
+reports/validation_report.csv
+
+# 이전 버전 결과 폴더
+*_labeled/
+*_done/
+
+# 보고서 산출물 예외 허용 (제출 문서 8·9번)
+reports/*
+!reports/qa_summary.md
+!reports/test_report.md
+!reports/subject08_handoff.md
+!reports/assets/
+!reports/assets/*.png
+
+# 이미지 문서 에셋 허용
+!docs/assets/
+!docs/assets/*.png

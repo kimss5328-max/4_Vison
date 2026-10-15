@@ -1,0 +1,48 @@
+# 가상환경 / 캐시
+venv/
+.venv/
+__pycache__/
+*.pyc
+**/*.pyc
+**/__pycache__/
+
+# 데이터 (NDA)
+data/**
+!data/**/
+!data/**/.gitkeep
+
+# 모델 가중치 (NDA)
+models/**
+!models/**/
+!models/**/.gitkeep
+*.pt
+
+# 학습 실행 결과
+runs/**
+!runs/.gitkeep
+
+# 시연 결과 (NDA)
+demo/**
+!demo/**/
+!demo/**/.gitkeep
+presentation/**
+!presentation/.gitkeep
+
+# 보고서 산출물 규칙
+reports/figures/
+reports/validation_report.csv
+reports/audit_issue.csv
+reports/bbox_per_image.csv
+
+reports/*
+!reports/baseline_training_condition.md
+!reports/baseline_metrics.csv
+!reports/failure_candidates.csv
+!reports/dataset_summary.csv
+!reports/smoke_test.md
+!reports/subject08_handoff.md
+!reports/assets/
+!reports/assets/*.png
+!reports/logs/
+!reports/logs/build_split/
+!reports/logs/build_split/*.md

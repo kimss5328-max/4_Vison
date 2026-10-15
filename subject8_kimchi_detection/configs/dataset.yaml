@@ -2,7 +2,7 @@
 # 개수 train 600 / val 100 / test 100 / holdout 100 · seed 42
 # 단일 클래스 학습은 이 파일 그대로 + 학습 옵션 single_cls=True
 # Bridge Holdout(data/bridge_holdout)은 교과 14 보존용 — 여기에 넣지 않음
-path: /home/user1/exe_01/visol04/data/yolo
+path: data/yolo
 train: images/train
 val: images/val
 test: images/test

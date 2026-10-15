@@ -1,75 +1,22 @@
-# 가상환경 / 캐시
+# 공통 바이너리 / 임시 파일 / 보안 (NDA)
+*.jpg
+*.jpeg
+*.png
+*.bmp
+*.npy
+*.pt
+*.zip
+*.tar.gz
 venv/
 .venv/
 __pycache__/
 *.pyc
 **/*.pyc
 **/__pycache__/
-
-# 원본 학습 데이터 폴더
-이물검출_학습데이터*/
-
-# 라벨링/검출 데이터 (NDA) — 폴더 구조(.gitkeep)만 허용, 데이터 파일은 제외
-data/**
-!data/**/
-!data/**/.gitkeep
-subject7_kimchi_labeling/data/**
-!subject7_kimchi_labeling/data/**/
-!subject7_kimchi_labeling/data/**/.gitkeep
-subject8_kimchi_detection/data/**
-!subject8_kimchi_detection/data/**/
-!subject8_kimchi_detection/data/**/.gitkeep
-
-reviews/**
-!reviews/**/
-!reviews/**/.gitkeep
-subject7_kimchi_labeling/reviews/**
-!subject7_kimchi_labeling/reviews/**/
-!subject7_kimchi_labeling/reviews/**/.gitkeep
-
-# 자동 검사 리포트 (로컬 기록)
-reports/validation_report.csv
-subject7_kimchi_labeling/reports/validation_report.csv
-
-# 모델 / 학습 결과 (NDA)
-*.pt
-runs/
-subject8_kimchi_detection/runs/
-subject8_kimchi_detection/models/**/*.pt
-
-# SSH 키 / 인증 파일 (절대 올리면 안 됨)
-*.pub
+*Zone.Identifier
 id_*
+*.pub
 *.pem
 *.key
-.ssh/
-
-# 기타
-*Zone.Identifier
+.env
 backup/
-code_dump.txt
-total_final_data/
-manifests/backup/
-data/exe_01_result/
-*.zip
-
-# 이미지 및 라벨 데이터 (NDA)
-*.jpg
-*.jpeg
-*.png
-!subject7_kimchi_labeling/docs/assets/*.png
-!subject7_kimchi_labeling/reports/assets/*.png
-!subject8_kimchi_detection/reports/assets/*.png
-
-# 보고서 및 산출물 (추적 허용)
-!**/reports/qa_summary.md
-!**/reports/test_report.md
-!**/reports/smoke_test.md
-!**/reports/full_train.md
-!**/reports/baseline_training_condition.md
-!**/reports/baseline_metrics.csv
-!**/reports/failure_candidates.csv
-!**/reports/dataset_summary.csv
-!**/reports/logs/
-!**/reports/logs/build_split/
-!**/reports/logs/build_split/*.md
