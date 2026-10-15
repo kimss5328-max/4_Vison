@@ -1,5 +1,8 @@
-certifi==2026.7.22
-charset-normalizer==3.5.2
-idna==3.20
-requests==2.34.2
-urllib3==2.8.0
+numpy==2.5.4
+opencv-python==5.0.0.93
+PyYAML==6.0.3
+torch==2.14.1
+torchvision==0.29.1
+ultralytics==8.4.175
+ultralytics-platform==0.1.88
+ultralytics-thop==2.2.2
