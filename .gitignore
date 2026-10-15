@@ -3,29 +3,39 @@ venv/
 .venv/
 __pycache__/
 *.pyc
+**/*.pyc
+**/__pycache__/
 
-# 원본 학습 데이터 폴더 (혹시 visol04 안에 둘 경우)
+# 원본 학습 데이터 폴더
 이물검출_학습데이터*/
 
-# 라벨링 결과 — 폴더 틀(.gitkeep)만 올리고 내용물(img, txt, csv)은 제외
+# 라벨링/검출 데이터 (NDA) — 폴더 구조(.gitkeep)만 허용, 데이터 파일은 제외
 data/**
 !data/**/
 !data/**/.gitkeep
+subject7_kimchi_labeling/data/**
+!subject7_kimchi_labeling/data/**/
+!subject7_kimchi_labeling/data/**/.gitkeep
+subject8_kimchi_detection/data/**
+!subject8_kimchi_detection/data/**/
+!subject8_kimchi_detection/data/**/.gitkeep
+
 reviews/**
 !reviews/**/
 !reviews/**/.gitkeep
-# manifests/dataset_manifest.csv 는 올림 (전체 진행 대장)
+subject7_kimchi_labeling/reviews/**
+!subject7_kimchi_labeling/reviews/**/
+!subject7_kimchi_labeling/reviews/**/.gitkeep
 
-# 자동 검사 리포트 (폴더 열 때마다 추가되는 개인 로컬 기록)
+# 자동 검사 리포트 (로컬 기록)
 reports/validation_report.csv
+subject7_kimchi_labeling/reports/validation_report.csv
 
-# 이전 버전 결과 폴더
-*_labeled/
-*_done/
-
-# 모델 / 학습 결과
+# 모델 / 학습 결과 (NDA)
 *.pt
 runs/
+subject8_kimchi_detection/runs/
+subject8_kimchi_detection/models/**/*.pt
 
 # SSH 키 / 인증 파일 (절대 올리면 안 됨)
 *.pub
@@ -38,30 +48,28 @@ id_*
 *Zone.Identifier
 backup/
 code_dump.txt
-
-# 보고서: 자동 생성물은 제외, 제출 문서(8·9번)만 올림
-reports/*
-!reports/qa_summary.md
-!reports/test_report.md
-
-# 최종 학습 데이터 (NDA) / manifest 백업
 total_final_data/
 manifests/backup/
+data/exe_01_result/
+*.zip
 
-# 이미지·라벨 데이터는 어디에 있든 올리지 않음 (NDA)
-data/final/
+# 이미지 및 라벨 데이터 (NDA)
 *.jpg
 *.jpeg
 *.png
-!reports/smoke_test.md
-!reports/full_train.md
-data/exe_01_result/
-*.zip
-!reports/logs/
-!reports/logs/build_split/
-!reports/logs/build_split/build_split_20261013_111107.md
-!reports/logs/build_split/build_split_20261013_162244.md
-!reports/baseline_training_condition.md
-!reports/baseline_metrics.csv
-!reports/failure_candidates.csv
-!reports/dataset_summary.csv
+!subject7_kimchi_labeling/docs/assets/*.png
+!subject7_kimchi_labeling/reports/assets/*.png
+!subject8_kimchi_detection/reports/assets/*.png
+
+# 보고서 및 산출물 (추적 허용)
+!**/reports/qa_summary.md
+!**/reports/test_report.md
+!**/reports/smoke_test.md
+!**/reports/full_train.md
+!**/reports/baseline_training_condition.md
+!**/reports/baseline_metrics.csv
+!**/reports/failure_candidates.csv
+!**/reports/dataset_summary.csv
+!**/reports/logs/
+!**/reports/logs/build_split/
+!**/reports/logs/build_split/*.md

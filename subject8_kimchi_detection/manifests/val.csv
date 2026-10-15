@@ -1,0 +1,101 @@
+﻿file_name,source_dataset,original_split,group,split,primary_class,classes,boxes,note
+250410_145141723860.jpg,dataset2,validation,pool,val,6,6,5,
+250410_145433197807.jpg,dataset2,validation,pool,val,6,6,5,
+250410_150346868183.jpg,dataset1,train,pool,val,6,6,5,
+250410_150949043386.jpg,dataset1,train,pool,val,6,6,5,
+250410_151713908283.jpg,dataset1,train,pool,val,6,6,5,
+250410_152647794740.jpg,dataset1,train,pool,val,6,6,5,
+250410_155734186034.jpg,dataset2,validation,excluded,val,4,4,5,아직 final 아님 (review)
+250410_160021775802.jpg,dataset1,train,excluded,val,4,4,5,아직 final 아님 (review)
+250410_170204849002.jpg,dataset1,train,excluded,val,4,4,5,아직 final 아님 (review)
+250410_170436151500.jpg,dataset1,train,excluded,val,4,4,5,아직 final 아님 (review)
+250410_171711703137.jpg,dataset1,train,excluded,val,4,1 2 4,5,아직 final 아님 (review)
+250410_175036549862.jpg,dataset1,train,pool,val,2,2,5,
+250410_175933697183.jpg,dataset1,train,pool,val,2,2,5,
+250410_182834693275.jpg,dataset2,validation,pool,val,0,0 2,5,
+250411_093403074817.jpg,dataset1,train,pool,val,1,1,5,
+250411_093616913584.jpg,dataset1,train,pool,val,1,1,5,
+250411_095447313719.jpg,dataset1,train,excluded,val,4,1 4,5,아직 final 아님 (review)
+250411_100456783421.jpg,dataset1,train,pool,val,3,1 2 3,5,
+250411_104529041399.jpg,dataset1,train,pool,val,1,1,5,
+250411_105218591549.jpg,dataset1,train,pool,val,1,1,5,
+250411_105453593325.jpg,dataset1,train,pool,val,1,1,5,
+250411_105944783561.jpg,dataset1,train,pool,val,1,1,5,
+250411_110038287967.jpg,dataset2,validation,pool,val,1,1,5,
+250411_110315830870.jpg,dataset1,train,pool,val,2,1 2,5,
+250411_111004245983.jpg,dataset2,validation,pool,val,3,0 1 2 3,5,
+250411_111931684327.jpg,dataset1,train,pool,val,2,1 2,5,
+250411_112016533939.jpg,dataset1,train,pool,val,0,0 1 2,6,
+250411_113335977212.jpg,dataset1,train,pool,val,1,1,5,
+250411_113710947633.jpg,dataset1,train,pool,val,1,1,7,
+250411_114451800273.jpg,dataset1,train,pool,val,1,1,7,
+250411_135211530132.jpg,dataset1,train,pool,val,2,1 2,5,
+250411_140314154941.jpg,dataset1,train,review,val,1,1,5,manifest(class_ambiguous)
+250411_140452731605.jpg,dataset1,train,review,val,1,1,5,manifest(other)
+250411_141127764893.jpg,dataset2,validation,pool,val,1,1,5,
+250411_153008984132.jpg,dataset1,train,pool,val,3,0 1 3,5,
+250411_153708642128.jpg,dataset1,train,excluded,val,4,0 1 2 4,5,아직 final 아님 (review)
+250411_155428154120.jpg,dataset1,train,pool,val,5,5,6,
+250411_155836164875.jpg,dataset1,train,pool,val,5,5,5,
+250424_110118712995.jpg,dataset1,train,pool,val,2,2,5,
+250424_110523358494.jpg,dataset1,train,pool,val,2,2,5,
+250424_110954320748.jpg,dataset1,train,pool,val,2,2,5,
+250424_111525566429.jpg,dataset1,train,excluded,val,4,1 2 4,5,아직 final 아님 (review)
+250424_112106131252.jpg,dataset1,train,pool,val,2,1 2,7,
+250424_112343085390.jpg,dataset1,train,pool,val,5,0 1 2 5,7,
+250424_112553658191.jpg,dataset2,validation,pool,val,0,0 1 2,5,
+250424_112841184247.jpg,dataset1,train,excluded,val,4,2 3 4,5,아직 final 아님 (review)
+250424_114354919791.jpg,dataset2,validation,pool,val,5,1 5,7,
+250424_114427299303.jpg,dataset2,validation,pool,val,1,1,5,
+250424_115126242024.jpg,dataset1,train,pool,val,1,1,5,
+250424_131333355993.jpg,dataset1,train,pool,val,5,0 1 5,7,
+250424_131717240598.jpg,dataset1,train,review,val,5,1 2 5,7,manifest(other)
+250424_131927234268.jpg,dataset1,train,excluded,val,2,1 2,5,아직 final 아님 (review)
+250424_133336623350.jpg,dataset1,train,pool,val,5,0 5,6,
+250424_133746717037.jpg,dataset1,train,pool,val,5,0 5,7,
+250424_134338803481.jpg,dataset1,train,pool,val,5,0 1 3 5,7,
+250424_134638430765.jpg,dataset1,train,pool,val,5,0 1 2 5,6,
+250424_135501509505.jpg,dataset1,train,pool,val,0,0 1,5,
+250424_141117326057.jpg,dataset2,validation,pool,val,0,0,5,
+250424_141236657334.jpg,dataset1,train,pool,val,5,0 5,7,
+250424_141311988574.jpg,dataset1,train,pool,val,0,0,4,
+250424_141347737368.jpg,dataset1,train,pool,val,5,0 5,6,
+250424_141451512347.jpg,dataset1,train,pool,val,0,0,5,
+250424_141518822839.jpg,dataset1,train,pool,val,0,0,5,
+250424_142134495262.jpg,dataset1,train,pool,val,0,0,5,
+250424_142806480763.jpg,dataset1,train,excluded,val,5,0 1 5,7,아직 final 아님 (review)
+250424_143423334547.jpg,dataset1,train,pool,val,3,0 1 2 3,5,
+250424_150751737200.jpg,dataset1,train,pool,val,5,2 5,7,
+250424_150822430768.jpg,dataset2,validation,pool,val,5,0 2 5,7,
+250424_151011160174.jpg,dataset2,validation,pool,val,5,2 5,6,
+250424_152545483072.jpg,dataset2,train,pool,val,2,1 2,4,
+250424_152713073232.jpg,dataset2,train,pool,val,0,0 1 2,5,
+250424_152915766700.jpg,dataset2,validation,review,val,0,0 1 2,5,이력 csv + manifest(other)
+250424_153015693567.jpg,dataset2,train,excluded,val,4,0 1 2 4,5,아직 final 아님 (review)
+250424_153311253394.jpg,dataset2,validation,pool,val,3,1 2 3,5,
+250424_153520639358.jpg,dataset2,train,excluded,val,4,1 2 3 4,5,아직 final 아님 (review)
+250424_153545918427.jpg,dataset2,train,excluded,val,4,1 2 3 4,5,아직 final 아님 (review)
+250424_154635713023.jpg,dataset2,train,pool,val,3,3,5,
+250424_154812782976.jpg,dataset2,validation,pool,val,3,3,5,
+250424_155103672911.jpg,dataset2,validation,pool,val,3,3,4,
+250424_155157438614.jpg,dataset2,train,pool,val,3,3,5,
+250424_155753466380.jpg,dataset2,train,pool,val,3,1 3,5,
+250424_155925517432.jpg,dataset2,train,pool,val,3,1 3,5,
+250424_160024860603.jpg,dataset2,validation,excluded,val,4,2 3 4,5,아직 final 아님 (review)
+250424_160438120135.jpg,dataset2,train,excluded,val,4,1 2 3 4,5,아직 final 아님 (review)
+250424_164708984954.jpg,dataset2,train,pool,val,0,0,5,
+250424_170640733964.jpg,dataset2,train,pool,val,0,0 1 2,5,
+250513_015523209371.jpg,dataset2,train,pool,val,2,2,3,
+250513_015542447244.jpg,dataset2,train,pool,val,2,2,2,
+250513_015607259390.jpg,dataset2,train,pool,val,3,1 3,3,
+250513_015923922984.jpg,dataset2,train,excluded,val,3,1 3,5,아직 final 아님 (review)
+250513_020037160142.jpg,dataset2,train,pool,val,3,2 3,2,
+250513_020048358486.jpg,dataset2,train,excluded,val,4,3 4,2,아직 final 아님 (review)
+250513_020126825853.jpg,dataset2,train,excluded,val,4,1 4,2,아직 final 아님 (review)
+250513_020421725158.jpg,dataset2,train,pool,val,0,0 1 2,5,
+250513_020743814028.jpg,dataset2,train,pool,val,2,1 2,3,
+250513_020832754654.jpg,dataset2,train,pool,val,0,0 1,3,
+250513_021445620839.jpg,dataset2,train,pool,val,0,0 1,2,
+250513_021719424551.jpg,dataset2,validation,pool,val,3,3,4,
+250513_022210287197.jpg,dataset2,validation,pool,val,0,0,3,
+250513_022341564846.jpg,dataset2,validation,pool,val,1,1,3,

@@ -1,0 +1,14 @@
+﻿checked_at,img_root,file,level,check,detail
+2026-10-07 10:20:19,/home/user1/4_Vison/data/work,250410_144449962356.*,ERROR,IMG_MISSING,TXT만 있고 이미지가 없음: /home/user1/4_Vison/data/work/1차/txt/train/250410_144449962356.txt
+2026-10-07 10:20:19,/home/user1/4_Vison/data/work,250410_145037640704.*,ERROR,IMG_MISSING,TXT만 있고 이미지가 없음: /home/user1/4_Vison/data/work/1차/txt/train/250410_145037640704.txt
+2026-10-07 10:20:19,/home/user1/4_Vison/data/work,250410_145804344533.*,WARNING,TXT_MISSING,이미지만 있고 TXT가 없음: /home/user1/4_Vison/data/work/1차/img/train/250410_145804344533.jpg
+2026-10-07 10:31:55,/home/user1/4_Vison/data/work,250410_144449962356.*,ERROR,IMG_MISSING,TXT만 있고 이미지가 없음: /home/user1/4_Vison/data/work/1차/txt/train/250410_144449962356.txt
+2026-10-07 10:31:55,/home/user1/4_Vison/data/work,250410_144834943618.txt,ERROR,COORD_RANGE,"라인 2: 좌표 범위 초과 → xc=0.361054, yc=0.318981, w=1.02376, h=0.044444"
+2026-10-07 10:31:55,/home/user1/4_Vison/data/work,250410_144834943618.txt,ERROR,COORD_RANGE,"라인 3: 좌표 범위 초과 → xc=0.696023, yc=0.563889, w=0.038223, h=4.057407"
+2026-10-07 10:31:55,/home/user1/4_Vison/data/work,250410_145037640704.*,ERROR,IMG_MISSING,TXT만 있고 이미지가 없음: /home/user1/4_Vison/data/work/1차/txt/train/250410_145037640704.txt
+2026-10-07 10:31:55,/home/user1/4_Vison/data/work,250410_145804344533.*,WARNING,TXT_MISSING,이미지만 있고 TXT가 없음: /home/user1/4_Vison/data/work/1차/img/train/250410_145804344533.jpg
+2026-10-07 10:43:34,/home/user1/4_Vison/data/work,250410_144449962356.*,ERROR,IMG_MISSING,TXT만 있고 이미지가 없음: /home/user1/4_Vison/data/work/1차/txt/train/250410_144449962356.txt
+2026-10-07 10:43:34,/home/user1/4_Vison/data/work,250410_144834943618.txt,ERROR,COORD_RANGE,"라인 2: 좌표 범위 초과 → xc=0.361054, yc=0.318981, w=1.02376, h=0.044444"
+2026-10-07 10:43:34,/home/user1/4_Vison/data/work,250410_144834943618.txt,ERROR,COORD_RANGE,"라인 3: 좌표 범위 초과 → xc=0.696023, yc=0.563889, w=0.038223, h=4.057407"
+2026-10-07 10:43:34,/home/user1/4_Vison/data/work,250410_145037640704.*,ERROR,IMG_MISSING,TXT만 있고 이미지가 없음: /home/user1/4_Vison/data/work/1차/txt/train/250410_145037640704.txt
+2026-10-07 10:43:34,/home/user1/4_Vison/data/work,250410_145804344533.*,WARNING,TXT_MISSING,이미지만 있고 TXT가 없음: /home/user1/4_Vison/data/work/1차/img/train/250410_145804344533.jpg

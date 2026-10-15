@@ -1,0 +1,7 @@
+﻿Dataset,Category,Metric,Value
+ALL,Split Role,train,0
+ALL,Split Role,val,0
+ALL,Split Role,test,0
+ALL,Split Role,bridge_holdout,0
+ALL,Split Role,Total,0
+ALL,Split Role,Total Status,FAIL
