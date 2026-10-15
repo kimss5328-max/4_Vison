@@ -2,7 +2,7 @@
 
 - 기준: 교과8 수행가이드 11 (Dataset Split) · 15.A (Split 정책) · 16.8 (산출물 1 완료 확인)
 - Dataset Version: **kimchi_v1** (labels sha256 앞 12자리 — train `57f0bf5121e4` / val `ab6cc7f98da7`)
-- 분할 도구: `tools/build_split.py` · 실행 기록 `reports/logs/build_split/build_split_20261013_111107.md`
+- 분할 도구: `scripts/03_build_split.py` · 실행 기록 `reports/logs/build_split/build_split_20261013_111107.md`
 - 수량 검사: `src/dataset_audit.py` → `reports/dataset_summary.csv` (Split Role 600 / 100 / 100 / 100 = 900 · PASS)
 
 ## 1. 입력 데이터
@@ -28,7 +28,7 @@
 | Bridge Holdout | 100 | 교과 14 보존 — 교과 8 학습·튜닝·선택·평가에 사용하지 않음 | `data/bridge_holdout/{images,labels}` · `dataset.yaml` 에 없음 |
 
 - 방법: 이미지마다 대표 클래스(`primary_class` — 그 이미지 안에서 가장 드문 클래스)를 정하고, 대표 클래스별로 같은 비율이 되도록 층화 분할
-- seed: 42 (`tools/build_split.py --seed 42`) · 학습 seed(0)와는 별개
+- seed: 42 (`scripts/03_build_split.py --seed 42`) · 학습 seed(0)와는 별개
 - 결과 (클래스별 이미지 수 — 그 클래스 박스가 있는 이미지)
 
 | 클래스 | train | val | test | holdout | 합계 (장 / 박스) |
@@ -58,7 +58,7 @@
 | `manifests/val.csv` | sha256 `eabbaa9b8f3a` |
 | 함께 고정 | `split_manifest.csv` · `test.csv` · `bridge_holdout.csv` · `configs/dataset.yaml` |
 
-- 이후 `build_split.py` 는 기존 배정을 재사용함. `--force`(새로 나누기) 는 사용하지 않음
+- 이후 `scripts/03_build_split.py` 는 기존 배정을 재사용함. `--force`(새로 나누기) 는 사용하지 않음
 - 라벨을 고치고 `export_final` 을 다시 하면 배정은 유지되지만 라벨이 바뀜 → 새 Dataset Version(kimchi_v2)으로 기록하고 Baseline과 직접 비교하지 않음
 
 ## 4. excluded 171장
@@ -92,7 +92,7 @@ REVIEW · QA 대기 19장의 역할
 | 같은 파일 중복 | 0건 | 900장 파일 SHA-256 |
 | 같은 이미지(픽셀) 중복 | 0건 | 900장 픽셀 SHA-256 |
 | 같은 파일 이름이 두 역할에 | 0건 | `src/dataset_audit.py` `ROLE_OVERLAP` |
-| Smoke 표본과 Test · Holdout 겹침 | 0장 | Smoke는 본 분할의 train 600장에서만 추출 (`build_split.py` v4) |
+| Smoke 표본과 Test · Holdout 겹침 | 0장 | Smoke는 본 분할의 train 600장에서만 추출 (`scripts/03_build_split.py` v4) |
 | Bridge Holdout 이 `dataset.yaml` 에 없음 | 확인 | `configs/dataset.yaml` |
 | **capture_group (연속 촬영 · 유사 장면)** | **미확인** | `split_manifest.csv` 의 `group` 열은 검수 상태(pool/review/excluded)이며 촬영 묶음이 아님. capture_group 정보가 없음 |
 
