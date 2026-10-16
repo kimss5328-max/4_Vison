@@ -29,7 +29,6 @@ presentation/**
 !presentation/.gitkeep
 
 # 보고서 산출물 규칙
-reports/figures/
 reports/validation_report.csv
 reports/audit_issue.csv
 reports/bbox_per_image.csv
@@ -55,3 +54,5 @@ reports/*
 !reports/logs/
 !reports/logs/build_split/
 !reports/logs/build_split/*.md
+!reports/figures/
+!reports/figures/*.png

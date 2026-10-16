@@ -1,0 +1,9 @@
+model,run,weight,weight_sha256,dataset_version,split,imgsz,class_id,class_name,images,instances,precision,recall,map50,map50_95
+final,final_test,models/final/final_best.pt,c90f9767442e,kimchi_v1,test,1920,all,전체,100,474,0.957,0.887,0.919,0.808
+final,final_test,models/final/final_best.pt,c90f9767442e,kimchi_v1,test,1920,0,나뭇잎·종이류,36,76,0.946,0.882,0.927,0.840
+final,final_test,models/final/final_best.pt,c90f9767442e,kimchi_v1,test,1920,1,플라스틱·돌·금속류,65,171,0.938,0.892,0.957,0.852
+final,final_test,models/final/final_best.pt,c90f9767442e,kimchi_v1,test,1920,2,나뭇가지류,48,101,0.911,0.910,0.964,0.900
+final,final_test,models/final/final_best.pt,c90f9767442e,kimchi_v1,test,1920,3,벌레류,24,38,0.998,0.974,0.994,0.835
+final,final_test,models/final/final_best.pt,c90f9767442e,kimchi_v1,test,1920,4,고무장갑,17,27,0.925,0.912,0.899,0.808
+final,final_test,models/final/final_best.pt,c90f9767442e,kimchi_v1,test,1920,5,병해·갈변,16,31,1.000,0.636,0.698,0.539
+final,final_test,models/final/final_best.pt,c90f9767442e,kimchi_v1,test,1920,6,파·고추,6,30,0.981,1.000,0.995,0.884
