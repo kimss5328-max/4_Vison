@@ -1,0 +1,3 @@
+experiment_id,date,model_name,epochs,batch_size,img_size,precision,recall,map50,map50_95,notes
+exp_001,2026-10-10,baseline_v1,100,16,640,0.821,0.785,0.834,0.612,"Initial baseline training with default hyperparameters"
+exp_002,2026-10-16,improved_v1,100,16,640,0.885,0.842,0.891,0.675,"Rebalanced classes, targeted augmentation, tuned LR schedule and NMS threshold"
