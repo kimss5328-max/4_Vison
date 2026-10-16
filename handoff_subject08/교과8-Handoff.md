@@ -54,7 +54,7 @@ class_id x_center y_center width height
 - Class 1: 플라스틱류·돌·금속류
 - Class 2: 나뭇가지류
 - Class 3: 벌레류
-- Class 4: 고무장갑 — 현재 사용하지 않음/ # 기존 라벨에 4가 있으면 1(플라스틱류·돌·금속류)로 변경 안내
+- Class 4: 고무장갑 — 현재 사용하지 않음
 - Class 5: 병해·갈변
 - Class 6: 파·고추
 
