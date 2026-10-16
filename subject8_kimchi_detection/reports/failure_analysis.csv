@@ -1,0 +1,30 @@
+image,source_dataset,scene_type,failure_type,ground_truth,prediction,confidence,suspected_cause,evidence,next_action
+250410_170204849002,kimchi_v1,single_object,FP,5,6,0.57,실제 객체가 없는 영역에서 오검출,"GT 5개, Pred 6개, 추가 BBox에 대응하는 GT 없음(0클래스)",오검출 좌표 확인 및 NMS 설정 비교
+250410_171711703137,kimchi_v1,multiple_classes,Class Error,4,5,—,특정 클래스의 오분류,클래스 2를 클래스 5로 잘못 예측,두 클래스의 학습 이미지 및 라벨 확인
+250410_175036549862,kimchi_v1,"single_object","FP-Dup",5,"7","0.75, 0.48",중복 검출 및 클래스 혼동,"동일 객체 영역에 BBox 3개가 겹치고 하나는 다른 클래스로 예측(2클래스를 0클래스로 예측 BBox 겹침 2클래스에 0클래스 겹침)",NMS 설정 및 클래스 라벨 검토
+250410_175933697183,kimchi_v1,single_object,FP,5,6,0.85,동일 객체의 중복 검출,동일 객체 영역에 BBox 2개가 겹침 ( 같은 2클래스가 겹침),NMS 설정 비교
+250411_111931684327,kimchi_v1,multiple_classes,Class Error,5,4,0.39,특정 클래스의 오분류,클래스 2를 클래스 1로 잘못 예측,두 클래스의 학습 이미지 및 라벨 확인
+250411_112016533939,kimchi_v1,"multiple_classes","FN, BBox Error",6,5,0.67,미검출 및 위치 오류,"GT 6개, Pred 5개 (미검출 1클래스, 위치 오류 2클래스)",GT와 Prediction 좌표 비교
+250411_113710947633,kimchi_v1,multiple_classes,FN,7,5,—,객체 미검출,"GT 7개, Pred 5개 (미검출 2개 1클래스)",미검출 객체의 위치 및 크기 확인
+250411_135211530132,kimchi_v1,"multiple_classes","FP, Class Error",5,7,0.53,중복 검출 및 클래스 혼동,"동일 객체 영역에 BBox가 겹치고 하나는 다른 클래스로 예측 (2클래스를 0클래로 예측 및 BBox 겹침)",NMS 설정 및 클래스 라벨 검토
+250411_140314154941,kimchi_v1,single_object,FP (검증 필요),5,6,0.51,오검출 가능성,"GT 5개, Pred 6개 (오검출 1클래스)",추가 BBox의 실제 객체 여부 확인
+250411_153708642128,kimchi_v1,"multiple_classes","FP, Class Error",5,"7","0.34, 0.44",중복 검출 및 클래스 혼동,"동일 객체 영역의 중복 박스와 클래스 불일치 확인 필요 (2클래스를 0클래스로 착각, 0클래스를 1클래스로 착각)",NMS 및 클래스별 예측 검토
+250424_110118712995,kimchi_v1,"single_object","FP, Class Error",5,6,0.66,중복 검출 및 클래스 혼동,"중복 BBox 및 클래스 불일치 확인 필요  (2클래스를 0클래스로 착각 및 겹침)",NMS 및 클래스 라벨 검토
+250424_111525566429,kimchi_v1,multiple_classes,Class Error,5,5,0.72,특정 클래스의 오분류,클래스 4를 클래스 1로 잘못 예측,두 클래스의 학습 이미지 및 라벨 확인
+250424_112106131252,kimchi_v1,multiple_classes,FN,7,6,—,객체 미검출,"GT 7개, Pred 6개 (2클래스 오검출) 및 0클래스를 2클래스로 예측",미검출 객체 좌표 확인
+250424_112343085390,kimchi_v1,"multiple_classes","FP, Class Error",7,"10","0.52, 0.28, 0.81",중복 검출 및 클래스 혼동,"중복 검출과 클래스 불일치가 보고됨(2클래스를 0클래스로 착각 및 BBox 겹침, 5클래스 BBox 겹침)",객체별 매칭 및 NMS 설정 비교
+250424_112553658191,kimchi_v1,multiple_classes,FP (검증 필요),5,6,0.35,오검출 가능성,"GT 5개, Pred 6개 (5클래스 오검출)",추가 BBox의 실제 객체 여부 확인
+250424_133746717037,kimchi_v1,"multiple_classes","FP, FN (검증 필요)",7,"9","0.20, 0.35",오검출 및 미검출 가능성,"원본 기록의 Pred 개수와 세부 근거 불일치(  같은 0클래스 BBox겹침)",GT-Pred 객체별 매칭
+250424_134638430765,kimchi_v1,"multiple_classes","FP, FN, Class Error (검증 필요)",6,6,0.39,오검출·미검출·클래스 오류 가능성,"총개수는 같지만 객체별 매칭 확인 필요",GT-Pred 객체별 매칭
+250424_141236657334,kimchi_v1,"multiple_classes","FP, FN, Class Error (검증 필요)",7,7*,0.53,복합 오류 가능성,"원본 기록에 Pred 개수가 7개와 8개로 혼재 (0클래스를 1클래스로 예측 및 BBox 겹침)",실제 검출 개수 및 객체별 매칭 확인
+250424_141451512347,kimchi_v1,multiple_classes,FP,5,8,"0.33, 0.25, 0.57","실제 객체가 없는 영역에서 오검출 (1클래스, 5클래스)","GT 5개, Pred 8개, 추가 BBox에 대응하는 GT 없음",오검출 좌표 확인 및 NMS 설정 비교
+250424_150751737200,kimchi_v1,multiple_classes,"FP, BBox Error, FN",7,7,0.55,"실제 객체가 없는 영역에서 오검출, 중복 검출, 미검출","GT 7개, Pred 7개, 추가 BBox에 대응하는 GT 없음, 동일 객체 1클래스 영역에 BBox가 겹침, 미인식 객체 2개 존재","GT-Pred 객체별 매칭, 오검출 좌표 확인 및 NMS 설정 비교"
+250424_152915766700,kimchi_v1,multiple_classes,Class Error,5,5,0.89,클래스 혼동,다른 클래스로 예측 (4클래스를 1클래스로 예측),클래스 라벨 검토
+250424_153015693567,kimchi_v1,multiple_classes,Class Error,5,5,0.92,클래스 혼동,다른 클래스로 예측 (4클래스를 1클래스로 예측),클래스 라벨 검토
+250424_155103672911,kimchi_v1,single_object,Class Error,4,4,0.69,클래스 혼동,다른 클래스로 예측 (3클래스를 2클래스로 예측),클래스 라벨 검토
+250424_155753466380,kimchi_v1,multiple_classes,"Class Error, FN",5,4,0.43,"클래스 혼동, 객체 미검출","다른 클래스로 예측, GT 5개, Pred 4개 (1클래스를 0클래스를 예측)","클래스 라벨 검토, 미검출 객체의 위치 및 크기 확인"
+250513_015923922984,kimchi_v1,multiple_classes,Class Error,5,5,"0.83, 0.67",클래스 혼동 ( 4클래스를 1클래스),다른 클래스로 예측,클래스 라벨 검토
+250513_020037160142,kimchi_v1,multiple_classes,FN,2,1,ㅡ,객체 미검출,"GT 2개, Pred 1개 ( 2클래스 미검출)",GT-Pred 객체별 매칭
+250513_020126825853,kimchi_v1,multiple_classes,Class Error,2,3,0.44,중복 검출 및 클래스 혼동,동일 객체 영역에 BBox가 겹치고 하나는 다른 클래스로 예측 (4클래스를 1클래스 예측 및 BBox 겹침),NMS 설정 및 클래스 라벨 검토
+250513_020743814028,kimchi_v1,multiple_classes,Class Error,3,3,0.73,클래스 혼동,다른 클래스로 예측 (1클래스를 2클래스로 예측),클래스 라벨 검토
+250513_021445620839,kimchi_v1,multiple_classes,FN,2,1,ㅡ,객체 미검출,"0클래스 미검출",GT-Pred 객체별 매칭

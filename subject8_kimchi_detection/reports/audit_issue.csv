@@ -1,6 +1,2 @@
 ﻿dataset,filename,issue_type,detail
-RAW_VS_FINAL,RAW,RAW_EMPTY,D:\anti\subject8_kimchi_detection\data\raw\images
-SPLIT_ROLE,train,ROLE_COUNT_MISMATCH,"manifest=600, images=0, txts=0"
-SPLIT_ROLE,val,ROLE_COUNT_MISMATCH,"manifest=100, images=0, txts=0"
-SPLIT_ROLE,test,ROLE_COUNT_MISMATCH,"manifest=100, images=0, txts=0"
-SPLIT_ROLE,bridge_holdout,ROLE_COUNT_MISMATCH,"manifest=100, images=0, txts=0"
+RAW_VS_FINAL,RAW,RAW_EMPTY,/home/user1/exe_01/4_Vison_split/subject8_kimchi_detection/data/raw/images
