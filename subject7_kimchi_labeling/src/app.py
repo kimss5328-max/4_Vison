@@ -32,7 +32,7 @@ class LabelingApp(LayoutMixin, FolderMixin, NavigationMixin, ViewMixin,
         self.idx = -1
         self.annotations = {}      # 이미지 경로 → 박스 리스트
         self.notes = {}            # 이미지 경로 → 이슈 노트 칸 내용
-        self.note_base = {}        # 이미지 경로 → 불러온 이슈 기록 (이 뒤에 덧붙인 글자만 새 이슈)
+        self.note_base = {}        # 이미지 경로 → 불러온 최신 이슈 기록 (칸 내용이 이와 다르면 칸 전체가 새 기록)
         self.done = set()          # 저장된 이미지 (목록 초록색 표시)
         self.baseline = {}         # 이미지 경로 → 불러온 박스 기준 (검수자 수정 내용 기록용)
         self.cur_flow = None       # 현재 이미지의 단계 흐름 (workflow.Flow)

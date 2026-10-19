@@ -316,7 +316,7 @@ class StorageMixin:
 
     @staticmethod
     def issue_log(path):
-        """이슈 기록 파일 → 각 기록의 [이슈 내용] 부분만 차례대로 이은 글 (없으면 빈 문자열)
+        """이슈 기록 파일 → 마지막 기록의 [이슈 내용] 부분 (없으면 빈 문자열) — 이전 기록은 파일에 남음
            기록 형식: '===== 시각 …' 머리줄 … '[이슈 내용]' 다음 줄부터 다음 '=====' 전까지가 내용"""
         if not os.path.exists(path):
             return ""
@@ -333,17 +333,17 @@ class StorageMixin:
                     cur.append(line)
         if cur is not None:
             contents.append("\n".join(cur).strip())
-        text = "\n".join(c for c in contents if c)
-        return text + "\n" if text else ""
+        contents = [c for c in contents if c]
+        return contents[-1] + "\n" if contents else ""
 
     def new_issue_text(self, p):
-        """이슈 노트 칸에서 이번에 새로 적은 부분 — 불러온 기록 뒤에 덧붙인 글자
-           (불러온 기록을 고쳤으면 칸 전체를 새 내용으로 봄). 공백·줄바꿈만 있으면 빈 문자열"""
-        text = self.notes.get(p, "")
-        base = self.note_base.get(p, "")
-        if base and text.startswith(base):
-            text = text[len(base):]
-        return text.strip()
+        """이슈 노트 칸 내용이 불러온 기록과 다르면 칸 전체를 새 기록으로 (같으면 빈 문자열)
+           화면에는 최신 기록만 보이므로, 덧붙인 경우에도 앞 내용까지 한 기록으로 저장"""
+        text = self.notes.get(p, "").strip()
+        base = self.note_base.get(p, "").strip()
+        if text == base:
+            return ""
+        return text
 
     def _saved_label(self, p):
         """저장본 라벨 경로 — 현재 단계 폴더, 아직 저장 안 했으면 원본 labels"""
@@ -371,7 +371,7 @@ class StorageMixin:
             self._tag_like_baseline(p, boxes)
         else:
             boxes = base
-        log = self.issue_log(paths["issue_note"])     # 지금까지의 이슈 기록 → 이슈 노트 칸에 그대로
+        log = self.issue_log(paths["issue_note"])     # 최신 이슈 기록 → 이슈 노트 칸 (이전 기록은 파일에 남음)
         self.note_base[p] = log
         return boxes, log
 
