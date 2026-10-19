@@ -66,3 +66,5 @@ python scripts/06_evaluate.py
 
 * 기업 제공 원본 데이터셋(`.jpg`, `.png`, `.txt`), 학습 가중치(`.pt`), 시각화 결과물은 보안 및 NDA 규정에 따라 Git 추적에서 제외됩니다.
 * 각 폴더 내 `manifests/` 대장 및 `reports/` 문서에는 수치, 통계, 분석 내용만 기록됩니다.
+## 5. 시연 동영상
+https://www.youtube.com/watch?v=P24SH9Q0_8k
