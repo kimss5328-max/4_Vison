@@ -56,3 +56,6 @@ reports/*
 !reports/logs/build_split/*.md
 !reports/figures/
 !reports/figures/*.png
+
+# 학습·평가 결과 (weight · 예측 이미지 포함, NDA)
+runs/
