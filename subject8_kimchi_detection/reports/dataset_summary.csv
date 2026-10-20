@@ -1,65 +1,35 @@
 ﻿Dataset,Category,Metric,Value
-Dataset 1,Basic,Expected Basis,manifest
-Dataset 1,Basic,Expected Count,500
-Dataset 1,Basic,Image Files,390
-Dataset 1,Basic,TXT Files,390
-Dataset 1,Basic,Unique Images,390
-Dataset 1,Basic,Unique TXT,390
-Dataset 1,Basic,Quantity Status,FAIL
-Dataset 1,Quality,Duplicate Stem (IMG),0
-Dataset 1,Quality,Duplicate Stem (TXT),0
-Dataset 1,Quality,Pair Error,0
-Dataset 1,Quality,Empty Label,0
-Dataset 1,BBox Stats,Total BBoxes,2090
-Dataset 1,BBox Stats,Avg per Image,5.36
-Dataset 1,BBox Stats,Max per Image,9
-Dataset 1,BBox Stats,Min per Image,4
-Dataset 1,Class 4,Exists,NO
-Dataset 1,Class 4,BBoxes,0
-Dataset 1,Class 4,Images,0
-Dataset 1,Class Distribution,Class 0,290
-Dataset 1,Class Distribution,Class 1,877
-Dataset 1,Class Distribution,Class 2,452
-Dataset 1,Class Distribution,Class 3,49
-Dataset 1,Class Distribution,Class 4,0
-Dataset 1,Class Distribution,Class 5,222
-Dataset 1,Class Distribution,Class 6,200
-Dataset 1,Original Split,train,390
-Dataset 1,Scene Type,kimchi_with_target,385
-Dataset 1,Scene Type,other_review,5
-Dataset 1,Folder Split,train,390
-Dataset 2,Basic,Expected Basis,manifest
-Dataset 2,Basic,Expected Count,400
-Dataset 2,Basic,Image Files,339
-Dataset 2,Basic,TXT Files,339
-Dataset 2,Basic,Unique Images,339
-Dataset 2,Basic,Unique TXT,339
-Dataset 2,Basic,Quantity Status,FAIL
-Dataset 2,Quality,Duplicate Stem (IMG),0
-Dataset 2,Quality,Duplicate Stem (TXT),0
-Dataset 2,Quality,Pair Error,0
-Dataset 2,Quality,Empty Label,0
-Dataset 2,BBox Stats,Total BBoxes,1479
-Dataset 2,BBox Stats,Avg per Image,4.36
-Dataset 2,BBox Stats,Max per Image,10
-Dataset 2,BBox Stats,Min per Image,1
-Dataset 2,Class 4,Exists,NO
-Dataset 2,Class 4,BBoxes,0
-Dataset 2,Class 4,Images,0
-Dataset 2,Class Distribution,Class 0,351
-Dataset 2,Class Distribution,Class 1,453
-Dataset 2,Class Distribution,Class 2,307
-Dataset 2,Class Distribution,Class 3,257
-Dataset 2,Class Distribution,Class 4,0
-Dataset 2,Class Distribution,Class 5,61
-Dataset 2,Class Distribution,Class 6,50
-Dataset 2,Original Split,train,186
-Dataset 2,Original Split,validation,153
-Dataset 2,Scene Type,kimchi_with_target,202
-Dataset 2,Scene Type,object_only,134
-Dataset 2,Scene Type,other_review,3
-Dataset 2,Folder Split,train,186
-Dataset 2,Folder Split,validation,153
+subject7_final,Basic,Expected Basis,manifest
+subject7_final,Basic,Expected Count,900
+subject7_final,Basic,Image Files,900
+subject7_final,Basic,TXT Files,900
+subject7_final,Basic,Unique Images,900
+subject7_final,Basic,Unique TXT,900
+subject7_final,Basic,Quantity Status,PASS
+subject7_final,Quality,Duplicate Stem (IMG),0
+subject7_final,Quality,Duplicate Stem (TXT),0
+subject7_final,Quality,Pair Error,0
+subject7_final,Quality,Empty Label,0
+subject7_final,BBox Stats,Total BBoxes,4433
+subject7_final,BBox Stats,Avg per Image,4.93
+subject7_final,BBox Stats,Max per Image,10
+subject7_final,BBox Stats,Min per Image,1
+subject7_final,Class 4,Exists,YES
+subject7_final,Class 4,BBoxes,283
+subject7_final,Class 4,Images,152
+subject7_final,Class Distribution,Class 0,745
+subject7_final,Class Distribution,Class 1,1581
+subject7_final,Class Distribution,Class 2,880
+subject7_final,Class Distribution,Class 3,378
+subject7_final,Class Distribution,Class 4,283
+subject7_final,Class Distribution,Class 5,316
+subject7_final,Class Distribution,Class 6,250
+subject7_final,Original Split,train,720
+subject7_final,Original Split,validation,180
+subject7_final,Scene Type,kimchi_with_target,587
+subject7_final,Scene Type,object_only,138
+subject7_final,Scene Type,other_review,175
+subject7_final,Folder Split,(top),900
 ALL,Split Role,train,600
 ALL,Split Role,val,100
 ALL,Split Role,test,100

@@ -29,7 +29,6 @@ presentation/**
 !presentation/.gitkeep
 
 # 보고서 산출물 규칙
-reports/figures/
 reports/validation_report.csv
 reports/audit_issue.csv
 reports/bbox_per_image.csv
@@ -40,12 +39,23 @@ reports/*
 !reports/failure_candidates.csv
 !reports/dataset_summary.csv
 !reports/smoke_test.md
+!reports/failure_analysis.csv
+!reports/failure_hypothesis.md
+!reports/improvement_experiment.md
+!reports/experiment_log.csv
+!reports/baseline_vs_improved.md
+!reports/final_model_selection.md
+!reports/final_metrics.csv
+!reports/auto_label_review.csv
+!reports/acceptance_test.md
 !reports/subject08_handoff.md
 !reports/assets/
 !reports/assets/*.png
 !reports/logs/
 !reports/logs/build_split/
 !reports/logs/build_split/*.md
+!reports/figures/
+!reports/figures/*.png
 
 # OS · 기타 모델 형식 (22.2.1)
 desktop.ini

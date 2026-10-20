@@ -1,6 +1,6 @@
 # Vision 기반 조각김치 이물검출 모듈 (YOLO11)
+> 최종 갱신: 2026-10-20
 
-> 최종 갱신: 2026-10-19 
 ## 1. 프로젝트 목적
 교과 7에서 검수 및 확정한 조각김치 이미지 900장과 YOLO TXT 900개를 활용하여, YOLO 기반 조각김치 이물검출 모델을 학습하고 평가하는 프로젝트입니다.
 
@@ -50,23 +50,26 @@
 | PyTorch     | 2.14.1+cu130            |
 | GPU         | NVIDIA RTX 3060 12GB    |
 
-- Baseline 학습 · Frozen Test · Detection 은 1 PC, EXP001 학습은 2 PC (`DESKTOP-007V3ON`) 에서 실행 — 두 PC 모두 위와 같은 버전으로 설치 확인 (`reports/improvement_experiment.md`)
+- 학습 · 평가 · 추론은 모두 위와 같은 사양 · 같은 패키지 버전에서 실행했습니다 (`requirements.txt`).
 
 ### 5-2. 패키지 설치
 ```bash
 cd subject8_kimchi_detection
+pip install torch==2.14.1 torchvision==0.29.1 --index-url https://download.pytorch.org/whl/cu130
 pip install -r requirements.txt
+python -c "import ultralytics, torch, numpy; print(ultralytics.__version__, torch.__version__, numpy.__version__, torch.cuda.is_available())"
+# 8.4.175 2.14.1+cu130 2.2.6 True
 ```
+- PyTorch 는 GPU(CUDA 13.0) 빌드를 쓰기 위해 먼저 따로 설치합니다. `requirements.txt` 만으로 설치하면 다른 빌드가 설치될 수 있습니다.
 
 | 패키지 (`requirements.txt`) | 버전 |
 |---|---|
 | ultralytics | 8.4.175 |
-| ultralytics-platform | 0.1.88 |
 | ultralytics-thop | 2.2.2 |
 | torch | 2.14.1 |
 | torchvision | 0.29.1 |
 | opencv-python | 5.0.0.93 |
-| numpy | 2.5.4 |
+| numpy | 2.2.6 |
 | PyYAML | 6.0.3 |
 
 *(교과 7 라벨링 툴 실행 환경은 `subject7_kimchi_labeling/requirements.txt` 참고)*
@@ -93,19 +96,23 @@ subject8_kimchi_detection/
 ├── src/                               # 재사용 핵심 모듈
 │   ├── __init__.py
 │   ├── dataset_audit.py               # 데이터 정합성 감사 모듈
-│   └── train_detector.py              # YOLO11 학습 인터페이스 함수 (17.2)
+│   ├── train_detector.py              # YOLO11 학습 인터페이스 함수 (17.2)
+│   └── failure_analyzer.py            # Failure Analysis 모듈 자리 (분석 기록은 reports/failure_analysis.csv 수작업)
 │
 ├── scripts/                           # 순서별 실행 스크립트
 │   ├── 03_build_split.py              # 데이터 분할 · Split Freeze
-│   └── 06_train_baseline.py           # Baseline 정규 학습 스크립트 (17.3)
+│   ├── 06_train_baseline.py           # Baseline 정규 학습 스크립트 (17.3)
+│   ├── 11_evaluate_final_test.py      # Frozen Test 1회 평가 (21.2)
+│   └── 12_auto_label_candidates.py    # Auto Label 후보 생성 (21.4)
 │
 ├── models/                            # (GitHub 미포함)
 │   ├── baseline/                      # baseline_best.pt
 │   ├── improved/                      # exp001_best.pt
 │   └── final/                         # final_best.pt
 │
-├── runs/
-│   └── baseline_v1/                   # Baseline 학습 산출물 (results.csv)
+├── runs/                              # (GitHub 미포함) 학습 · 평가 산출물
+│   ├── baseline_v1/                   # Baseline 학습 (results.csv · weights)
+│   └── final_test/                    # Frozen Test 평가 (Confusion Matrix · PR Curve)
 │
 ├── reports/                           # 산출물 보고서
 │   ├── dataset_summary.csv            # 데이터 감사 요약
@@ -123,18 +130,20 @@ subject8_kimchi_detection/
 │   ├── auto_label_review.csv          # Auto Label 검수 집계
 │   ├── acceptance_test.md             # Acceptance Test
 │   ├── subject08_handoff.md           # 교과 7 → 8 인수 기록
-│   ├── figures/                       # 학습곡선 · Confusion Matrix · PR Curve
+│   ├── figures/                       # 학습곡선 · Confusion Matrix · PR Curve (그래프만)
+│   ├── assets/                        # 문서용 그래프
 │   └── logs/build_split/              # 분할 실행 기록
 │
-├── demo/                              # (GitHub 미포함)
-│   ├── prediction_images/             # Detection 결과 이미지
-│   ├── auto_label/                    # candidate_labels/ · reviewed_labels/
-│   └── failure_analysis/              # 대표 실패 이미지
+├── demo/                              # (GitHub 미포함 — 원본 이미지 포함)
+│   ├── prediction_images/             # Detection 결과 이미지 (8장)
+│   ├── auto_label/                    # candidate_labels/ · reviewed_labels/ (각 8개)
+│   └── failure_analysis/              # 대표 실패 이미지 (29장)
 │
 ├── docs/
 │   ├── split_policy.md                # 층화 분할 정책 및 Freeze 사유
 │   ├── class_guide.md · bbox_guide.md # Class · BBox 판단 기준 (교과 7)
-│   └── 교과8-Handoff.md                # 교과 7 인계 문서 사본
+│   ├── 교과8-Handoff.md                # 교과 7 인계 문서 사본
+│   └── 교과14-Handoff.md               # 교과 14 인계 문서
 │
 ├── presentation/                      # 발표 자료
 │
@@ -143,7 +152,7 @@ subject8_kimchi_detection/
     ├── yolo/                          # YOLO images/labels (train, val, test)
     ├── bridge_holdout/                # 교과 14 보존 데이터
     ├── smoke/                         # Smoke Test 표본 (50장)
-    └── new_unlabeled/                 # 라벨 없는 새 이미지
+    └── new_unlabeled/                 # 라벨 없는 새 이미지 (Auto Label 대상 8장)
 ```
 
 ### 5-4. 순서별 실행 명령어
@@ -160,7 +169,7 @@ subject8_kimchi_detection/
    python scripts/03_build_split.py --include all --counts 600 100 100 100
    ```
 
-3. **Smoke Test 표본 만들기**
+3. **Smoke Test 표본 만들기** (기록용 — 이미 만들어 두었으므로 **다시 실행하지 않음**. 다시 실행하면 Smoke 표본이 새로 만들어짐)
    ```bash
    python scripts/03_build_split.py --limit 50 --apply
    # data/smoke + configs/smoke_dataset.yaml
@@ -175,12 +184,29 @@ subject8_kimchi_detection/
    python -u scripts/06_train_baseline.py 2>&1 | tee runs/baseline_v1.log
    ```
 
-5. **Validation 평가 · Final Model 추론** (Ultralytics CLI)
+5. **Validation 평가** (Ultralytics CLI)
    ```bash
-   yolo detect val model=models/baseline/baseline_best.pt data=configs/dataset.yaml imgsz=1920
+   yolo detect val model=models/baseline/baseline_best.pt data=configs/dataset.yaml imgsz=1920 batch=3 plots=True project=$PWD/runs name=baseline_val
+   ```
+   - `plots=True` 가 없으면 Confusion Matrix 가 집계되지 않음
+   - `project=` 를 절대경로로 주지 않으면 Ultralytics 전역 설정 위치로 저장될 수 있음
+
+6. **Frozen Test** (Final Model 선택 후 **1회만** — 이미 실행 완료, 다시 실행하지 않음)
+   ```bash
+   python scripts/11_evaluate_final_test.py
+   # runs/final_test/ → reports/final_metrics.csv · reports/figures/final_test_*.png
+   ```
+
+7. **Detection · Auto Label 후보 생성**
+   ```bash
+   python scripts/12_auto_label_candidates.py
+   # data/new_unlabeled → runs/auto_label_candidates/ (박스 그린 이미지 · labels/*.txt)
+   # → demo/prediction_images/ · demo/auto_label/candidate_labels/ 로 복사
+
    yolo predict model=models/final/final_best.pt source=<이미지 폴더> imgsz=1920 conf=0.25 save=True
    ```
    - 추론 조건은 교과 8 Detection · Auto Label 과 같음 (imgsz 1920 · conf 0.25)
+   - 사람 검수는 교과 7 라벨링 프로그램(`subject7_kimchi_labeling/main.py`)에서 후보 TXT 사본 폴더를 열어 진행
 
 ## 6. Dataset Split
 - **전체 데이터:** 900장
@@ -196,7 +222,7 @@ subject8_kimchi_detection/
 | Bridge Holdout | 100 | 약 11% | 별도 보관하는 독립 평가용 데이터 (교과 14용, 교과 8에서 미사용) |
 
 - **분할 방식:** 대표 클래스 기준 층화 분할 (이미지 안에서 가장 드문 클래스를 대표 클래스로 두고 클래스 비율 유지) → 모든 Class 가 Train 에 63~67%, Seed 42 고정
-- **Data Leakage 점검:** 동일 파일 중복 0건 · raw ↔ final 누락 · 추가 0건
+- **Data Leakage 점검:** 900장 파일 · 픽셀 SHA-256 중복 0건 · Smoke 표본은 본 분할 Train 에서만 추출(Test · Holdout 과 겹침 0장) · raw ↔ final 비교는 생략 (사유: `docs/split_policy.md`) · `capture_group`(촬영 묶음) 누수는 미확인
 
 **Class · 박스 (이미지) 분포**
 
@@ -245,6 +271,8 @@ python3 scripts/03_build_split.py --include all --counts 600 100 100 100 --apply
 | `full_multi_1920_e100`<br>(==baseline_v1==) | 1920 · 100 epoch ·  batch auto(-1) | train 600 / val 100 | 0.926     | ==0.849== | 0.889 | ==0.780== |
 
 - **해상도 비교 (Smoke Dataset 50장 · 90 epoch · Val 10장):** 960 · 1088 · 1440 · 1920 · 2432 를 같은 조건으로 비교 → 1920 이 박스 위치 정확도(단일 클래스 Smoke · mAP50-95 0.677)와 놓침 수에서 가장 좋음 →  Baseline 해상도로 채택 (상세: `reports/smoke_test.md`)
+- **한계:** 위 해상도 비교는 Smoke 표본 v4 이전(구 표본에 Test 3장 · Holdout 3장 포함)으로 실행했습니다. 1920 결정은 전체 데이터(val 만 사용) 비교(단일 클래스 640 0.684 → 1920 0.832)로도 확인했습니다.
+- 위 표의 640 · 30 epoch 와 1920 · 100 epoch 는 epoch 수가 달라 해상도만의 비교가 아닙니다 (참고용).
 
 ## 8. Baseline (`baseline_v1`)
 - **조건 확정 근거:** Smoke Test 해상도 비교에서 1920 이 가장 좋음 · 원본 4848×2704 를 640 으로 줄이면(약 1/7.6) 작은 이물 경계가 흐려짐 · 참고 실행 7클래스 640 · 30 epoch 는 mAP50-95: 0.601
@@ -259,11 +287,12 @@ python3 scripts/03_build_split.py --include all --counts 600 100 100 100 --apply
 | Seed                        | 학습 0 · 분할 42                                                         |
 | Optimizer(가중치 방향) · LR(학습률) | auto → AdamW · lr 0.000909 · warmup 3 epoch                          |
 | cache                       | ram                                                                  |
-| 학습 시간                       | 약 53분 (2026-10-13 11:14 ~ 12:07)                                     |
+| 학습 시간                       | 약 53분 (2026-10-13 CLI 학습 기준)                                     |
 
+- **재학습:** 2026-10-14 `scripts/06_train_baseline.py` 로 같은 조건 재학습 → `results.csv` 100행 · val 지표 모두 이전 CLI 학습과 동일. 현재 Weight (`baseline_best.pt`, sha256 `c90f9767442e`) 는 이 재학습 결과
 - **상세 조건:** `reports/baseline_training_condition.md`
 
-**결과 (Validation 100장 · 박스 501개 · best epoch 90)**
+**결과 (Validation 100장 · 박스 501개)**
 
 | 클래스          | 이미지 | 박스  | Precision | Recall        | mAP50         | mAP50-95      |
 | ------------ | --- | --- | --------- | ------------- | ------------- | ------------- |
@@ -276,6 +305,7 @@ python3 scripts/03_build_split.py --include all --counts 600 100 100 100 --apply
 | 5 병해·갈변      | 16  | 31  | 0.739     | ==**0.367**== | ==**0.427**== | ==**0.338**== |
 | 6 파·고추       | 6   | 30  | 1.000     | 0.933         | 0.972         | 0.830         |
 
+- 위 표는 학습 종료 후 `best.pt` 로 검증한 값입니다 (`reports/baseline_metrics.csv`). `results.csv` 의 best epoch 90 행은 학습 중 검증값이라 P 0.932 · R 0.845 로 조금 다릅니다.
 - **상세 지표:** `reports/baseline_metrics.csv`
 
 ## 9. Failure Analysis (Validation 기준)
@@ -333,6 +363,7 @@ python3 scripts/03_build_split.py --include all --counts 600 100 100 100 --apply
 | 고무장갑 → 플라스틱                           | 11       | 15      | ==🔴EXP001 악화== |
 | 나뭇가지류 Recall                          | 0.897    | 0.825   | ==🔴EXP001 악화== |
 
+- Baseline 칸은 단독 val(18 / 762 / 10) 기준, 9절 혼동행렬 그림은 학습 종료 시 검증(17 / 764 / 10) 기준입니다.
 - **결론:** 색상 Augmentation 을 끄는 것만으로는 병해·갈변 미검출이 해결되지 않음 → Label 가설의 가능성이 커짐
 - 개선 실험이 Baseline 을 넘지 못한 것도 결과로 기록 (`reports/experiment_log.csv`)
 - **상세:** `reports/improvement_experiment.md` · `reports/baseline_vs_improved.md`
@@ -369,12 +400,12 @@ python3 scripts/03_build_split.py --include all --counts 600 100 100 100 --apply
 
 - Validation(0.780) 대비 **Frozen Test mAP50-95 : 0.808** 로 일반화 성능 유지
 - 병해·갈변은 Test 에서도 Recall 0.636 으로 가장 낮음
-- **상세 지표:** `reports/final_metrics.csv`
+- **상세 지표:** `reports/final_metrics.csv` · 그래프 `reports/figures/final_test_confusion_matrix.png` · `final_test_pr_curve.png`
 
 ## 13. Detection / Auto Label
 - **대상 이미지:** 학습에 쓰지 않은 Frozen Test 8장 (seed 42 무작위 추출 · Frozen Test 평가가 끝난 뒤 사용)
 - **Detection:** Final Model (`final_best.pt`) · imgsz 1920 · conf 0.25 → `demo/prediction_images/*.jpg` 8장 (BBox · Class · Confidence 표시)
-- **실행:** `scripts/12_auto_label_candidates.py` ==확인필요==
+- **실행:** `scripts/12_auto_label_candidates.py` (5-4 7단계)
 - **Auto Label 흐름:** 후보 라벨 생성 → `demo/auto_label/candidate_labels/*.txt` 8개 → 교과 7 라벨링 도구(`subject7_kimchi_labeling/data/auto_label_review/` 사본)에서 사람 검수 → `demo/auto_label/reviewed_labels/*.txt` 8개 · `reports/auto_label_review.csv`
 
 **Auto Label 검수 결과**
@@ -385,22 +416,23 @@ python3 scripts/03_build_split.py --include all --counts 600 100 100 100 --apply
 
 - 후보 36개 중 34개(약 94%)는 그대로 승인, 2개만 사람이 고침
 - 검수 중 1장 저장 누락 → 다시 열어 저장 후 재확인 (14절 FAIL-01)
+- 삭제 수는 교과 7 이력 csv 가 아니라 후보 TXT 와 검수 TXT 의 줄 수 비교로 집계 (이력 csv 에 삭제 박스가 남지 않은 사례가 있어서)
 - **원칙:** Auto Label 결과는 사람 검수 전에는 정답으로 확정하지 않음
 
 ## 14. Acceptance Test
-- **상세:** `acceptance_test.md` (교과 8 수행가이드 22.7 기준 · FAIL 은 수정 후 Retest 까지 기록)
+- **상세:** `reports/acceptance_test.md` (교과 8 수행가이드 22.7 기준 · FAIL 은 수정 후 Retest 까지 기록)
 
 ### 최종 판정
 
-| 구분         | 항목 수   | PASS                        | 확인 필요    |
-| ---------- | ------ | --------------------------- | -------- |
-| Dataset    | 7      | 7                           | 0        |
-| Model      | 5      | 5                           | 0        |
-| Evaluation | 8      | 8                           | 0        |
-| Inference  | 4      | 4                           | 0        |
-| Auto Label | 5      | 5 (A5 는 FAIL → Retest PASS) | 0        |
-| 재실행        | 2      | 0                           | ==확인필요== |
-| **합계**     | **31** | **29**                      | **2**    |
+| 구분         | 항목 수   | PASS                        | 확인 필요 |
+| ---------- | ------ | --------------------------- | ----- |
+| Dataset    | 7      | 7                           | 0     |
+| Model      | 5      | 5                           | 0     |
+| Evaluation | 8      | 8                           | 0     |
+| Inference  | 4      | 4                           | 0     |
+| Auto Label | 5      | 5 (A5 는 FAIL → Retest PASS) | 0     |
+| 재실행        | 2      | 2                           | 0     |
+| **합계**     | **31** | **31**                      | **0** |
 
 **FAIL 기록 (모두 수정 · Retest PASS)**
 
@@ -411,12 +443,34 @@ python3 scripts/03_build_split.py --include all --counts 600 100 100 100 --apply
 | FAIL-03 | Confusion Matrix 값이 모두 0        | `plots=False` 로 실행 | `plots=True` 로 수정                                |
 
 - Critical Error 0건 · 미해결 FAIL 0건
-- **최종 판정: ACCEPTED** 
+- **최종 판정: ACCEPTED**
+
 ## 15. 알려진 한계
-- 병해·갈변 검출이 가장 약함 — Validation Recall 0.367, Frozen Test Recall 0.636
-- 개선 실험 EXP001은 Baseline을 넘지 못함 (`baseline_vs_improved.md`)
+- 병해·갈변 검출이 가장 약함 — Validation Recall 0.367, Frozen Test Recall 0.636. 색상 Augmentation 은 원인이 아닌 것으로 확인 → Label(갈변 범위 · 판정 기준) 가설이 남음
+- 개선 실험 EXP001 은 Baseline 을 넘지 못함 (`reports/baseline_vs_improved.md`)
+- 정상 김치(검출 대상 없음) 이미지가 데이터에 없어 정상 김치에서의 오검출(FP)은 확인하지 못함
+- `capture_group`(촬영 묶음) 기준 누수 점검은 미완료 — 약 30초 간격 연속 촬영 이미지가 서로 다른 역할에 섞인 사례 있음
+- 모든 실험은 학습 1회 결과 — ±0.01~0.03 차이는 "변화 없음"으로 판단
+- Auto Label 검수는 8장(후보 36개) 표본이라 승인률 94% 를 일반화하기 어려움
 
 ## 16. 교과 14 Handoff
-- 상세는 `handoff_subject14.md` 참고
-- **전달 항목:** Final Model 가중치 (`final_best.pt`) · Final Model 선택 근거 · Frozen Test 결과 · Bridge Holdout 100장 (미사용 상태 유지) · Prediction 이미지 8장 · Auto Label 검수 결과 (8장 · 후보 36개) · `acceptance_test.md` (ACCEPTED)
-- **다음 교과 연계:** 교과 14 에서 웹/앱 서비스(API) 백엔드 파이프라인에 모델을 연결
+- 상세는 `docs/교과14-Handoff.md` 참고
+- **전달 항목:** Dataset Version (`kimchi_v1`) · Train / Validation / Frozen Test 수량 · Bridge Holdout 100장 (위치 · 교과 8 미사용 확인) · Final Model 가중치 (`final_best.pt`) · Final Model 선택 근거 · Frozen Test 결과 · 대표 FP / FN · Detection · Auto Label 결과 위치 · `reports/acceptance_test.md` (ACCEPTED)
+- **다음 교과 연계:** 교과 14 제조 제품검사 프로젝트에서 **Bridge Holdout 100장으로 교과 8 Final Model 을 다시 확인**하는 것부터 이어감 (수행가이드 22.7.1)
+
+## 17. 데이터 보안 주의사항
+- 이번 프로젝트 데이터는 **NDA 가 적용되는 교육용 기업 데이터**입니다 (수행가이드 22.2).
+- 다음 파일은 GitHub 에 올리지 않습니다 (`.gitignore` 로 제외)
+
+| 제외 대상 | 위치 |
+|---|---|
+| 원본 이미지 · YOLO 라벨 TXT | `data/` |
+| 모델 가중치 (`*.pt`) | `models/` · `runs/` |
+| 학습 · 평가 산출물 (예측 박스를 그린 원본 이미지 포함) | `runs/` |
+| Detection · Auto Label · 실패 분석 이미지와 라벨 | `demo/` |
+| 시연 영상 | `demo/*.mp4` |
+
+- `reports/figures/` 에는 **그래프만** 둡니다 (학습곡선 · Confusion Matrix · PR Curve). `val_batch*.jpg` 처럼 원본 이미지가 들어간 파일은 넣지 않습니다.
+- 커밋 전에는 반드시 `git status` 로 추가되는 파일을 확인하고, `git add .` · `git add -A` 대신 파일을 지정해서 추가합니다.
+- 데이터 · 가중치는 팀 내부 드라이브로만 전달하며, 공유 범위는 팀원 계정으로 제한합니다 ("링크가 있는 모든 사용자" 공유 금지).
+- SSH 키 · 인증 파일은 저장소에 올리지 않습니다.

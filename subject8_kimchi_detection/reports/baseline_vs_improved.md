@@ -1,74 +1,100 @@
-# 20.6 Baseline vs. Improved 모델 비교 보고서 (`baseline_vs_improved.md`)
+# Baseline vs Improved — EXP001 (색상 Augmentation 끄기)
 
-## 1. 개요 (Overview)
-본 문서는 `baseline_v1` 모델의 성능 평가 결과와 이를 바탕으로 개선을 진행한 `improved_v1` 모델의 결과 비교 분석을 담고 있습니다. 주요 객체 탐지/분할(Detection & Segmentation) 지표 분석을 통해 모델 개선 효과를 검증하고, 향후 최적화 방향성을 제시합니다.
-
----
-
-## 2. Baseline 모델 학습 설정 및 성과 요약 (`baseline_v1`)
-
-### 2.1 모델 및 학습 환경 설정
-- **Task**: Object Detection & Instance Segmentation
-- **Baseline Directory**: `baseline_v1/`
-- **주요 학습 파라미터 (`args.yaml` 기반)**:
-  * **Image Size**: Standard Resolution
-  * **Optimizer**: Auto / AdamW / SGD
-  * **Augmentation**: Mosaic, Mixup, Random Flip 기본 적용
-
-### 2.2 Baseline 성능 결과
-- **PR 곡선 (`BoxPR_curve.png`)**: 최적의 Confidence Threshold 구간 확인 및 Precision-Recall 간의 트레이드오프 분석 완료.
-- **혼동 행렬 (`confusion_matrix.png`, `confusion_matrix_normalized.png`)**:
-  * 배경(Background)에 대한 오탐(False Positive) 및 미탐(False Negative) 비율 파악.
-  * 일부 유사 객체 클래스 간 상호 오분류 발생 확인.
-- **손실 함수 추이 (`results.png`)**: Box, Class, DFL 손실 함수가 안정적으로 감소하여 학습이 과적합 없이 진행됨을 검증.
+- 기준: 교과8 수행가이드 20.6 (같은 Validation에서 비교 · 나빠진 값도 기록)
+- 근거 문서: `reports/failure_hypothesis.md` (v3) · `reports/improvement_experiment.md`
+- 상태: EXP001 결과 기준. EXP002 · EXP003은 Frozen Test 이후 실행이라 Final 선택에 쓰지 않는 참고 실험 (6절)
 
 ---
 
-## 3. Improved 모델 주요 개선 사항 (`improved_v1`)
+## 1. 비교 조건
 
-Baseline 분석 결과를 바탕으로 다음과 같은 개선 전략을 적용하였습니다.
+| 항목 | Baseline (`baseline_v1`) | EXP001 (`exp001`) |
+|---|---|---|
+| 변경 변수 | — | **색상 Augmentation** `hsv_h` 0.015 → 0 · `hsv_s` 0.7 → 0 · `hsv_v` 0.4 → 0 |
+| 시작 Weight | `yolo11n.pt` | `yolo11n.pt` (sha256 `0ebbc80d4a76`) |
+| Dataset Version | kimchi_v1 (train `57f0bf5121e4` / val `ab6cc7f98da7`) | 같음 (해시 확인) |
+| 학습 조건 | imgsz 1920 · 100 epoch · batch 3 · patience 30 · cache ram · seed 0 · deterministic | 같음 |
+| 평가 | Validation 100장 · 501 instances | 같음 |
+| 환경 | RTX 3060 12GB · Ultralytics 8.4.175 · torch 2.14.1+cu130 · Python 3.10.12 | 같음 |
+| 학습 시간 | 약 52분 (100 epoch 완료) | 약 52분 (3,116초 · 100 epoch 완료) |
+| 최고 epoch | 90 (`runs/baseline_v1/results.csv`) | 78 (mAP50-95 0.775) |
 
-1. **데이터 증강 및 불균형 개선 (Data Augmentation & Rebalancing)**
-   * 혼동 행렬에서 오탐률이 높았던 클래스를 대상으로 클래스별 가중치 적용 및 Targeted Augmentation 기법 추가.
-   * Background Misclassification 감소를 위한 부정 샘플(Hard Negative Mining) 보완.
-
-2. **하이퍼파라미터 및 모델 구조 최적화 (Hyperparameter & Architecture)**
-   * 학습률 스케줄러(Learning Rate Scheduler) 및 Warmup Epoch 조정으로 초반 convergence 안정화.
-   * NMS Threshold 및 Confidence Threshold 최적화를 통해 Precision 및 Recall의 동시 향상 도모.
-
----
-
-## 4. Baseline vs. Improved 정량적 성능 비교
-
-| 평가 항목 (Metric) | Baseline (`baseline_v1`) | Improved (`improved_v1`) | 변동폭 (Delta) | 비고 |
-| :--- | :---: | :---: | :---: | :--- |
-| **Precision (P)** | 0.821 (82.1%) | **0.885 (88.5%)** | **+0.064 (+6.4%p)** | 오탐율 감소 |
-| **Recall (R)** | 0.785 (78.5%) | **0.842 (84.2%)** | **+0.057 (+5.7%p)** | 미탐율 감소 |
-| **mAP@50** | 0.834 (83.4%) | **0.891 (89.1%)** | **+0.057 (+5.7%p)** | IoU 0.5 기준 정밀도 향상 |
-| **mAP@50-95** | 0.612 (61.2%) | **0.675 (67.5%)** | **+0.063 (+6.3%p)** | 종합 객체 탐지/분할 성능 향상 |
+- 아래 수치는 두 실험 모두 **학습 종료 시 검증값**(best.pt)입니다.
 
 ---
 
-## 5. 정성적 및 시각화 결과 분석 (Visual & Error Analysis)
+## 2. 전체 지표
 
-1. **혼동 행렬(Confusion Matrix) 비교 분석**:
-   * `baseline_v1` 대비 `improved_v1`에서 배경(Background)으로 잘못 분류되던 False Negative 비율 대폭 감소.
-   * 유사 클래스 간의 교차 오분류 현상이 완화되어 각 클래스별 대각선(Correct Classification) 값이 상향됨.
+| 지표 | Baseline | EXP001 | 차이 |
+|---|---|---|---|
+| Precision | 0.926 | 0.937 | +0.011 |
+| Recall | 0.849 | 0.824 | **−0.025** |
+| mAP50 | 0.889 | 0.884 | −0.005 |
+| mAP50-95 | 0.780 | 0.775 | −0.005 |
 
-2. **PR Curve 변화 분석**:
-   * PR 곡선 하단 면적(mAP)이 전반적으로 확장되어 다양한 Confidence 구간에서 안정적인 검출 성능을 유지함.
-
-3. **Loss 수렴 비교**:
-   * Validation Loss의 최소점(Minimum Point)이 더 낮은 수준에서 형성되었으며, 학습 후반부 안정성이 향상됨.
+- 전체적으로 **조금 나빠졌습니다**. Precision만 올랐고 Recall이 가장 크게 떨어졌습니다.
 
 ---
 
-## 6. 최종 결론 및 향후 과제
+## 3. 클래스별 지표
 
-1. **결론**:
-   * `improved_v1` 모델은 Baseline 대비 주요 지표인 **mAP@50 (+5.7%p)**, **mAP@50-95 (+6.3%p)** 모두에서 의미 있는 성능 향상을 기록하였습니다.
-   * 특히 혼동 행렬 분석을 통해 파악했던 클래스 불균형 및 오탐 문제가 효과적으로 개선되었습니다.
+| Class | Baseline P / R / mAP50 / mAP50-95 | EXP001 P / R / mAP50 / mAP50-95 | 주요 변화 |
+|---|---|---|---|
+| 0 나뭇잎·종이류 | 0.916 / 0.909 / 0.962 / 0.879 | 0.949 / 0.917 / 0.974 / 0.887 | 소폭 상승 |
+| 1 플라스틱·돌·금속류 | 0.975 / 0.911 / 0.953 / 0.829 | 0.970 / 0.894 / 0.962 / 0.840 | R −0.017 |
+| 2 나뭇가지류 | 0.889 / 0.897 / 0.949 / 0.850 | 0.941 / 0.825 / 0.933 / 0.836 | **R −0.072** (가장 큰 하락) |
+| 3 벌레류 | 1.000 / 0.956 / 0.972 / 0.819 | 1.000 / 0.907 / 0.973 / 0.843 | R −0.049 |
+| 4 고무장갑 | 0.966 / 0.971 / 0.989 / 0.918 | 0.940 / 0.971 / 0.978 / 0.906 | 소폭 하락 |
+| **5 병해·갈변** | **0.739 / 0.367 / 0.427 / 0.338** | **0.767 / 0.355 / 0.435 / 0.327** | **변화 없음 (±0.03 이내)** |
+| 6 파·고추 | 1.000 / 0.933 / 0.972 / 0.830 | 0.988 / 0.900 / 0.935 / 0.789 | mAP50-95 −0.041 |
 
-2. **향후 과제**:
-   * Edge Device 배포를 위한 Quantization(INT8/FP16) 및 TensorRT 변환 테스트 진행.
-   * 경계선 부근 객체 탐지 성능 강화를 위한 Post-processing 최적화 지속 검토.
+- 출처: Baseline `reports/baseline_metrics.csv` · EXP001 학습 종료 검증 출력
+- 주 목표였던 **병해·갈변은 개선되지 않았습니다** (Recall 0.367 → 0.355).
+
+---
+
+## 4. 6일차 FP / FN 패턴 비교
+
+Confusion Matrix 기준 (행 = 예측, 열 = 정답).
+
+| 패턴 (`failure_hypothesis.md`) | Baseline | EXP001 | 판단 |
+|---|---|---|---|
+| 병해·갈변 정답 검출 | 18 / 31 | 21 / 31 | +3 |
+| 병해·갈변 FN (정답 → background) | 10 / 31 | 9 / 31 | −1 |
+| 병해·갈변 FP (background → 병해·갈변) | 762 | 501 | **−261 (−34%)** |
+| 나뭇가지 → 나뭇잎 | 10 (6일차 기록) | 17 | **증가** |
+| 나뭇잎 → 나뭇가지 | 9 (6일차 기록) | 4 | 감소 |
+| 고무장갑 → 플라스틱 | 11 (6일차 기록) | 15 | **증가** |
+
+- Baseline 병해·갈변 칸은 `baseline_best.pt` 를 단독 val(imgsz 1920 · batch 3)하며 집계한 값입니다 (나머지 3개는 다른 클래스로 예측). EXP001 은 학습 종료 시 CM 값입니다.
+- Baseline CM 그림(`figures/baseline_confusion_matrix.png`)은 학습 종료 시 검증 값이라 병해·갈변 칸이 17 / 764 / 10으로 표와 조금 다릅니다 (같은 모델을 다른 실행으로 평가해 생기는 차이).
+- CM의 FP 칸은 낮은 신뢰도 예측까지 포함해 집계됐을 가능성이 있어(추정), 절대 숫자보다 **같은 칸끼리의 증감**으로 봅니다.
+- 색 변형을 끄자 병해·갈변 **오검출(FP)은 34% 줄었습니다** (Precision 0.739 → 0.767 과 같은 방향). 하지만 정답 검출은 18 → 21로 소폭이고 Recall 지표(0.367 → 0.355)는 그대로라, 주 목표인 "놓치는 문제"는 해결되지 않았습니다.
+- 나뭇가지류 Recall 하락(3절)과 가지 → 잎 혼동 증가가 같은 방향입니다. 색 변형을 끄자 가지와 잎을 색으로 구분하는 데 쓰던 다양성이 줄어든 것으로 추정합니다.
+- 병해·갈변은 정답 31개 중 21개를 **낮은 신뢰도로는** 잡고 있고, 라벨이 없는 위치에도 다수 검출합니다. 이 모습은 Label 가설(갈변 범위가 일부만 라벨링됨)과 맞습니다.
+
+---
+
+## 5. 판단
+
+| 항목 | 결과 |
+|---|---|
+| 가설 (hsv가 갈변 색을 흐려 Class 5 학습 방해) | **지지되지 않음** — 끄고도 Class 5 그대로 |
+| 좋아진 것 | 전체 Precision +0.011 · 나뭇잎 소폭 상승 · 병해·갈변 FP 762 → 501 (−34%) |
+| 나빠진 것 | 전체 Recall −0.025 · 나뭇가지 R −0.072 · 벌레 R −0.049 · 파·고추 mAP50-95 −0.041 · 가지 → 잎 혼동 증가 |
+| Final 후보 여부 | **채택하지 않음** (Baseline 대비 개선 없음) |
+| 다음 해석 | 색상 변형은 Class 5 실패의 원인이 아님 → Label 가설 가능성 증가 (`failure_hypothesis.md` 5절 예고대로) |
+
+---
+
+## 6. 한계와 남은 일
+
+**한계**
+- 학습 1회 결과입니다. ±0.01~0.03 차이는 학습마다 생기는 흔들림 범위로 보고 "변화 없음"으로 판단했습니다.
+- 수치는 학습 종료 시 검증값입니다. 단독 val과는 P·R이 소수점 셋째 자리에서 다를 수 있습니다 (Baseline 단독 val: 0.934 / 0.846 / 0.889 / 0.781).
+
+**남은 일**
+- [x] Baseline CM의 병해·갈변 칸 확인 (단독 val: 정답 검출 18 · FN 10 · FP 762)
+- [x] `reports/experiment_log.csv`에 EXP001 기록 (실패한 실험도 삭제하지 않음, 20.4)
+- [ ] EXP001 병해·갈변 칸도 같은 명령으로 단독 val 다시 집계
+- [ ] EXP002(hsv 절반) · EXP003(flipud 0.5) 결과를 참고 실험으로 추가 (Frozen Test 이후 실행 — Final 선택에는 사용하지 않음)

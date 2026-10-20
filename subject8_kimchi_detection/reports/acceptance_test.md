@@ -2,7 +2,7 @@
 
 - 기준: 교과8 수행가이드 22.7 (PASS/FAIL만 적지 않고, FAIL은 수정 후 Retest까지 기록)
 - 대상: Dataset `kimchi_v1` · Final Model `models/final/final_best.pt` (sha256 `c90f9767442e`)
-- 실행 환경: 1 PC · Ultralytics 8.4.175 · torch 2.14.1+cu130 · Python 3.10.12
+- 실행 환경: RTX 3060 12GB · Ultralytics 8.4.175 · torch 2.14.1+cu130 · Python 3.10.12
 - 판정 표기: PASS · FAIL → Retest PASS · **확인 필요** (9일차 실행 후 기입)
 
 ---
@@ -81,8 +81,8 @@
 
 | # | 항목 | 결과 | 근거 |
 |---|---|---|---|
-| R1 | 다른 팀원이 README만 보고 Final Model Load · Prediction 실행 | **확인 필요** | 2 PC에서 실행 후 기입 |
-| R2 | 다른 팀원이 Auto Label 후보 생성 → 교과7 도구 Human Review | **확인 필요** | 2 PC에서 실행 후 기입 |
+| R1 | 다른 팀원이 README만 보고 Final Model Load · Prediction 실행 | PASS | 다른 팀원 환경에서 README 5-2 · 5-4 순서로 실행 확인 |
+| R2 | 다른 팀원이 Auto Label 후보 생성 → 교과7 도구 Human Review | PASS | 다른 팀원 환경에서 후보 생성 · 교과7 도구 검수 · 저장 확인 |
 
 ---
 
@@ -117,10 +117,10 @@
 | Evaluation | 8 | 8 | 0 |
 | Inference | 4 | 4 | 0 |
 | Auto Label | 5 | 5 | 0 |
-| 재실행 | 2 | 0 | 2 |
+| 재실행 | 2 | 2 | 0 |
 
 - Critical Error: 0건 · 미해결 FAIL: 0건
-- **최종 판정: ACCEPTED** (6절 R1 · R2 PASS 기입 후 확정)
+- **최종 판정: ACCEPTED**
 
 **알려진 한계 (판정에는 영향 없음)**
 - 병해·갈변(Class 5) Test Recall 0.636 — 다른 클래스(0.88 이상)보다 낮음. 교과14 인계 항목
