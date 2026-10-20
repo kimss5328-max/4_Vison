@@ -2,7 +2,7 @@
 
 - 기준: 교과8 수행가이드 20.6 (같은 Validation에서 비교 · 나빠진 값도 기록)
 - 근거 문서: `reports/failure_hypothesis.md` (v3) · `reports/improvement_experiment.md`
-- 상태: EXP001(2 PC) 결과 기준 초안. EXP002(1 PC)와 1 PC 단독 val 결과는 추가 예정 (6절)
+- 상태: EXP001 결과 기준 (개선 실험은 EXP001 1개)
 
 ---
 
@@ -12,16 +12,14 @@
 |---|---|---|
 | 변경 변수 | — | **색상 Augmentation** `hsv_h` 0.015 → 0 · `hsv_s` 0.7 → 0 · `hsv_v` 0.4 → 0 |
 | 시작 Weight | `yolo11n.pt` | `yolo11n.pt` (sha256 `0ebbc80d4a76`) |
-| Dataset Version | kimchi_v1 (train `57f0bf5121e4` / val `ab6cc7f98da7`) | 같음 (2 PC에서 해시 확인) |
+| Dataset Version | kimchi_v1 (train `57f0bf5121e4` / val `ab6cc7f98da7`) | 같음 (해시 확인) |
 | 학습 조건 | imgsz 1920 · 100 epoch · batch 3 · patience 30 · cache ram · seed 0 · deterministic | 같음 |
 | 평가 | Validation 100장 · 501 instances | 같음 |
-| 학습 PC | 1 PC (RTX 3060 12GB) | 2 PC (`DESKTOP-007V3ON`) |
-| 환경 | Ultralytics 8.4.175 · torch 2.14.1+cu130 · Python 3.10.12 | 같은 버전으로 설치 확인 |
+| 환경 | RTX 3060 12GB · Ultralytics 8.4.175 · torch 2.14.1+cu130 · Python 3.10.12 | 같음 |
 | 학습 시간 | 약 52분 (100 epoch 완료) | 약 52분 (3,116초 · 100 epoch 완료) |
-| 최고 epoch | `[확인 필요: runs/baseline_v1/results.csv]` | 78 (mAP50-95 0.775) |
+| 최고 epoch | 90 (`runs/baseline_v1/results.csv`) | 78 (mAP50-95 0.775) |
 
 - 아래 수치는 두 실험 모두 **학습 종료 시 검증값**(best.pt)입니다.
-- 학습 PC가 다르므로, 같은 seed라도 GPU 연산 차이로 결과가 조금 달라질 수 있습니다 (6절 한계).
 
 ---
 
@@ -61,14 +59,17 @@ Confusion Matrix 기준 (행 = 예측, 열 = 정답).
 
 | 패턴 (`failure_hypothesis.md`) | Baseline | EXP001 | 판단 |
 |---|---|---|---|
-| 병해·갈변 FN (정답 → background) | `[확인 필요: baseline CM]` | 9 / 31 | — |
-| 병해·갈변 정답 검출 | `[확인 필요]` | 21 / 31 | — |
-| 병해·갈변 FP (background → 병해·갈변) | `[확인 필요]` | 501 | 라벨 없는 위치에 다수 검출 |
+| 병해·갈변 정답 검출 | 18 / 31 | 21 / 31 | +3 |
+| 병해·갈변 FN (정답 → background) | 10 / 31 | 9 / 31 | −1 |
+| 병해·갈변 FP (background → 병해·갈변) | 762 | 501 | **−261 (−34%)** |
 | 나뭇가지 → 나뭇잎 | 10 (6일차 기록) | 17 | **증가** |
 | 나뭇잎 → 나뭇가지 | 9 (6일차 기록) | 4 | 감소 |
 | 고무장갑 → 플라스틱 | 11 (6일차 기록) | 15 | **증가** |
 
+- Baseline 병해·갈변 칸은 `baseline_best.pt` 를 단독 val(imgsz 1920 · batch 3)하며 집계한 값입니다 (나머지 3개는 다른 클래스로 예측). EXP001 은 학습 종료 시 CM 값입니다.
+- Baseline CM 그림(`figures/baseline_confusion_matrix.png`)은 학습 종료 시 검증 값이라 병해·갈변 칸이 17 / 764 / 10으로 표와 조금 다릅니다 (같은 모델을 다른 실행으로 평가해 생기는 차이).
 - CM의 FP 칸은 낮은 신뢰도 예측까지 포함해 집계됐을 가능성이 있어(추정), 절대 숫자보다 **같은 칸끼리의 증감**으로 봅니다.
+- 색 변형을 끄자 병해·갈변 **오검출(FP)은 34% 줄었습니다** (Precision 0.739 → 0.767 과 같은 방향). 하지만 정답 검출은 18 → 21로 소폭이고 Recall 지표(0.367 → 0.355)는 그대로라, 주 목표인 "놓치는 문제"는 해결되지 않았습니다.
 - 나뭇가지류 Recall 하락(3절)과 가지 → 잎 혼동 증가가 같은 방향입니다. 색 변형을 끄자 가지와 잎을 색으로 구분하는 데 쓰던 다양성이 줄어든 것으로 추정합니다.
 - 병해·갈변은 정답 31개 중 21개를 **낮은 신뢰도로는** 잡고 있고, 라벨이 없는 위치에도 다수 검출합니다. 이 모습은 Label 가설(갈변 범위가 일부만 라벨링됨)과 맞습니다.
 
@@ -79,7 +80,7 @@ Confusion Matrix 기준 (행 = 예측, 열 = 정답).
 | 항목 | 결과 |
 |---|---|
 | 가설 (hsv가 갈변 색을 흐려 Class 5 학습 방해) | **지지되지 않음** — 끄고도 Class 5 그대로 |
-| 좋아진 것 | 전체 Precision +0.011 · 나뭇잎 소폭 상승 |
+| 좋아진 것 | 전체 Precision +0.011 · 나뭇잎 소폭 상승 · 병해·갈변 FP 762 → 501 (−34%) |
 | 나빠진 것 | 전체 Recall −0.025 · 나뭇가지 R −0.072 · 벌레 R −0.049 · 파·고추 mAP50-95 −0.041 · 가지 → 잎 혼동 증가 |
 | Final 후보 여부 | **채택하지 않음** (Baseline 대비 개선 없음) |
 | 다음 해석 | 색상 변형은 Class 5 실패의 원인이 아님 → Label 가설 가능성 증가 (`failure_hypothesis.md` 5절 예고대로) |
@@ -89,12 +90,10 @@ Confusion Matrix 기준 (행 = 예측, 열 = 정답).
 ## 6. 한계와 남은 일
 
 **한계**
-- 학습 PC가 다릅니다 (Baseline 1 PC · EXP001 2 PC). 버전은 같게 맞췄지만 GPU 연산 차이로 ±0.01 수준의 차이는 생길 수 있습니다.
 - 학습 1회 결과입니다. ±0.01~0.03 차이는 학습마다 생기는 흔들림 범위로 보고 "변화 없음"으로 판단했습니다.
 - 수치는 학습 종료 시 검증값입니다. 단독 val과는 P·R이 소수점 셋째 자리에서 다를 수 있습니다 (Baseline 단독 val: 0.934 / 0.846 / 0.889 / 0.781).
 
 **남은 일**
-- [ ] 1 PC에서 Baseline · EXP001 · EXP002를 같은 명령으로 단독 val → 이 문서 수치를 교체
-- [ ] Baseline CM의 병해·갈변 칸 확인 → 4절 `[확인 필요]` 채우기
-- [ ] EXP002(hsv 절반) 결과 추가
-- [ ] `reports/experiment_log.csv`에 EXP001 기록 (실패한 실험도 삭제하지 않음, 20.4)
+- [x] Baseline CM의 병해·갈변 칸 확인 (단독 val: 정답 검출 18 · FN 10 · FP 762)
+- [x] `reports/experiment_log.csv`에 EXP001 기록 (실패한 실험도 삭제하지 않음, 20.4)
+- [ ] EXP001 병해·갈변 칸도 같은 명령으로 단독 val 다시 집계

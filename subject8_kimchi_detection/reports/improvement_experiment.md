@@ -75,6 +75,8 @@
 | 나뭇잎 → 나뭇가지 | 9 |
 | 고무장갑 → 플라스틱 | 11 |
 
+- 병해·갈변 수치(18 / 762 / 10)는 단독 val(`baseline_best.pt`, imgsz 1920 · batch 3) 기준입니다. Baseline CM 그림(`figures/baseline_confusion_matrix.png`)은 학습 종료 시 검증 값이라 17 / 764 / 10입니다.
+
 **판정 기준**
 - 학습 1회 결과이므로 ±0.03 이내 차이는 "변화 없음"으로 봅니다.
 - 좋아지지 않아도 `experiment_log.csv`에 남깁니다 (20.4). 그 경우 Label 가설의 가능성이 커진 것으로 기록합니다.
@@ -86,7 +88,6 @@
 | 항목 | 값 |
 |---|---|
 | 실행 이름 | `exp001` |
-| 학습 PC | 2 PC (`DESKTOP-007V3ON`) — 1 PC와 같은 버전으로 설치 확인 |
 | Weight | `runs/exp001/weights/best.pt` → `models/improved/exp001_best.pt` |
 
 ---

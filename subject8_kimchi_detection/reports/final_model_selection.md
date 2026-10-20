@@ -56,6 +56,8 @@ Final Model 선택
 | 고무장갑 → 플라스틱 | 11 | 15 | EXP001 악화 |
 | 나뭇가지류 Recall | 0.897 | 0.825 | EXP001 악화 |
 
+- 병해·갈변 수치(18 / 762 / 10)는 단독 val(`baseline_best.pt`, imgsz 1920 · batch 3) 기준입니다. Baseline CM 그림(`figures/baseline_confusion_matrix.png`)은 학습 종료 시 검증 값이라 17 / 764 / 10입니다.
+
 ---
 
 ## 5. 선택 결과
