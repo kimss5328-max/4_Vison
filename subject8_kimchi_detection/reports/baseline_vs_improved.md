@@ -2,7 +2,7 @@
 
 - 기준: 교과8 수행가이드 20.6 (같은 Validation에서 비교 · 나빠진 값도 기록)
 - 근거 문서: `reports/failure_hypothesis.md` (v3) · `reports/improvement_experiment.md`
-- 상태: EXP001 결과 기준. EXP002 · EXP003은 Frozen Test 이후 실행이라 Final 선택에 쓰지 않는 참고 실험 (6절)
+- 상태: EXP001 결과 기준 (개선 실험은 EXP001 1개)
 
 ---
 
@@ -97,4 +97,3 @@ Confusion Matrix 기준 (행 = 예측, 열 = 정답).
 - [x] Baseline CM의 병해·갈변 칸 확인 (단독 val: 정답 검출 18 · FN 10 · FP 762)
 - [x] `reports/experiment_log.csv`에 EXP001 기록 (실패한 실험도 삭제하지 않음, 20.4)
 - [ ] EXP001 병해·갈변 칸도 같은 명령으로 단독 val 다시 집계
-- [ ] EXP002(hsv 절반) · EXP003(flipud 0.5) 결과를 참고 실험으로 추가 (Frozen Test 이후 실행 — Final 선택에는 사용하지 않음)
