@@ -49,14 +49,15 @@ python main.py
 cd subject8_kimchi_detection
 pip install -r requirements.txt
 
-# 1. Split Freeze 검증
-python scripts/01_build_split.py --freeze-only
+# 1. Split Freeze 확인 (미리보기 · 파일 변경 없음)
+python scripts/03_build_split.py --include all --counts 600 100 100 100
 
 # 2. Baseline 모델 학습 (WSL/GPU 환경 권장)
+mkdir -p runs
 python -u scripts/06_train_baseline.py 2>&1 | tee runs/baseline_v1.log
 
 # 3. Validation 평가
-python scripts/06_evaluate.py
+yolo val model=models/final/final_best.pt data=configs/dataset.yaml split=val imgsz=1920 batch=3
 ```
 * 상세 실행 스크립트 및 모델 지표: [`subject8_kimchi_detection/README.md`](subject8_kimchi_detection/README.md)
 
