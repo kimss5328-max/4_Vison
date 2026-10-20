@@ -1,8 +1,7 @@
-numpy==2.5.4
+numpy==2.2.6
 opencv-python==5.0.0.93
 PyYAML==6.0.3
 torch==2.14.1
 torchvision==0.29.1
 ultralytics==8.4.175
-ultralytics-platform==0.1.88
 ultralytics-thop==2.2.2
