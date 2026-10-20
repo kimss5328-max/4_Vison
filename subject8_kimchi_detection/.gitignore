@@ -46,3 +46,10 @@ reports/*
 !reports/logs/
 !reports/logs/build_split/
 !reports/logs/build_split/*.md
+
+# OS · 기타 모델 형식 (22.2.1)
+desktop.ini
+Thumbs.db
+*.pth
+*.onnx
+*.engine
