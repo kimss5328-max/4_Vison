@@ -143,7 +143,7 @@ subject8_kimchi_detection/
 │   ├── split_policy.md                # 층화 분할 정책 및 Freeze 사유
 │   ├── class_guide.md · bbox_guide.md # Class · BBox 판단 기준 (교과 7)
 │   ├── 교과8-Handoff.md                # 교과 7 인계 문서 사본
-│   └── 교과14-Handoff.md               # 교과 14 인계 문서
+│   └── 교과14-Handoff.md               # handoff_subject14.md
 │
 ├── presentation/                      # 발표 자료
 │
