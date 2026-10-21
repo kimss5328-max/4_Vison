@@ -20,3 +20,9 @@ id_*
 *.key
 .env
 backup/
+
+# 모델 파일 (저장소 전체)
+*.pt
+*.pth
+*.onnx
+*.engine
