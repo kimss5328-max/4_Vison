@@ -143,7 +143,7 @@ subject8_kimchi_detection/
 │   ├── split_policy.md                # 층화 분할 정책 및 Freeze 사유
 │   ├── class_guide.md · bbox_guide.md # Class · BBox 판단 기준 (교과 7)
 │   ├── 교과8-Handoff.md                # 교과 7 인계 문서 사본
-│   └── 교과14-Handoff.md               # handoff_subject14.md
+│   └── handoff_subject14.md              # handoff_subject14.md
 │
 ├── presentation/                      # 발표 자료
 │
@@ -454,7 +454,7 @@ python3 scripts/03_build_split.py --include all --counts 600 100 100 100 --apply
 - Auto Label 검수는 8장(후보 36개) 표본이라 승인률 94% 를 일반화하기 어려움
 
 ## 16. 교과 14 Handoff
-- 상세는 `docs/교과14-Handoff.md` 참고
+- 상세는 `docs/handoff_subject14.md` 참고
 - **전달 항목:** Dataset Version (`kimchi_v1`) · Train / Validation / Frozen Test 수량 · Bridge Holdout 100장 (위치 · 교과 8 미사용 확인) · Final Model 가중치 (`final_best.pt`) · Final Model 선택 근거 · Frozen Test 결과 · 대표 FP / FN · Detection · Auto Label 결과 위치 · `reports/acceptance_test.md` (ACCEPTED)
 - **다음 교과 연계:** 교과 14 제조 제품검사 프로젝트에서 **Bridge Holdout 100장으로 교과 8 Final Model 을 다시 확인**하는 것부터 이어감 (수행가이드 22.7.1)
 
