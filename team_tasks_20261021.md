@@ -15,7 +15,7 @@
 
 ## 1. 결정 (오전)
 
-- [ ] 5. handoff 파일 이름: `docs/교과14-Handoff.md` → `docs/handoff_subject14.md`로 바꿀지 결정 (바꾸면 README 5-3절 · 16절도 수정)
+- [ ] 5. handoff 파일 이름: `docs/handoff_subject14.md` → `docs/handoff_subject14.md`로 바꿀지 결정 (바꾸면 README 5-3절 · 16절도 수정)
 - [ ] 6. 저장소 공개 여부 확인. Public이면 예전 커밋의 라벨 txt · 루트 README 유튜브 링크 처리 결정
 - [x] 7. 루트 `README.md`의 없는 명령(`scripts/06_evaluate.py`) 수정
 - [ ] 7-1. `feature/split_7_8` 최신 커밋(`4541415`)은 작업 폴더를 final과 같은 내용으로 맞춘 것 (README · requirements · reports 4개).
